@@ -85,35 +85,9 @@ public class MainActivity extends AppCompatActivity
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.content_main, homeFragment, homeFragment.getTag()).commit();
 
-//        databaseRefence.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for(DataSnapshot data : dataSnapshot.getChildren()){
-//                    UserInformation userInformation = data.getValue(UserInformation.class);
-//
-//                    if(userInformation.email == user.getEmail()){
-//                        Picasso.get().load(userInformation.imageAvatar).into(profile_userimage);
-//                        tv_username.setText(userInformation.name);
-//                        tv_useremail.setText(userInformation.email);
-//                    }
-//
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
         DBHelper db = new DBHelper(this);
 
-//        try {
-//            db.deleteDataBase();
-//            Toast.makeText(this, "Xóa thành công", Toast.LENGTH_SHORT).show();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            Toast.makeText(this, "bi loi rui", Toast.LENGTH_SHORT).show();
-//        }
+        //v1.0
 
         try {
             db.createDataBase();
