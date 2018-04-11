@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "990046292138",
+    "firebase_url": "https://myapplication-6d1ae.firebaseio.com",
+    "project_id": "myapplication-6d1ae",
+    "storage_bucket": "myapplication-6d1ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990046292138:android:550d52a8abc16692",
+        "android_client_info": {
+          "package_name": "com.example.boo.TracNghiemToanOnline"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990046292138-pdo5me7bjtmsr7nuoerlanf2toa41nnl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmjqE9CPdjq7RBxs1Z7U5OUzuA6NECYVk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
