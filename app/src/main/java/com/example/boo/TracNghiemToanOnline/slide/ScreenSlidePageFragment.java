@@ -22,10 +22,8 @@ import android.widget.TextView;
 
 import com.example.boo.TracNghiemToanOnline.R;
 import com.example.boo.TracNghiemToanOnline.question.Question;
-import com.example.mathjaxandroid.MathJaxView;
 import java.util.ArrayList;
 
-import io.github.kexanie.library.MathView;
 
 
 /**
@@ -43,8 +41,8 @@ public class ScreenSlidePageFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton radA, radB, radC, radD;
     ImageView im_question;
-    MathView mv_question, mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD;
-
+   // MathView mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD;
+    io.github.sidvenu.mathjaxview.MathJaxView mv_question,mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD;
     public ScreenSlidePageFragment() {
         // Required empty public constructor
     }
@@ -57,18 +55,18 @@ public class ScreenSlidePageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_screen_slide_page, container, false);
 
-        tvNum = (TextView) rootView.findViewById(R.id.tvNum);
-        mv_AnsA = (MathView) rootView.findViewById(R.id.mv_AnsA);
-        mv_AnsB = (MathView) rootView.findViewById(R.id.mv_AnsB);
-        mv_AnsC = (MathView) rootView.findViewById(R.id.mv_AnsC);
-        mv_AnsD = (MathView) rootView.findViewById(R.id.mv_AnsD);
-        mv_question = (MathView) rootView.findViewById(R.id.mv_question);
-        im_question = (ImageView) rootView.findViewById(R.id.imV_question);
-        radA = (RadioButton) rootView.findViewById(R.id.radA);
-        radB = (RadioButton) rootView.findViewById(R.id.radB);
-        radC = (RadioButton) rootView.findViewById(R.id.radC);
-        radD = (RadioButton) rootView.findViewById(R.id.radD);
-        radioGroup = (RadioGroup) rootView.findViewById(R.id.radG_Ans);
+        tvNum = rootView.findViewById(R.id.tvNum);
+        mv_AnsA = rootView.findViewById(R.id.mv_AnsA);
+        mv_AnsB = rootView.findViewById(R.id.mv_AnsB);
+        mv_AnsC = rootView.findViewById(R.id.mv_AnsC);
+        mv_AnsD = rootView.findViewById(R.id.mv_AnsD);
+        mv_question = rootView.findViewById(R.id.mv_question);
+        im_question = rootView.findViewById(R.id.imV_question);
+        radA = rootView.findViewById(R.id.radA);
+        radB =  rootView.findViewById(R.id.radB);
+        radC =  rootView.findViewById(R.id.radC);
+        radD =  rootView.findViewById(R.id.radD);
+        radioGroup = rootView.findViewById(R.id.radG_Ans);
         return rootView;
     }
 
@@ -103,12 +101,12 @@ public class ScreenSlidePageFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         tvNum.setText("Câu " + (mPageNumber + 1));
         String question= arr_Ques.get(mPageNumber).getQuestion();
-        mv_question.config(
-                "MathJax.Hub.Config({\n"+
-                        "  CommonHTML: { linebreaks: { automatic: true } },\n"+
-                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n"+
-                        "         SVG: { linebreaks: { automatic: true } }\n"+
-                        "});");
+//        mv_question.config(
+//                "MathJax.Hub.Config({\n"+
+//                        "  CommonHTML: { linebreaks: { automatic: true } },\n"+
+//                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n"+
+//                        "         SVG: { linebreaks: { automatic: true } }\n"+
+//                        "});");
         mv_question.setText(question);
         final String base64image = arr_Ques.get(mPageNumber).getImage();
 
@@ -130,42 +128,18 @@ public class ScreenSlidePageFragment extends Fragment {
                     protected void onPostExecute(String s) {
                         byte[] decodeString = Base64.decode(base64image, Base64.DEFAULT);
                         Bitmap decoded = BitmapFactory.decodeByteArray(decodeString, 0, decodeString.length);
-                        Bitmap bMapScaled = Bitmap.createScaledBitmap(decoded, 500, 500, true);
+                        Bitmap bMapScaled = Bitmap.createScaledBitmap(decoded, decoded.getWidth()*2, decoded.getHeight()*2, true);
                         im_question.setImageBitmap(bMapScaled);
-
-
                     }
                 }.execute();
         }
 
-        //
-        mv_AnsA.config(
-                "MathJax.Hub.Config({\n"+
-                        "  CommonHTML: { linebreaks: { automatic: true } },\n"+
-                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n"+
-                        "         SVG: { linebreaks: { automatic: true } }\n"+
-                        "});");
         mv_AnsA.setText(getItem(mPageNumber).getAns_a());
-        mv_AnsB.config(
-                "MathJax.Hub.Config({\n"+
-                        "  CommonHTML: { linebreaks: { automatic: true } },\n"+
-                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n"+
-                        "         SVG: { linebreaks: { automatic: true } }\n"+
-                        "});");
+
         mv_AnsB.setText(getItem(mPageNumber).getAns_b());
-        mv_AnsC.config(
-                "MathJax.Hub.Config({\n"+
-                        "  CommonHTML: { linebreaks: { automatic: true } },\n"+
-                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n"+
-                        "         SVG: { linebreaks: { automatic: true } }\n"+
-                        "});");
+
         mv_AnsC.setText(getItem(mPageNumber).getAns_c());
-        mv_AnsD.config(
-                "MathJax.Hub.Config({\n"+
-                        "  CommonHTML: { linebreaks: { automatic: true } },\n"+
-                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n"+
-                        "         SVG: { linebreaks: { automatic: true } }\n"+
-                        "});");
+
         mv_AnsD.setText(getItem(mPageNumber).getAns_d());
 
 

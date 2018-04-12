@@ -50,6 +50,10 @@ public class DeThiFragment extends Fragment {
         arr_exam.add(new Exam("Đề số 4"));
         arr_exam.add(new Exam("Đề số 5"));
         arr_exam.add(new Exam("Đề số 6"));
+        arr_exam.add(new Exam("Đề số 7"));
+        arr_exam.add(new Exam("Đề số 8"));
+        arr_exam.add(new Exam("Đề số 9"));
+        arr_exam.add(new Exam("Đề số 10"));
 
         examAdapter=new ExamAdapter(getActivity(),arr_exam);
         gvExam.setAdapter(examAdapter);
@@ -57,8 +61,7 @@ public class DeThiFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent= new Intent(getActivity(), ScreenSlideActivity.class);
-                intent.putExtra("num_exam",2);
-                //intent.putExtra("subject","gdcd");
+                intent.putExtra("num_exam",i);
                 startActivity(intent);
             }
         });

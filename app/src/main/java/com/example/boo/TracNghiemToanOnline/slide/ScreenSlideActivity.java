@@ -68,7 +68,7 @@ public class ScreenSlideActivity extends FragmentActivity {
 
         Intent intent = getIntent();
         subject = intent.getStringExtra("subject");
-        num_exam = intent.getIntExtra("num_exam", 2);
+        num_exam = intent.getIntExtra("num_exam", 1);
 
         totalTimer = 10;
         timer = new CounterClass(totalTimer * 60 * 1000, 1000);

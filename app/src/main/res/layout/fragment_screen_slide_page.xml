@@ -33,7 +33,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <io.github.kexanie.library.MathView
+        <io.github.sidvenu.mathjaxview.MathJaxView
             android:id="@+id/mv_question"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -42,10 +42,8 @@
             android:layout_marginTop="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNum"
-            app:engine="MathJax">
-
-        </io.github.kexanie.library.MathView>
+            app:layout_constraintTop_toBottomOf="@+id/tvNum">
+        </io.github.sidvenu.mathjaxview.MathJaxView>
 
         <ImageView
             android:id="@+id/imV_question"
@@ -53,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
+            android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +70,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
-        <io.github.kexanie.library.MathView
+        <io.github.sidvenu.mathjaxview.MathJaxView
             android:id="@+id/mv_AnsA"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -81,10 +79,9 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            auto:engine="MathJax"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <io.github.kexanie.library.MathView
+        <io.github.sidvenu.mathjaxview.MathJaxView
             android:id="@+id/mv_AnsB"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -93,10 +90,9 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mv_AnsA"
-            auto:engine="MathJax"/>
+            app:layout_constraintTop_toBottomOf="@+id/mv_AnsA" />
 
-        <io.github.kexanie.library.MathView
+        <io.github.sidvenu.mathjaxview.MathJaxView
             android:id="@+id/mv_AnsC"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -105,22 +101,20 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mv_AnsB"
-            auto:engine="MathJax"/>
+            app:layout_constraintTop_toBottomOf="@+id/mv_AnsB" />
 
-        <io.github.kexanie.library.MathView
+        <io.github.sidvenu.mathjaxview.MathJaxView
             android:id="@+id/mv_AnsD"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="19dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mv_AnsC"
-            auto:engine="MathJax"/>
+            app:layout_constraintTop_toBottomOf="@+id/mv_AnsC">
+
+        </io.github.sidvenu.mathjaxview.MathJaxView>
 
     </android.support.constraint.ConstraintLayout>
 
