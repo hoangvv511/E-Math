@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static String DB_PATH = "/data/data/com.example.boo.TracNghiemToanOnline/databases/";
-    private static String DB_NAME = "db_math_loigiai6.sqlite";
+    private static String DB_NAME = "db_math_loigiai9.sqlite";
     private static final int DATABASE_VERSION = 1;
 
     private SQLiteDatabase myDataBase;
@@ -33,7 +33,6 @@ public class DBHelper extends SQLiteOpenHelper {
         //Open the database
         String myPath = DB_PATH + DB_NAME;
         myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

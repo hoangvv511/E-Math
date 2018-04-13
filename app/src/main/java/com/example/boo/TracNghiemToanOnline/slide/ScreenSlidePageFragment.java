@@ -36,17 +36,16 @@ public class ScreenSlidePageFragment extends Fragment {
     public static final String ARG_CHECKANSWER = "checkAnswer";
     public int mPageNumber; // vị trí trang hiện tại
     public int checkAns;   // biến kiểm tra ...
-
-    TextView tvNum;
+    public String MyAns;
+    TextView tvNum, tv_goiy;
     RadioGroup radioGroup;
     RadioButton radA, radB, radC, radD;
-    ImageView im_question;
+    ImageView im_question, im_goiy;
    // MathView mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD;
-    io.github.sidvenu.mathjaxview.MathJaxView mv_question,mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD;
+    io.github.sidvenu.mathjaxview.MathJaxView mv_question,mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD, mv_goiy;
     public ScreenSlidePageFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,6 +60,9 @@ public class ScreenSlidePageFragment extends Fragment {
         mv_AnsC = rootView.findViewById(R.id.mv_AnsC);
         mv_AnsD = rootView.findViewById(R.id.mv_AnsD);
         mv_question = rootView.findViewById(R.id.mv_question);
+        mv_goiy = rootView.findViewById(R.id.mv_goiy);
+        im_goiy = rootView.findViewById(R.id.imv_goiy);
+        tv_goiy = rootView.findViewById(R.id.tv_goiy);
         im_question = rootView.findViewById(R.id.imV_question);
         radA = rootView.findViewById(R.id.radA);
         radB =  rootView.findViewById(R.id.radB);
@@ -97,11 +99,57 @@ public class ScreenSlidePageFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         tvNum.setText("Câu " + (mPageNumber + 1));
         String question= arr_Ques.get(mPageNumber).getQuestion();
 
-        mv_question.setText(question);
         final String base64image = arr_Ques.get(mPageNumber).getImage();
+        final String base64image2 = arr_Ques.get(mPageNumber).getHuongdangiai_image();
+
+        mv_question.setText(question);
+        mv_goiy.setText(getItem(mPageNumber).getHuongdangiai());
+
+        mv_AnsA.setText(getItem(mPageNumber).getAns_a());
+
+        mv_AnsB.setText(getItem(mPageNumber).getAns_b());
+
+        mv_AnsC.setText(getItem(mPageNumber).getAns_c());
+
+        mv_AnsD.setText(getItem(mPageNumber).getAns_d());
+
+        tv_goiy.setEnabled(false);
+        tv_goiy.setVisibility(View.GONE);
+
+        if(base64image2 == null)
+        {
+            im_goiy.setEnabled(false);
+            im_goiy.setVisibility(View.GONE);
+        }
+        else
+        {
+            new AsyncTask<Void, Void, String>()
+            {
+                @Override
+                protected String doInBackground(Void... voids) {
+                    return null;
+                }
+
+                @Override
+                protected void onPostExecute(String s) {
+                    byte[] decodeString2 = Base64.decode(base64image2, Base64.DEFAULT);
+                    Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
+                    Bitmap bMapScaled2 = Bitmap.createScaledBitmap(decoded2, decoded2.getWidth()*2, decoded2.getHeight()*2, true);
+                    im_goiy.setImageBitmap(bMapScaled2);
+                    im_goiy.setVisibility(View.GONE);
+                }
+            }.execute();
+        }
+
+        mv_goiy.setEnabled(false);
+        mv_goiy.setVisibility(View.GONE);
+
+        if(mv_goiy.getText() == null) mv_goiy.setText("Câu này dễ quá bạn tự làm nha ^^");
+
 
         if(base64image == null)
         {
@@ -127,24 +175,13 @@ public class ScreenSlidePageFragment extends Fragment {
                 }.execute();
         }
 
-        mv_AnsA.setText(getItem(mPageNumber).getAns_a());
-
-        mv_AnsB.setText(getItem(mPageNumber).getAns_b());
-
-        mv_AnsC.setText(getItem(mPageNumber).getAns_c());
-
-        mv_AnsD.setText(getItem(mPageNumber).getAns_d());
-
-
-
-        if(checkAns!=0){
-            radA.setClickable(false);
-            radB.setClickable(false);
-            radC.setClickable(false);
-            radD.setClickable(false);
-            //Lay Dap an
-            getCheckAns(getItem(mPageNumber).getResult().toString());
-        }
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                getItem(mPageNumber).choiceID = checkedId;
+                getItem(mPageNumber).setDapAnChon(getChoiceFromID(checkedId));
+            }
+        });
 
         if(radA.isChecked())
         {
@@ -163,16 +200,13 @@ public class ScreenSlidePageFragment extends Fragment {
             getItem(mPageNumber).setDapAnChon(getChoiceFromID(R.id.radD));
         }
 
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                getItem(mPageNumber).choiceID = checkedId;
-                getItem(mPageNumber).setDapAnChon(getChoiceFromID(checkedId));
-            }
-        });
-
-
+        if(checkAns!=0){
+            radA.setClickable(false);
+            radB.setClickable(false);
+            radC.setClickable(false);
+            radD.setClickable(false);
+            getCheckAns(getItem(mPageNumber).getResult().toString());
+        }
 
     }
 
@@ -194,16 +228,28 @@ public class ScreenSlidePageFragment extends Fragment {
     }
 
     //Hàm kiểm tra câu đúng, nếu câu đúng thì đổi màu background radiobutton tương ứng
-    private void getCheckAns(String DapAnChon){
-        if(DapAnChon.equals("A")==true){
+    private void getCheckAns(String DapAnChon)
+    {
+        radioGroup.setVisibility(View.GONE);
+        tv_goiy.setVisibility(View.VISIBLE);
+        im_goiy.setVisibility(View.VISIBLE);
+        mv_goiy.setVisibility(View.VISIBLE);
+        if(DapAnChon.equals("A")==true)
+        {
+            mv_AnsA.setBackgroundColor(Color.rgb(0	,255 	,64));
+
+        }
+        if(DapAnChon.equals("B")==true)
+        {
             mv_AnsA.setBackgroundColor(Color.rgb(0	,255 	,64));
         }
-        else if(DapAnChon.equals("B")==true){
-            mv_AnsB.setBackgroundColor(Color.rgb(0	,255 	,64));
-        }else if(DapAnChon.equals("C")==true){
-            mv_AnsC.setBackgroundColor(Color.rgb(0	,255 	,64));
-        }else if(DapAnChon.equals("D")==true){
-            mv_AnsD.setBackgroundColor(Color.rgb(0	,255 	,64));
-        }else ;
+        if(DapAnChon.equals("C")==true)
+        {
+            mv_AnsA.setBackgroundColor(Color.rgb(0	,255 	,64));
+        }
+        if(DapAnChon.equals("D")==true)
+        {
+            mv_AnsA.setBackgroundColor(Color.rgb(0	,255 	,64));
+        }
     }
 }

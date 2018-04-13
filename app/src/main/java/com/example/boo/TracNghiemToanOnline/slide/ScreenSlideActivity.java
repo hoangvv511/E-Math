@@ -42,7 +42,6 @@ public class ScreenSlideActivity extends FragmentActivity {
      */
     private PagerAdapter mPagerAdapter;
 
-
     TextView tvKiemtra, tvTimer, tvXemDiem;
     public int checkAns = 0;
 
@@ -53,7 +52,6 @@ public class ScreenSlideActivity extends FragmentActivity {
     //String subject;
     int num_exam;
     int totalTimer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,7 +246,6 @@ public class ScreenSlideActivity extends FragmentActivity {
          * @param countDownInterval The interval along the way to receive
          *                          {@link #onTick(long)} callbacks.
          */
-
 
         //millisInFuture: 60*1000
         //countDownInterval:  1000
