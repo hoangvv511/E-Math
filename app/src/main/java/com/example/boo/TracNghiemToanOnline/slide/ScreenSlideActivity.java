@@ -50,7 +50,7 @@ public class ScreenSlideActivity extends FragmentActivity {
     QuestionController questionController;
     ArrayList<Question> arr_Ques;
     CounterClass timer;
-    String subject;
+    //String subject;
     int num_exam;
     int totalTimer;
 
@@ -67,14 +67,14 @@ public class ScreenSlideActivity extends FragmentActivity {
         mPager.setPageTransformer(true, new DepthPageTransformer());
 
         Intent intent = getIntent();
-        subject = intent.getStringExtra("subject");
-        num_exam = intent.getIntExtra("num_exam", 1);
 
-        totalTimer = 10;
+        num_exam = intent.getIntExtra("num_exam",0);
+
+        totalTimer = 90;
         timer = new CounterClass(totalTimer * 60 * 1000, 1000);
         questionController = new QuestionController(this);
         arr_Ques = new ArrayList<Question>();
-        arr_Ques = questionController.getQuestion(num_exam, subject);
+        arr_Ques = questionController.getQuestion(num_exam);
 
         tvKiemtra = (TextView) findViewById(R.id.tvKiemTra);
         tvTimer = (TextView) findViewById(R.id.tvTimer);

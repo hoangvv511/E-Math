@@ -79,8 +79,6 @@ public class ScreenSlidePageFragment extends Fragment {
         arr_Ques = slideActivity.getData();
         mPageNumber = getArguments().getInt(ARG_PAGE);
         checkAns= getArguments().getInt(ARG_CHECKANSWER);
-
-
     }
 
     public static ScreenSlidePageFragment create(int pageNumber, int checkAnswer) {
@@ -101,12 +99,7 @@ public class ScreenSlidePageFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         tvNum.setText("Câu " + (mPageNumber + 1));
         String question= arr_Ques.get(mPageNumber).getQuestion();
-//        mv_question.config(
-//                "MathJax.Hub.Config({\n"+
-//                        "  CommonHTML: { linebreaks: { automatic: true } },\n"+
-//                        "  \"HTML-CSS\": { linebreaks: { automatic: true } },\n"+
-//                        "         SVG: { linebreaks: { automatic: true } }\n"+
-//                        "});");
+
         mv_question.setText(question);
         final String base64image = arr_Ques.get(mPageNumber).getImage();
 
@@ -149,24 +142,25 @@ public class ScreenSlidePageFragment extends Fragment {
             radB.setClickable(false);
             radC.setClickable(false);
             radD.setClickable(false);
+            //Lay Dap an
             getCheckAns(getItem(mPageNumber).getResult().toString());
         }
 
         if(radA.isChecked())
         {
-            getItem(mPageNumber).setTraloi(getChoiceFromID(R.id.radA));
+            getItem(mPageNumber).setDapAnChon(getChoiceFromID(R.id.radA));
         }
         else if(radB.isChecked())
         {
-            getItem(mPageNumber).setTraloi(getChoiceFromID(R.id.radB));
+            getItem(mPageNumber).setDapAnChon(getChoiceFromID(R.id.radB));
         }
         else if(radC.isChecked())
         {
-            getItem(mPageNumber).setTraloi(getChoiceFromID(R.id.radC));
+            getItem(mPageNumber).setDapAnChon(getChoiceFromID(R.id.radC));
         }
         else if(radD.isChecked())
         {
-            getItem(mPageNumber).setTraloi(getChoiceFromID(R.id.radD));
+            getItem(mPageNumber).setDapAnChon(getChoiceFromID(R.id.radD));
         }
 
 
@@ -174,7 +168,7 @@ public class ScreenSlidePageFragment extends Fragment {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 getItem(mPageNumber).choiceID = checkedId;
-                getItem(mPageNumber).setTraloi(getChoiceFromID(checkedId));
+                getItem(mPageNumber).setDapAnChon(getChoiceFromID(checkedId));
             }
         });
 
@@ -200,18 +194,16 @@ public class ScreenSlidePageFragment extends Fragment {
     }
 
     //Hàm kiểm tra câu đúng, nếu câu đúng thì đổi màu background radiobutton tương ứng
-    private void getCheckAns(String ans){
-        if(ans.equals("A")==true){
-            mv_AnsA.setBackgroundColor(Color.rgb(0	,178	,191));
+    private void getCheckAns(String DapAnChon){
+        if(DapAnChon.equals("A")==true){
+            mv_AnsA.setBackgroundColor(Color.rgb(0	,255 	,64));
         }
-        else if(ans.equals("B")==true){
-            mv_AnsB.setBackgroundColor(Color.rgb(0	,178	,191));
-        }else if(ans.equals("C")==true){
-            mv_AnsC.setBackgroundColor(Color.rgb(0	,178	,191));
-        }else if(ans.equals("D")==true){
-            mv_AnsD.setBackgroundColor(Color.rgb(0	,178	,191));
+        else if(DapAnChon.equals("B")==true){
+            mv_AnsB.setBackgroundColor(Color.rgb(0	,255 	,64));
+        }else if(DapAnChon.equals("C")==true){
+            mv_AnsC.setBackgroundColor(Color.rgb(0	,255 	,64));
+        }else if(DapAnChon.equals("D")==true){
+            mv_AnsD.setBackgroundColor(Color.rgb(0	,255 	,64));
         }else ;
     }
-
-
 }

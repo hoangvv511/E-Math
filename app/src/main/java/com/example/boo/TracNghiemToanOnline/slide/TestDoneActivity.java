@@ -121,12 +121,11 @@ public class TestDoneActivity extends AppCompatActivity {
     //PT Check kết quả
     public void checkResult(){
         for(int i=0; i< arr_QuesBegin.size(); i++){
-            if(arr_QuesBegin.get(i).getTraloi().equals("")==true){
+            if(arr_QuesBegin.get(i).getDapAnChon().equals("")==true){
                 numNoAns++;
-            }else if(arr_QuesBegin.get(i).getResult().equals(arr_QuesBegin.get(i).getTraloi())==true){
+            }else if(arr_QuesBegin.get(i).getResult().equals(arr_QuesBegin.get(i).getDapAnChon())==true){
                 numTrue++;
             }else numFalse++;
         }
     }
-
 }

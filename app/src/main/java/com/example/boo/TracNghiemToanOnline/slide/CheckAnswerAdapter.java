@@ -53,7 +53,7 @@ public class CheckAnswerAdapter extends BaseAdapter{
         }
         int i= position +1;
         holder.tvNumAns.setText("Câu "+i+": ");
-        holder.tvYourAns.setText(data.getTraloi());
+        holder.tvYourAns.setText(data.getDapAnChon());
         return convertView;
     }
 

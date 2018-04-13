@@ -13,21 +13,38 @@ public class Question implements Serializable{
     private  String ans_d;
     private  String result;
     private  int num_exam;
-    private  String subject;
+    private  int chuyende;
     private  String image;
-    private String traloi="";
+    private String huongdangiai;
+    private String huongdangiai_image;
+    private String DapAnChon = "";
     public int choiceID= -1; //hỗ trợ check Id của radiogroup
 
-    public String getTraloi() {
-        return traloi;
+    public String getDapAnChon() {
+        return DapAnChon;
     }
 
-    public void setTraloi(String traloi) {
-        this.traloi = traloi;
+    public void setDapAnChon(String DapAnChon) {
+        this.DapAnChon = DapAnChon;
     }
 
+    public String getHuongdangiai() {
+        return huongdangiai;
+    }
 
-    public Question(int _id, String question, String ans_a, String ans_b, String ans_c, String ans_d, String result, int num_exam, String subject, String image, String traloi) {
+    public void setHuongdangiai(String huongdangiai) {
+        this.huongdangiai = huongdangiai;
+    }
+
+    public String getHuongdangiai_image() {
+        return huongdangiai_image;
+    }
+
+    public void getHuongdangiai_image(String huongdangiai_image) {
+        this.huongdangiai_image = huongdangiai_image;
+    }
+
+    public Question(int _id, String question, String ans_a, String ans_b, String ans_c, String ans_d, String result, int num_exam, int chuyende, String image, String huongdangiai, String huongdangiai_image, String dapAnChon) {
         this._id = _id;
         this.question = question;
         this.ans_a = ans_a;
@@ -36,9 +53,11 @@ public class Question implements Serializable{
         this.ans_d = ans_d;
         this.result = result;
         this.num_exam = num_exam;
-        this.subject = subject;
+        this.chuyende = chuyende;
         this.image = image;
-        this.traloi= traloi;
+        this.huongdangiai= huongdangiai;
+        this.huongdangiai_image= huongdangiai_image;
+        this.DapAnChon = dapAnChon;
     }
 
     public Question() {
@@ -108,12 +127,12 @@ public class Question implements Serializable{
         this.num_exam = num_exam;
     }
 
-    public String getSubject() {
-        return subject;
+    public int getSubject() {
+        return chuyende;
     }
 
     public void setSubject(String subject) {
-        this.subject = subject;
+        this.chuyende = chuyende;
     }
 
     public String getImage() {
