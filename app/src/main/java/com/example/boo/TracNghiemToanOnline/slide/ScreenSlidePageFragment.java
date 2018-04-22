@@ -25,7 +25,6 @@ import com.example.boo.TracNghiemToanOnline.question.Question;
 import java.util.ArrayList;
 
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -41,7 +40,6 @@ public class ScreenSlidePageFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton radA, radB, radC, radD;
     ImageView im_question, im_goiy;
-   // MathView mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD;
     io.github.sidvenu.mathjaxview.MathJaxView mv_question,mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD, mv_goiy;
     public ScreenSlidePageFragment() {
         // Required empty public constructor
@@ -92,29 +90,22 @@ public class ScreenSlidePageFragment extends Fragment {
         return fragment;
     }
 
-//    public Question getItem(int position) {
-//        return arr_Ques.get(position);
-//    }
     @SuppressLint("StaticFieldLeak")
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        tvNum.setText("Câu " + (mPageNumber + 1));
         String question= arr_Ques.get(mPageNumber).getQuestion();
 
         final String base64image = arr_Ques.get(mPageNumber).getImage();
         final String base64image2 = arr_Ques.get(mPageNumber).getHuongdangiai_image();
 
-        mv_question.setText(question);
+        tvNum.setText("Câu " + (mPageNumber + 1));
+
         mv_goiy.setText(getItem(mPageNumber).getHuongdangiai());
-
+        mv_question.setText(question);
         mv_AnsA.setText(getItem(mPageNumber).getAns_a());
-
         mv_AnsB.setText(getItem(mPageNumber).getAns_b());
-
         mv_AnsC.setText(getItem(mPageNumber).getAns_c());
-
         mv_AnsD.setText(getItem(mPageNumber).getAns_d());
 
         tv_goiy.setEnabled(false);
@@ -150,7 +141,6 @@ public class ScreenSlidePageFragment extends Fragment {
 
         if(mv_goiy.getText() == null) mv_goiy.setText("Câu này dễ quá bạn tự làm nha ^^");
 
-
         if(base64image == null)
         {
             im_question.setEnabled(false);
@@ -175,6 +165,8 @@ public class ScreenSlidePageFragment extends Fragment {
                 }.execute();
         }
 
+
+        // Chọn đáp án
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -201,13 +193,16 @@ public class ScreenSlidePageFragment extends Fragment {
         }
 
         if(checkAns!=0){
+            radioGroup.setVisibility(View.GONE);
+            tv_goiy.setVisibility(View.VISIBLE);
+            im_goiy.setVisibility(View.VISIBLE);
+            mv_goiy.setVisibility(View.VISIBLE);
             radA.setClickable(false);
             radB.setClickable(false);
             radC.setClickable(false);
             radD.setClickable(false);
             getCheckAns(getItem(mPageNumber).getResult().toString());
         }
-
     }
 
     public Question getItem(int posotion){
@@ -230,26 +225,21 @@ public class ScreenSlidePageFragment extends Fragment {
     //Hàm kiểm tra câu đúng, nếu câu đúng thì đổi màu background radiobutton tương ứng
     private void getCheckAns(String DapAnChon)
     {
-        radioGroup.setVisibility(View.GONE);
-        tv_goiy.setVisibility(View.VISIBLE);
-        im_goiy.setVisibility(View.VISIBLE);
-        mv_goiy.setVisibility(View.VISIBLE);
-        if(DapAnChon.equals("A")==true)
-        {
-            mv_AnsA.setBackgroundColor(Color.rgb(0	,255 	,64));
-
-        }
-        if(DapAnChon.equals("B")==true)
+        if(DapAnChon.equals("A"))
         {
             mv_AnsA.setBackgroundColor(Color.rgb(0	,255 	,64));
         }
-        if(DapAnChon.equals("C")==true)
+        if(DapAnChon.equals("B"))
         {
-            mv_AnsA.setBackgroundColor(Color.rgb(0	,255 	,64));
+            mv_AnsB.setBackgroundColor(Color.rgb(0	,255 	,64));
         }
-        if(DapAnChon.equals("D")==true)
+        if(DapAnChon.equals("C"))
         {
-            mv_AnsA.setBackgroundColor(Color.rgb(0	,255 	,64));
+            mv_AnsC.setBackgroundColor(Color.rgb(0	,255 	,64));
+        }
+        if(DapAnChon.equals("D"))
+        {
+            mv_AnsD.setBackgroundColor(Color.rgb(0	,255 	,64));
         }
     }
 }

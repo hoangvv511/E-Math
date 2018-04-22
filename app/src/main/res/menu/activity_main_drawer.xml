@@ -18,12 +18,12 @@
                         android:title="Đề thi tổng hợp" />
                     <item
                         android:id="@+id/nav_chuyende"
-                        android:icon="@drawable/chuyende"
-                        android:title="Chuyên đề tổng hợp" />
+                        android:icon="@drawable/taode"
+                        android:title="Tạo đề thi" />
                     <item
-                        android:id="@+id/nav_phuongphap"
-                        android:icon="@drawable/solution"
-                        android:title="Phương pháp giải nhanh" />
+                        android:id="@+id/nav_bosuutap"
+                        android:icon="@drawable/bosuutap"
+                        android:title="Bộ sưu tập" />
                 </group>
             </menu>
         </item>

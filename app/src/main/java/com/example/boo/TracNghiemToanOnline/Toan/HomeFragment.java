@@ -1,4 +1,4 @@
-package com.example.boo.TracNghiemToanOnline.monhoc;
+package com.example.boo.TracNghiemToanOnline.Toan;
 
 
 import android.os.Bundle;
@@ -9,15 +9,14 @@ import android.view.ViewGroup;
 
 import com.example.boo.TracNghiemToanOnline.MainActivity;
 import com.example.boo.TracNghiemToanOnline.R;
-import com.example.boo.TracNghiemToanOnline.slide.ScreenSlideActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChuyenDeFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
 
-    public ChuyenDeFragment() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -26,7 +25,8 @@ public class ChuyenDeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chuyen_de, container, false);
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Home");
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
 }

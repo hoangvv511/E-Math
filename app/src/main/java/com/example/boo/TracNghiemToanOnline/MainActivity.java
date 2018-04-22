@@ -1,12 +1,7 @@
 package com.example.boo.TracNghiemToanOnline;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,21 +12,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.boo.TracNghiemToanOnline.monhoc.HomeFragment;
-import com.example.boo.TracNghiemToanOnline.monhoc.DeThiFragment;
+import com.example.boo.TracNghiemToanOnline.Toan.BoSuuTap_Fragment;
+import com.example.boo.TracNghiemToanOnline.Toan.HomeFragment;
+import com.example.boo.TracNghiemToanOnline.Toan.DeThiFragment;
+import com.example.boo.TracNghiemToanOnline.Toan.TaoDeFragment;
 import com.example.boo.TracNghiemToanOnline.question.DBHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -62,15 +53,6 @@ public class MainActivity extends AppCompatActivity
         tv_username = (TextView) findViewById(R.id.tv_username);
         tv_useremail = (TextView) findViewById(R.id.tv_useremail);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -81,7 +63,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
 
-        HomeFragment homeFragment = new HomeFragment();
+        DeThiFragment homeFragment = new DeThiFragment();
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.content_main, homeFragment, homeFragment.getTag()).commit();
 
@@ -144,22 +126,26 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
             HomeFragment homeFragment = new HomeFragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main, homeFragment, homeFragment.getTag()).commit();
+            manager.beginTransaction().replace(R.id.content_main, homeFragment, homeFragment.getTag()).addToBackStack(null).commit();
         }
         else if (id == R.id.nav_dethi)
         {
             DeThiFragment deThi_fragment = new DeThiFragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main, deThi_fragment, deThi_fragment.getTag()).commit();
+            manager.beginTransaction().replace(R.id.content_main, deThi_fragment, deThi_fragment.getTag()).addToBackStack(null).commit();
 
         }
         else if (id == R.id.nav_chuyende)
         {
-
+            TaoDeFragment taoDeFragment = new TaoDeFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.content_main, taoDeFragment, taoDeFragment.getTag()).addToBackStack(null).commit();
         }
-        else if (id == R.id.nav_phuongphap)
+        else if (id == R.id.nav_bosuutap)
         {
-
+            BoSuuTap_Fragment boSuuTap_fragment = new BoSuuTap_Fragment();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.content_main, boSuuTap_fragment, boSuuTap_fragment.getTag()).addToBackStack(null).commit();
         }
         else if (id == R.id.nav_box)
         {

@@ -29,7 +29,7 @@ public class ScreenSlideActivity extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static final int NUM_PAGES =50;
+    private static int NUM_PAGES =50;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
@@ -52,7 +52,7 @@ public class ScreenSlideActivity extends FragmentActivity {
     //String subject;
     int num_exam;
     int totalTimer;
-
+    String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,36 +65,68 @@ public class ScreenSlideActivity extends FragmentActivity {
         mPager.setPageTransformer(true, new DepthPageTransformer());
 
         Intent intent = getIntent();
+        name = intent.getStringExtra("TenDe");
+        if(name != null)
+        {
+            totalTimer = 90;
+            timer = new CounterClass(totalTimer * 60 * 1000, 1000);
+            questionController = new QuestionController(this);
+            arr_Ques = new ArrayList<Question>();
+            arr_Ques = questionController.getQuestionByChuyenDe();
+            tvKiemtra = (TextView) findViewById(R.id.tvKiemTra);
+            tvTimer = (TextView) findViewById(R.id.tvTimer);
+            tvXemDiem = (TextView) findViewById(R.id.tvScore);
 
-        num_exam = intent.getIntExtra("num_exam",0);
+            tvKiemtra.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkAnswer();
+                }
+            });
+            tvXemDiem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                    Intent intent1 = new Intent(ScreenSlideActivity.this, TestDoneActivity.class);
+                    intent1.putExtra("arr_Ques", arr_Ques);
+                    startActivity(intent1);
+                }
+            });
 
-        totalTimer = 90;
-        timer = new CounterClass(totalTimer * 60 * 1000, 1000);
-        questionController = new QuestionController(this);
-        arr_Ques = new ArrayList<Question>();
-        arr_Ques = questionController.getQuestion(num_exam);
+            timer.start();
+        }
+        else
+        {
+            num_exam = intent.getIntExtra("num_exam",0);
+            totalTimer = 90;
+            timer = new CounterClass(totalTimer * 60 * 1000, 1000);
+            questionController = new QuestionController(this);
+            arr_Ques = new ArrayList<Question>();
+            arr_Ques = questionController.getQuestion(num_exam);
+            tvKiemtra = (TextView) findViewById(R.id.tvKiemTra);
+            tvTimer = (TextView) findViewById(R.id.tvTimer);
+            tvXemDiem = (TextView) findViewById(R.id.tvScore);
 
-        tvKiemtra = (TextView) findViewById(R.id.tvKiemTra);
-        tvTimer = (TextView) findViewById(R.id.tvTimer);
-        tvXemDiem = (TextView) findViewById(R.id.tvScore);
+            tvKiemtra.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    checkAnswer();
+                }
+            });
+            tvXemDiem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                    Intent intent1 = new Intent(ScreenSlideActivity.this, TestDoneActivity.class);
+                    intent1.putExtra("arr_Ques", arr_Ques);
+                    startActivity(intent1);
+                }
+            });
 
-        tvKiemtra.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkAnswer();
-            }
-        });
-        tvXemDiem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                Intent intent1 = new Intent(ScreenSlideActivity.this, TestDoneActivity.class);
-                intent1.putExtra("arr_Ques", arr_Ques);
-                startActivity(intent1);
-            }
-        });
+            timer.start();
+        }
 
-        timer.start();
+
     }
 
     public ArrayList<Question> getData() {

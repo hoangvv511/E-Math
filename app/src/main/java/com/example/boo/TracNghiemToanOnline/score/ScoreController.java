@@ -25,7 +25,6 @@ public class ScoreController {
         db.close();
     }
 
-
     //Lấy danh sách điểm
     public Cursor getScore() {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
