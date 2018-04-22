@@ -258,7 +258,7 @@ public class ScreenSlideActivity extends FragmentActivity {
                 dialog.dismiss();
             }
         });
-
+        //ok
         dialog.show();
     }
 
