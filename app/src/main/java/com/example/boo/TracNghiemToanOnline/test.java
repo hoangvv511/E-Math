@@ -62,6 +62,7 @@ public class test extends AppCompatActivity {
                     map.put(x, y);
                     databaseRefence.child(user.getUid()).child("Đề thi").child(tendethi).child("Câu hỏi").setValue(map);
                 }
+
                 databaseRefence.child(user.getUid()).child("Đề thi").child(tendethi).child("Tên đề thi").setValue(tendethi);
                 databaseRefence.child(user.getUid()).child("Đề thi").child(tendethi).child("Thời gian").setValue(thoigian);
             }
