@@ -107,7 +107,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         UserInformation userInformation = new UserInformation(name, add,  user.getEmail(), imageAvatar);
 
-        databaseRefence.child(user.getUid()).setValue(userInformation);
+        databaseRefence.child(user.getUid()).child("Người dùng").setValue(userInformation);
+
         Toast.makeText(this, "Information Saved...", Toast.LENGTH_LONG).show();
 
     }
@@ -121,7 +122,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
         if(view == buttonSave)
         {
-            StorageReference mountainsRef = storageRef.child(".png");
+            StorageReference mountainsRef = storageRef.child(user.getEmail());
 
             // Get the data from an ImageView as bytes
             imgViewAvatar.setDrawingCacheEnabled(true);
@@ -167,7 +168,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     });
                 }
             });
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, test.class));
         }
     }
 
