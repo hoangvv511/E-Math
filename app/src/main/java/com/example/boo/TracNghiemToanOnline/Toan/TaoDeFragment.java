@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.boo.TracNghiemToanOnline.MainActivity;
 import com.example.boo.TracNghiemToanOnline.R;
@@ -21,6 +22,7 @@ public class TaoDeFragment extends Fragment {
 
     EditText edtTenDeThi, edtThoiGian;
     CheckBox cB1, cB2, cB3, cB4, cB5, cB6, cB7, cB8, cB9;
+    TextView tB1, tB2, tB3, tB4, tB5, tB6, tB7, tB8, tB9;
     Button btnTaoDe;
     String tende;
     public TaoDeFragment() {
