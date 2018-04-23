@@ -3,14 +3,12 @@ package com.example.boo.TracNghiemToanOnline.Toan;
 public class Exam {
     private String name;
     private String time;
-    private String numberQuestion;
     private String avataruser;
     private String nameuser;
 
-    public Exam(String name, String time, String numberQuestion, String avataruser, String nameuser) {
+    public Exam(String name, String time, String avataruser, String nameuser) {
         this.name = name;
         this.time = time;
-        this.numberQuestion = numberQuestion;
         this.avataruser = avataruser;
         this.nameuser = nameuser;
     }
@@ -30,14 +28,6 @@ public class Exam {
 
     public void setTime(String name) {
         this.time = time;
-    }
-
-    public String getNumberQuestion() {
-        return numberQuestion;
-    }
-
-    public void setNumberQuestion(String numberQuestion) {
-        this.numberQuestion = numberQuestion;
     }
 
     public String getName() {

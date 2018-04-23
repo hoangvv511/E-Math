@@ -165,7 +165,6 @@ public class ScreenSlidePageFragment extends Fragment {
                 }.execute();
         }
 
-
         // Chọn đáp án
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

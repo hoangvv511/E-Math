@@ -53,7 +53,7 @@ public class BoSuuTap_Fragment extends Fragment {
             Bundle bundle = this.getArguments();
             name = bundle.getString("Name");
             lvCreateTest= getActivity().findViewById(R.id.gvBoSuuTap);
-            arr_examcreate.add(new Exam(name, "90","50", "http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+            arr_examcreate.add(new Exam(name, "90", "http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
 
             examAdapter=new ExamAdapter(getActivity(),arr_examcreate);
             lvCreateTest.setAdapter(examAdapter);

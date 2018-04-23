@@ -5,9 +5,9 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_trangchu"
-            android:icon="@drawable/home_48px"
-            android:title="Trang chủ" />
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/student"
+            android:title="Profile" />
         <item
             android:title="Trắc nghiệm toán">
             <menu>
@@ -47,5 +47,4 @@
             </menu>
         </item>
     </group>
-
 </menu>

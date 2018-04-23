@@ -3,6 +3,7 @@ package com.example.boo.TracNghiemToanOnline;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -17,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.w3c.dom.Text;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonSignIn;
@@ -25,6 +28,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button buttonSignUp;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +52,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
+
+
         if(TextUtils.isEmpty(email))
         {
             Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if(TextUtils.isEmpty(password))
         {
             Toast.makeText(this, "Please enter password", Toast.LENGTH_LONG).show();

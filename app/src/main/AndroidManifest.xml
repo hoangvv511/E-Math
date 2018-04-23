@@ -11,15 +11,15 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/owl"
+        android:label="E-Math"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:label="Login"
+            android:label="E-Math"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,12 +32,12 @@
         <activity android:name=".slide.TestDoneActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".RegisterActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".ProfileActivity"
             android:screenOrientation="portrait"/>
          <activity
              android:name=".MainActivity"
-             android:label="@string/app_name"
              android:screenOrientation="portrait"
              android:theme="@style/AppTheme.NoActionBar"
              />

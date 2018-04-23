@@ -122,11 +122,8 @@ public class ScreenSlideActivity extends FragmentActivity {
                     startActivity(intent1);
                 }
             });
-
             timer.start();
         }
-
-
     }
 
     public ArrayList<Question> getData() {
@@ -160,7 +157,6 @@ public class ScreenSlideActivity extends FragmentActivity {
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-
         builder.show();
     }
 

@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.boo.TracNghiemToanOnline.Toan.BoSuuTap_Fragment;
-import com.example.boo.TracNghiemToanOnline.Toan.HomeFragment;
+import com.example.boo.TracNghiemToanOnline.Toan.Profile;
 import com.example.boo.TracNghiemToanOnline.Toan.DeThiFragment;
 import com.example.boo.TracNghiemToanOnline.Toan.TaoDeFragment;
 import com.example.boo.TracNghiemToanOnline.question.DBHelper;
@@ -121,31 +121,31 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_trangchu)
+        if (id == R.id.nav_profile)
         {
             // Handle the camera action
-            HomeFragment homeFragment = new HomeFragment();
+            Profile profile = new Profile();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main, homeFragment, homeFragment.getTag()).addToBackStack(null).commit();
+            manager.beginTransaction().replace(R.id.content_main, profile, profile.getTag()).commit();
         }
         else if (id == R.id.nav_dethi)
         {
             DeThiFragment deThi_fragment = new DeThiFragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main, deThi_fragment, deThi_fragment.getTag()).addToBackStack(null).commit();
+            manager.beginTransaction().replace(R.id.content_main, deThi_fragment, deThi_fragment.getTag()).commit();
 
         }
         else if (id == R.id.nav_chuyende)
         {
             TaoDeFragment taoDeFragment = new TaoDeFragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main, taoDeFragment, taoDeFragment.getTag()).addToBackStack(null).commit();
+            manager.beginTransaction().replace(R.id.content_main, taoDeFragment, taoDeFragment.getTag()).commit();
         }
         else if (id == R.id.nav_bosuutap)
         {
             BoSuuTap_Fragment boSuuTap_fragment = new BoSuuTap_Fragment();
             FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main, boSuuTap_fragment, boSuuTap_fragment.getTag()).addToBackStack(null).commit();
+            manager.beginTransaction().replace(R.id.content_main, boSuuTap_fragment, boSuuTap_fragment.getTag()).commit();
         }
         else if (id == R.id.nav_box)
         {

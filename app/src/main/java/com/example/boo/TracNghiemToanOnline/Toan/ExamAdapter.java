@@ -5,13 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.boo.TracNghiemToanOnline.R;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -33,12 +30,10 @@ public class ExamAdapter extends ArrayAdapter<Exam> {
         TextView tvNameUser = (TextView) convertView.findViewById(R.id.tv_username);
         CircleImageView imvAvatarUser = (CircleImageView) convertView.findViewById(R.id.imv_avataruser);
         TextView tvTime = (TextView) convertView.findViewById(R.id.tv_time);
-        TextView tvNumberQuestion = (TextView) convertView.findViewById(R.id.tv_numberQuestion);
         Exam p= getItem(position);
         if(p!=null){
             tvName.setText(p.getName());
             tvTime.setText(p.getTime());
-            tvNumberQuestion.setText(p.getNumberQuestion());
             tvNameUser.setText(p.getNameuser());
             Picasso.get().load(p.getAvataruser()).into(imvAvatarUser);
         }
