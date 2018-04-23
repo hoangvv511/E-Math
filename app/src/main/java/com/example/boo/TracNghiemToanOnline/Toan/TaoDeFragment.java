@@ -52,5 +52,4 @@ public class TaoDeFragment extends Fragment {
         });
         return view;
     }
-
 }

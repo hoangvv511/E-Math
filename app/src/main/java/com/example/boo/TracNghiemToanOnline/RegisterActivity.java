@@ -34,7 +34,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText editTextUserName;
     private EditText editTextConfirmPassword;
     private ProgressDialog progressDialog;
-
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -50,9 +49,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 //        }
 
         progressDialog = new ProgressDialog(this);
-
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
-
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextUserName = (EditText) findViewById(R.id.editUserName);
@@ -128,42 +125,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                 Toast.makeText(RegisterActivity.this, "Could not register...please try again", Toast.LENGTH_SHORT).show();
                                             }
                                             progressDialog.dismiss();
-
                                         }
                                     });
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
                     }
                 });
-//                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if(!task.isSuccessful())
-//                        {
-//                            Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
-//                        }
-//                        else
-//                        {
-//                            String user_id = firebaseAuth.getCurrentUser().getUid();
-//                            DatabaseReference current_user = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id).child("Information");
-//
-//                            Map newPost = new HashMap();
-//                            newPost.put("username", username);
-//                            newPost.put("email", email);
-//                            current_user.setValue(newPost);
-//                        }
-//                    }
-//                });
             }
         });
         textViewSignin.setOnClickListener(this);
-
     }
-
 
     @Override
     public void onClick(View view) {
