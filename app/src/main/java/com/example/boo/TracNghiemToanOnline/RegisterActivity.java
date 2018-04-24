@@ -151,13 +151,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             if(task.isSuccessful()){
                                                 String user_id = firebaseAuth.getCurrentUser().getUid();
                                                 final DatabaseReference current_user = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id).child("Information");
-                                                Map newPost = new HashMap();
-                                                newPost.put("username", username);
-                                                newPost.put("email", email);
-                                                newPost.put("fullname", fullname);
-                                                newPost.put("phone", phone);
-                                                newPost.put("imageAvatar", imagebase64);
-                                                current_user.setValue(newPost);
+                                                UserInformation userInformation = new UserInformation(email, fullname, imagebase64, phone, username);
+                                                current_user.setValue(userInformation);
                                                 if(firebaseAuth.getCurrentUser() != null){ // tạo xong sẽ vào màn hình Profile
                                                     finish();
                                                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -189,18 +184,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             {
                 final Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
                 cimv_useravatar.setImageBitmap(bitmap);
-                new AsyncTask<Void, Void, String>()
-                {
-                    @Override
-                    protected String doInBackground(Void... voids) {
-                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                        byte[] b = baos.toByteArray();
-
-                        imagebase64 = Base64.encodeToString(b, Base64.DEFAULT);
-                        return imagebase64;
-                    }
-                }.execute();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] b = baos.toByteArray();
+                imagebase64 = Base64.encodeToString(b, Base64.DEFAULT);
             }catch (IOException e)
             {
                 e.printStackTrace();

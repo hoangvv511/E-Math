@@ -17,25 +17,31 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
-
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser user = firebaseAuth.getCurrentUser();
     private Button buttonSignIn;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private Button buttonSignUp;
-    private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+    String fullname,emailuser,imageAvatar, phone,username;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        firebaseAuth = FirebaseAuth.getInstance();
 
         editTextEmail = (EditText)findViewById(R.id.editTextEmail);
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
@@ -49,10 +55,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void userLogin(){
-        String email = editTextEmail.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
-
-
 
         if(TextUtils.isEmpty(email))
         {
@@ -76,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         if(task.isSuccessful()){
                             finish();
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
                     }
                 });

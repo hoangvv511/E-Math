@@ -102,13 +102,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private void saveUserInformation()
     {
-        String name = editTextName.getText().toString().trim();
-        String add = editTextAddress.getText().toString().trim();
-
-        UserInformation userInformation = new UserInformation(name, add,  user.getEmail(), imageAvatar);
-
-        databaseRefence.child(user.getUid()).setValue(userInformation);
-        Toast.makeText(this, "Information Saved...", Toast.LENGTH_LONG).show();
+//        String name = editTextName.getText().toString().trim();
+//        String add = editTextAddress.getText().toString().trim();
+//
+//        UserInformation userInformation = new UserInformation(name, add,  user.getEmail(), imageAvatar);
+//
+//        databaseRefence.child(user.getUid()).setValue(userInformation);
+//        Toast.makeText(this, "Information Saved...", Toast.LENGTH_LONG).show();
     }
 
     @Override

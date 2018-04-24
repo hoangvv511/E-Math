@@ -1,5 +1,6 @@
 package com.example.boo.TracNghiemToanOnline;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.boo.TracNghiemToanOnline.Toan.BoSuuTap_Fragment;
@@ -19,10 +21,11 @@ import com.example.boo.TracNghiemToanOnline.Toan.TaoDeFragment;
 import com.example.boo.TracNghiemToanOnline.question.DBHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 
@@ -33,9 +36,6 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = firebaseAuth.getCurrentUser();
-
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    private StorageReference storageRef;
 
     de.hdodenhof.circleimageview.CircleImageView profile_userimage;
     TextView tv_username;
@@ -49,10 +49,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        profile_userimage = (de.hdodenhof.circleimageview.CircleImageView) findViewById(R.id.profile_image);
-        tv_username = (TextView) findViewById(R.id.tv_username);
-        tv_useremail = (TextView) findViewById(R.id.tv_useremail);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -62,6 +58,24 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
+        View header = navigationView.getHeaderView(0);
+        profile_userimage = (de.hdodenhof.circleimageview.CircleImageView) header.findViewById(R.id.profile_image);
+        tv_username = (TextView) header.findViewById(R.id.tv_username);
+        tv_useremail = (TextView) header.findViewById(R.id.tv_useremail);
+
+        databaseRefence.child("Users").child(user.getUid()).child("Information").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserInformation userInformation = dataSnapshot.getValue(UserInformation.class);
+                tv_useremail.setText(userInformation.email.toString().trim());
+                tv_username.setText(userInformation.username.toString().trim());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         DeThiFragment homeFragment = new DeThiFragment();
         FragmentManager manager = getSupportFragmentManager();
