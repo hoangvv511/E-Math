@@ -109,7 +109,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         databaseRefence.child(user.getUid()).setValue(userInformation);
         Toast.makeText(this, "Information Saved...", Toast.LENGTH_LONG).show();
-
     }
 
     @Override
@@ -148,7 +147,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
                     imageAvatar = String.valueOf(downloadUrl);
                     saveUserInformation();
-
                     databaseRefence.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {

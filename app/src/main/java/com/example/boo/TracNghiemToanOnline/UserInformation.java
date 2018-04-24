@@ -11,7 +11,6 @@ public class UserInformation {
     public String address;
     public String email;
     public String imageAvatar = "https://firebasestorage.googleapis.com/v0/b/myapplication-6d1ae.appspot.com/o/image.png?alt=media&token=85a1059d-2481-4cf7-a489-3820b13e7517";
-    //image
 
     public UserInformation(){
 
