@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
+            android:name=".MainActivity"
             android:label="E-Math"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -36,11 +36,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".ProfileActivity"
             android:screenOrientation="portrait"/>
-         <activity
-             android:name=".MainActivity"
-             android:screenOrientation="portrait"
-             android:theme="@style/AppTheme.NoActionBar"
-             />
+
 
     </application>
 
