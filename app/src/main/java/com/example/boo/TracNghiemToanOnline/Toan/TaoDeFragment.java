@@ -31,7 +31,6 @@ public class TaoDeFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Tạo đề thi");
         View view = inflater.inflate(R.layout.fragment_tao_de, container, false);
         edtTenDeThi = view.findViewById(R.id.edtTenDe);
         edtThoiGian = view.findViewById(R.id.edtThoiGian);
