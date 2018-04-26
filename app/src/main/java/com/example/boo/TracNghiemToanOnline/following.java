@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,9 +34,14 @@ public class following extends AppCompatActivity {
     private boolean image1 = false;
     private boolean image2 = false;
 
+    private Button btnTrangCaNhan;
+    private Button btnBoSuuTap;
+
     private String[] name = new String[10000];
-    private String name1;
     private int n = 0;
+
+    private int count1 = 0;
+    private int count2 = 0;
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
@@ -58,17 +64,68 @@ public class following extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String a = String.valueOf(dataSnapshot.getKey());
-                if(!a.equals(ProfileActivity.username))
-                {
-                    if(n==0)
-                    {
+                if (!a.equals(ProfileActivity.username)) {
+                    if (n == 0) {
                         textViewUsername.setText(a);
-                        name[n] = a;
+                        name[0] = a;
+                        databaseRefence.child("Đề thi").child(a).child("Followed").addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                count1++;
+                                textViewCount1.setText(String.valueOf(count1) + "");
+                            }
+                            @Override
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                                count1--;
+                                textViewCount1.setText(String.valueOf(count1) + "");
+                            }
+
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
-                    if(n==1)
-                    {
+                    if (n == 1) {
                         textViewUsername2.setText(a);
-                        name[n] = a;
+                        name[1] = a;
+                        databaseRefence.child("Đề thi").child(name[1]).child("Followed").addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                count2++;
+                                textViewCount2.setText(String.valueOf(count2) + "");
+                            }
+                            @Override
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                                count2--;
+                                textViewCount2.setText(String.valueOf(count2) + "");
+                            }
+
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                     }
                     n++;
                 }
@@ -96,19 +153,19 @@ public class following extends AppCompatActivity {
         });
 
 
-
         databaseRefence.child("Users").child(user.getUid()).child("Following").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String a = String.valueOf(dataSnapshot.getKey());
                 if(a.equals(name[0]))
                 {
-                    imageButtonFollow.setImageResource(R.drawable.follow);
                     image1 = true;
+                    imageButtonFollow.setImageResource(R.drawable.follow);
                 }
                 if(a.equals(name[1])) {
                     image2 = true;
                     imageButtonFollow2.setImageResource(R.drawable.follow);
+
                 }
             }
 
@@ -133,6 +190,7 @@ public class following extends AppCompatActivity {
             }
         });
 
+
         imageButtonFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,12 +199,14 @@ public class following extends AppCompatActivity {
                     image1 = false;
                     imageButtonFollow.setImageResource(R.drawable.notfollow);
                     databaseRefence.child("Users").child(user.getUid()).child("Following").child(name[0]).removeValue();
+                    databaseRefence.child("Đề thi").child(name[0]).child("Followed").child(ProfileActivity.username).removeValue();
                 }
                 else
                 {
                     image1 = true;
                     imageButtonFollow.setImageResource(R.drawable.follow);
                     databaseRefence.child("Users").child(user.getUid()).child("Following").child(name[0]).setValue("true");
+                    databaseRefence.child("Đề thi").child(name[0]).child("Followed").child(ProfileActivity.username).setValue("true");
                 }
             }
         });
@@ -156,15 +216,17 @@ public class following extends AppCompatActivity {
             public void onClick(View v) {
                 if(image2)
                 {
+                    image2 = false;
                     imageButtonFollow2.setImageResource(R.drawable.notfollow);
                     databaseRefence.child("Users").child(user.getUid()).child("Following").child(name[1]).removeValue();
-                    image2 = false;
+                    databaseRefence.child("Đề thi").child(name[1]).child("Followed").child(ProfileActivity.username).removeValue();
                 }
                 else
                 {
+                    image2 = true;
                     imageButtonFollow2.setImageResource(R.drawable.follow);
                     databaseRefence.child("Users").child(user.getUid()).child("Following").child(name[1]).setValue("true");
-                    image2 = true;
+                    databaseRefence.child("Đề thi").child(name[1]).child("Followed").child(ProfileActivity.username).setValue("true");
                 }
             }
         });

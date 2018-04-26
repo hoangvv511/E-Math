@@ -54,4 +54,16 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnTrangCaNhan"
+        android:text="Trang cá nhân"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnBoSuuTap"
+        android:text="Bộ sưu tập"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
