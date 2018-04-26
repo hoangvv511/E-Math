@@ -154,7 +154,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                 final DatabaseReference current_user = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id).child("Information");
                                                 UserInformation userInformation = new UserInformation(email, fullname, imagebase64, phone, username);
                                                 current_user.setValue(userInformation);
-                                                if(firebaseAuth.getCurrentUser() != null){ // tạo xong sẽ vào màn hình Profile
+                                                if(firebaseAuth.getCurrentUser() != null){
                                                     finish();
                                                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                                 }

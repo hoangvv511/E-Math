@@ -43,8 +43,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imv_avataruser"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toEndOf="@+id/textView4"

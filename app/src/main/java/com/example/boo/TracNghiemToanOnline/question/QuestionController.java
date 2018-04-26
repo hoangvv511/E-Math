@@ -88,6 +88,60 @@ public class QuestionController {
         return lsData;
     }
 
-
+    public ArrayList<Question> getQuestionById(int numcd1, int numcd2, int numcd3, int numcd4, int numcd5, int numcd6, int numcd7, int numcd8, int numcd9)
+    {
+        ArrayList<Question> lsData= new ArrayList<Question>();
+        SQLiteDatabase db= dbHelper.getReadableDatabase();
+        Cursor cursor= db.rawQuery("select * \n" +
+                "from (select _id from tracnghiem\n" +
+                "\t  where num_chuyende = 1\n" +
+                "\t  order by random() limit '"+numcd1+"+')\n" +
+                "union\n" +
+                "select * \n" +
+                "from (select _id from tracnghiem\n" +
+                "\t  where num_chuyende = 2\n" +
+                "\t  order by random() limit '"+numcd2+"')\n" +
+                "\t  union\n" +
+                "select * \n" +
+                "from (select _id from tracnghiem\n" +
+                "\t  where num_chuyende = 3\n" +
+                "\t  order by random() limit '"+numcd3+"')\n" +
+                "\t  union\n" +
+                "select * \n" +
+                "from (select _id from tracnghiem\n" +
+                "\t  where num_chuyende = 4\n" +
+                "\t  order by random() limit '"+numcd4+"')\n" +
+                "\t  union\n" +
+                "select * \n" +
+                "from (select _id from tracnghiem\n" +
+                "\t  where num_chuyende = 5\n" +
+                "\t  order by random() limit '"+numcd5+"')\n" +
+                "\t  union\n" +
+                "select * \n" +
+                "from (select _id from tracnghiem\n" +
+                "\t  where num_chuyende = 6\n" +
+                "\t  order by random() limit '"+numcd6+"')\n" +
+                "\t  union\n" +
+                "select * \n" +
+                "from (select _id from tracnghiem\n" +
+                "\t  where num_chuyende = 7\n" +
+                "\t  order by random() limit '"+numcd7+"')\n" +
+                "\t  union\n" +
+                "select * \n" +
+                "from (select _id from tracnghiem\n" +
+                "\t  where num_chuyende = 8\n" +
+                "\t  order by random() limit '"+numcd8+"')\n" +
+                "\t  union\n" +
+                "select * \n" +
+                "from (select _id from tracnghiem\n" +
+                "\t  where num_chuyende = 9\n" +
+                "\t  order by random() limit '"+numcd9+"')\n",null);
+        cursor.moveToFirst();
+        do {
+            Question item;
+            item= new Question(cursor.getInt(0));
+        }while (cursor.moveToNext());
+        return lsData;
+    }
 
 }

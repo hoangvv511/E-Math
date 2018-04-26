@@ -20,6 +20,9 @@ public class Question implements Serializable{
     private String DapAnChon = "";
     public int choiceID= -1; //hỗ trợ check Id của radiogroup
 
+    public Question(int anInt) {
+    }
+
     public String getDapAnChon() {
         return DapAnChon;
     }

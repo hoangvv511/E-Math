@@ -45,32 +45,33 @@ public class BoSuuTap_Fragment extends Fragment {
         tv_notest = view.findViewById(R.id.tv_notest);
         return view;
     }
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        try
-        {
-            Bundle bundle = this.getArguments();
-            name = bundle.getString("Name");
-            lvCreateTest= getActivity().findViewById(R.id.gvBoSuuTap);
-            arr_examcreate.add(new Exam(name, "90", "http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
 
-            examAdapter=new ExamAdapter(getActivity(),arr_examcreate);
-            lvCreateTest.setAdapter(examAdapter);
-            lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent= new Intent(getActivity(), ScreenSlideActivity.class);
-                    tende = String.valueOf(name);
-                    intent.putExtra("TenDe",tende);
-                    startActivity(intent);
-                }
-            });
-
-        }
-        catch (Exception e)
-        {
-            tv_notest.setVisibility(getView().VISIBLE);
-        }
-    }
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        try
+//        {
+//            Bundle bundle = this.getArguments();
+//            name = bundle.getString("Name");
+//            lvCreateTest= getActivity().findViewById(R.id.gvBoSuuTap);
+//            arr_examcreate.add(new Exam(name, "90", "http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+//
+//            examAdapter=new ExamAdapter(getActivity(),arr_examcreate);
+//            lvCreateTest.setAdapter(examAdapter);
+//            lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                    Intent intent= new Intent(getActivity(), ScreenSlideActivity.class);
+//                    tende = String.valueOf(name);
+//                    intent.putExtra("TenDe",tende);
+//                    startActivity(intent);
+//                }
+//            });
+//
+//        }
+//        catch (Exception e)
+//        {
+//            tv_notest.setVisibility(getView().VISIBLE);
+//        }
+//    }
 }

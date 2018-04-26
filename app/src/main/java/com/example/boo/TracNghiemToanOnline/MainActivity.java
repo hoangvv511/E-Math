@@ -1,6 +1,8 @@
 package com.example.boo.TracNghiemToanOnline;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
@@ -9,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +39,9 @@ public class MainActivity extends AppCompatActivity
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = firebaseAuth.getCurrentUser();
-
+    private UserInformation userInformation;
+    String email, fullname, imageavatar, username;
+    String phone;
     de.hdodenhof.circleimageview.CircleImageView profile_userimage;
     TextView tv_username;
     TextView tv_useremail;
@@ -66,9 +71,19 @@ public class MainActivity extends AppCompatActivity
         databaseRefence.child("Users").child(user.getUid()).child("Information").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                UserInformation userInformation = dataSnapshot.getValue(UserInformation.class);
-                tv_useremail.setText(userInformation.email.toString().trim());
-                tv_username.setText(userInformation.username.toString().trim());
+                userInformation = dataSnapshot.getValue(UserInformation.class);
+                email = userInformation.email.toString().trim();
+                fullname = userInformation.fullname.toString().trim();
+                phone = userInformation.phone.toString().trim();
+                username = userInformation.username.toString().trim();
+                imageavatar = userInformation.imageAvatar.toString().trim();
+
+                tv_useremail.setText(email);
+                tv_username.setText(username);
+                byte[] decodeString2 = Base64.decode(imageavatar, Base64.DEFAULT);
+                Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
+                Bitmap bMapScaled2 = Bitmap.createScaledBitmap(decoded2, 100, 100, true);
+                profile_userimage.setImageBitmap(bMapScaled2);
             }
 
             @Override
@@ -76,6 +91,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
 
         DeThiFragment homeFragment = new DeThiFragment();
         FragmentManager manager = getSupportFragmentManager();
