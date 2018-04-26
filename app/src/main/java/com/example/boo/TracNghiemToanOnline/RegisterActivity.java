@@ -32,10 +32,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        //if(firebaseAuth.getCurrentUser() != null){ // nếu đăng ký xong thì vào màn hình Profile
-            //finish();
-            //startActivity(new Intent(getApplicationContext(),MainActivity.class));
-        //}
+        if(firebaseAuth.getCurrentUser() != null){ // nếu đăng ký xong thì vào màn hình Profile
+            finish();
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        }
 
         progressDialog = new ProgressDialog(this);
 

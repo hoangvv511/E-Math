@@ -43,7 +43,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
 
-    private EditText editTextName, editTextAddress;
+    private EditText editTextName, editTextAddress, editTextUserName;
 
     private Button buttonSave;
 
@@ -51,6 +51,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private ImageView img;
 
     private static int GALLERY_REQUEST = 1;
+
+    public static String username;
 
     String imageAvatar;
 
@@ -72,6 +74,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         editTextName = (EditText) findViewById(R.id.editTextName);
         editTextAddress = (EditText) findViewById(R.id.editTextAddress);
+        editTextUserName = (EditText) findViewById(R.id.editTextUserName);
 
         buttonSave = (Button) findViewById(R.id.buttonSave);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
@@ -104,10 +107,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     {
         String name = editTextName.getText().toString().trim();
         String add = editTextAddress.getText().toString().trim();
+        String username2 = editTextUserName.getText().toString().trim();
+        username = username2;
 
-        UserInformation userInformation = new UserInformation(name, add,  user.getEmail(), imageAvatar);
+        UserInformation userInformation = new UserInformation(name, add,  user.getEmail(), imageAvatar, username2);
 
-        databaseRefence.child(user.getUid()).child("Người dùng").setValue(userInformation);
+        databaseRefence.child("Users").child(username2).child("Information").setValue(userInformation);
 
         Toast.makeText(this, "Information Saved...", Toast.LENGTH_LONG).show();
 
