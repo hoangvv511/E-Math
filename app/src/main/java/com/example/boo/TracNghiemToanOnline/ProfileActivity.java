@@ -112,7 +112,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         UserInformation userInformation = new UserInformation(name, add,  user.getEmail(), imageAvatar, username2);
 
-        databaseRefence.child("Users").child(username2).child("Information").setValue(userInformation);
+        databaseRefence.child("Users").child(user.getUid()).child("Information").setValue(userInformation);
 
         Toast.makeText(this, "Information Saved...", Toast.LENGTH_LONG).show();
 

@@ -44,7 +44,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".test" />
-        <activity android:name=".following"></activity>
+        <activity android:name=".following" />
+        <activity android:name=".TrangCaNhan" />
+        <activity android:name=".BoSuuTap"></activity>
     </application>
 
 </manifest>

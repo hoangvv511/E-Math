@@ -49,7 +49,7 @@ public class test extends AppCompatActivity {
                 Integer a[] = new Integer[50];
                 Integer n = 50;
                 Integer dem = 0;
-                String tendethi = "Đề thi thứ hai";
+                String tendethi = "Đề thi thứ nhất";
                 Integer thoigian = 120;
                 for (int i = 0; i < n; i++) {
                     dem++;
@@ -64,18 +64,18 @@ public class test extends AppCompatActivity {
                     String x = "Câu " + i;
                     Integer y = userExam.cau[i-1];
                     map.put(x, y);
-                    databaseRefence.child("Đề thi").child(ProfileActivity.username).child(tendethi).child("Câu hỏi").setValue(map);
+                    databaseRefence.child("Đề thi").child(ProfileActivity.username).child("Đề").child(tendethi).child("Câu hỏi").setValue(map);
                 }
 
-                databaseRefence.child("Đề thi").child(ProfileActivity.username).child(tendethi).child("Tên đề thi").setValue(tendethi);
-                databaseRefence.child("Đề thi").child(ProfileActivity.username).child(tendethi).child("Thời gian").setValue(thoigian);
+                databaseRefence.child("Đề thi").child(ProfileActivity.username).child("Đề").child(tendethi).child("Tên đề thi").setValue(tendethi);
+                databaseRefence.child("Đề thi").child(ProfileActivity.username).child("Đề").child(tendethi).child("Thời gian").setValue(thoigian);
             }
         });
 
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseRefence.child("Đề thi").child(ProfileActivity.username).child("Đề thi thứ hai").child("Câu hỏi").addChildEventListener(new ChildEventListener() {
+                databaseRefence.child("Đề thi").child(ProfileActivity.username).child("Đề").child("Đề thi thứ hai").child("Câu hỏi").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         textViewLoad.append(dataSnapshot.getValue().toString().trim() + "\n");

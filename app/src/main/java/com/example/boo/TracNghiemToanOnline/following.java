@@ -1,5 +1,6 @@
 package com.example.boo.TracNghiemToanOnline;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -59,6 +60,9 @@ public class following extends AppCompatActivity {
         textViewUsername2 = (TextView)findViewById(R.id.textViewUsername2);
         imageButtonFollow2 = (ImageButton)findViewById(R.id.imageButtonFollow2);
         textViewCount2 = (TextView)findViewById(R.id.textCount2);
+
+        btnTrangCaNhan = (Button)findViewById(R.id.btnTrangCaNhan);
+        btnBoSuuTap = (Button)findViewById(R.id.btnBoSuuTap);
 
         databaseRefence.child("Đề thi").addChildEventListener(new ChildEventListener() {
             @Override
@@ -152,7 +156,6 @@ public class following extends AppCompatActivity {
             }
         });
 
-
         databaseRefence.child("Users").child(user.getUid()).child("Following").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -189,7 +192,6 @@ public class following extends AppCompatActivity {
 
             }
         });
-
 
         imageButtonFollow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,6 +230,20 @@ public class following extends AppCompatActivity {
                     databaseRefence.child("Users").child(user.getUid()).child("Following").child(name[1]).setValue("true");
                     databaseRefence.child("Đề thi").child(name[1]).child("Followed").child(ProfileActivity.username).setValue("true");
                 }
+            }
+        });
+
+        btnTrangCaNhan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(following.this, TrangCaNhan.class));
+            }
+        });
+
+        btnBoSuuTap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(following.this, TrangCaNhan.class));
             }
         });
     }
