@@ -68,7 +68,7 @@ public class ScreenSlideActivity extends FragmentActivity {
         name = intent.getStringExtra("TenDe");
         if(name != null)
         {
-            totalTimer = 90;
+            totalTimer = Integer.valueOf(intent.getStringExtra("Thoigian"));
             timer = new CounterClass(totalTimer * 60 * 1000, 1000);
             questionController = new QuestionController(this);
             arr_Ques = new ArrayList<Question>();

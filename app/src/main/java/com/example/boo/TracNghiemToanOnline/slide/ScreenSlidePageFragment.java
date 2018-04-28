@@ -24,6 +24,8 @@ import com.example.boo.TracNghiemToanOnline.R;
 import com.example.boo.TracNghiemToanOnline.question.Question;
 import java.util.ArrayList;
 
+import de.timfreiheit.mathjax.android.MathJaxView;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +42,8 @@ public class ScreenSlidePageFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton radA, radB, radC, radD;
     ImageView im_question, im_goiy;
-    io.github.sidvenu.mathjaxview.MathJaxView mv_question,mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD, mv_goiy;
+    //public io.github.sidvenu.mathjaxview.MathJaxView mv_question,mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD, mv_goiy;
+    public MathJaxView mv_question,mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD, mv_goiy;
     public ScreenSlidePageFragment() {
         // Required empty public constructor
     }
@@ -101,12 +104,12 @@ public class ScreenSlidePageFragment extends Fragment {
 
         tvNum.setText("Câu " + (mPageNumber + 1));
 
-        mv_goiy.setText(getItem(mPageNumber).getHuongdangiai());
-        mv_question.setText(question);
-        mv_AnsA.setText(getItem(mPageNumber).getAns_a());
-        mv_AnsB.setText(getItem(mPageNumber).getAns_b());
-        mv_AnsC.setText(getItem(mPageNumber).getAns_c());
-        mv_AnsD.setText(getItem(mPageNumber).getAns_d());
+        mv_goiy.setInputText(getItem(mPageNumber).getHuongdangiai());
+        mv_question.setInputText(question);
+        mv_AnsA.setInputText(getItem(mPageNumber).getAns_a());
+        mv_AnsB.setInputText(getItem(mPageNumber).getAns_b());
+        mv_AnsC.setInputText(getItem(mPageNumber).getAns_c());
+        mv_AnsD.setInputText(getItem(mPageNumber).getAns_d());
 
         tv_goiy.setEnabled(false);
         tv_goiy.setVisibility(View.GONE);
@@ -139,7 +142,7 @@ public class ScreenSlidePageFragment extends Fragment {
         mv_goiy.setEnabled(false);
         mv_goiy.setVisibility(View.GONE);
 
-        if(mv_goiy.getText() == null) mv_goiy.setText("Câu này dễ quá bạn tự làm nha ^^");
+        if(mv_goiy.getInputText() == null) mv_goiy.setInputText("Câu này dễ quá bạn tự làm nha ^^");
 
         if(base64image == null)
         {

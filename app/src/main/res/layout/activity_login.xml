@@ -43,6 +43,7 @@
                 android:clickable="false"
                 android:focusedByDefault="false"
                 android:inputType="textEmailAddress"
+                android:textColor="#FFFFFF"
                 android:maxLines="1"
                 android:padding="8dp"
                 android:textColorHint="#ffffff" />
@@ -64,6 +65,7 @@
                 android:drawablePadding="12dp"
                 android:ems="10"
                 android:hint="Password"
+                android:textColor="#FFFFFF"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingBottom="8dp"

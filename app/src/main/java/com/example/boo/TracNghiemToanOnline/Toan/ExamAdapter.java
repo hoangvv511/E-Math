@@ -1,6 +1,9 @@
 package com.example.boo.TracNghiemToanOnline.Toan;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +33,24 @@ public class ExamAdapter extends ArrayAdapter<Exam> {
         TextView tvNameUser = (TextView) convertView.findViewById(R.id.tv_username);
         CircleImageView imvAvatarUser = (CircleImageView) convertView.findViewById(R.id.imv_avataruser);
         TextView tvTime = (TextView) convertView.findViewById(R.id.tv_time);
+        TextView tvnumber = convertView.findViewById(R.id.tv_numberQuestion);
         Exam p= getItem(position);
         if(p!=null){
             tvName.setText(p.getName());
             tvTime.setText(p.getTime());
             tvNameUser.setText(p.getNameuser());
-            Picasso.get().load(p.getAvataruser()).into(imvAvatarUser);
+            tvnumber.setText(p.getNumberquestion() +"");
+            if(p.getAvataruser().length() > 100)
+            {
+                byte[] decodeString2 = Base64.decode(p.getAvataruser(), Base64.DEFAULT);
+                Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
+                Bitmap bMapScaled2 = Bitmap.createScaledBitmap(decoded2, 100, 100, true);
+                imvAvatarUser.setImageBitmap(bMapScaled2);
+            }
+            else
+            {
+                Picasso.get().load(p.getAvataruser()).into(imvAvatarUser);
+            }
         }
         return convertView;
     }

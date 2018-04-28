@@ -21,6 +21,7 @@ public class Question implements Serializable{
     public int choiceID= -1; //hỗ trợ check Id của radiogroup
 
     public Question(int anInt) {
+        this._id = anInt;
     }
 
     public String getDapAnChon() {

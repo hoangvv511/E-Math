@@ -1,6 +1,7 @@
 package com.example.boo.TracNghiemToanOnline.Toan;
 
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -11,25 +12,44 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.boo.TracNghiemToanOnline.MainActivity;
 import com.example.boo.TracNghiemToanOnline.R;
+import com.example.boo.TracNghiemToanOnline.UserExam;
+import com.example.boo.TracNghiemToanOnline.question.Question;
+import com.example.boo.TracNghiemToanOnline.question.QuestionController;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TaoDeFragment extends Fragment {
 
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser user = firebaseAuth.getCurrentUser();
     EditText edtTenDeThi, edtThoiGian;
     CheckBox cB1, cB2, cB3, cB4, cB5, cB6, cB7, cB8, cB9;
     TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv_sum;
     Button btnTaoDe;
     String tende;
+    ArrayList<Question> questions;
+    QuestionController questionController;
+    private ProgressDialog progressDialog;
     public TaoDeFragment() {
         // Required empty public constructor
     }
@@ -39,7 +59,7 @@ public class TaoDeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tao_de, container, false);
-
+        progressDialog = new ProgressDialog(getActivity());
         edtTenDeThi = view.findViewById(R.id.edtTenDe);
         edtThoiGian = view.findViewById(R.id.edtThoiGian);
         btnTaoDe = view.findViewById(R.id.btn_taode);
@@ -63,6 +83,75 @@ public class TaoDeFragment extends Fragment {
         tv9 = view.findViewById(R.id.tv_9);
         tv_sum = view.findViewById(R.id.tv_sumquestion);
 
+        cB1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!cB1.isChecked()) tv1.setText("0");
+            }
+        });
+
+        cB2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!cB2.isChecked()) tv2.setText("0");
+            }
+        });
+
+        cB3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!cB3.isChecked()) tv3.setText("0");
+            }
+        });
+
+        cB3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!cB3.isChecked()) tv3.setText("0");
+            }
+        });
+
+        cB4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!cB4.isChecked()) tv4.setText("0");
+            }
+        });
+
+        cB5.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!cB5.isChecked()) tv5.setText("0");
+            }
+        });
+
+        cB6.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!cB6.isChecked()) tv6.setText("0");
+            }
+        });
+
+        cB7.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!cB7.isChecked()) tv7.setText("0");
+            }
+        });
+
+        cB8.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!cB8.isChecked()) tv8.setText("0");
+            }
+        });
+
+        cB9.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(!cB9.isChecked()) tv9.setText("0");
+            }
+        });
         tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,19 +218,58 @@ public class TaoDeFragment extends Fragment {
         btnTaoDe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                BoSuuTap_Fragment boSuuTap_fragment = new BoSuuTap_Fragment();
-//                Bundle bundle = new Bundle();
-//                tende = String.valueOf(edtTenDeThi.getText().toString());
-//                bundle.putString("Name", tende);
-//                boSuuTap_fragment.setArguments(bundle);
-//                FragmentTransaction fr = getActivity().getSupportFragmentManager().beginTransaction();
-//                fr.replace(R.id.content_main, boSuuTap_fragment);
-//                fr.addToBackStack(null);
-//                fr.commit();
+                PullTest();
             }
         });
 
+
         return view;
+    }
+
+    public void PullTest()
+    {
+        progressDialog.setMessage("Sign in...  ");
+        progressDialog.show();
+        String tendethi = edtTenDeThi.getText().toString().trim();
+        String thoigian = edtThoiGian.getText().toString().trim();
+
+        int socau1 = Integer.valueOf(tv1.getText().toString());
+        int socau2 = Integer.valueOf(tv2.getText().toString());
+        int socau3 = Integer.valueOf(tv3.getText().toString());
+        int socau4 = Integer.valueOf(tv4.getText().toString());
+        int socau5 = Integer.valueOf(tv5.getText().toString());
+        int socau6 = Integer.valueOf(tv6.getText().toString());
+        int socau7 = Integer.valueOf(tv7.getText().toString());
+        int socau8 = Integer.valueOf(tv8.getText().toString());
+        int socau9 = Integer.valueOf(tv9.getText().toString());
+        int sum = socau1 + socau2 + socau3 + socau4 + socau5 + socau6 + socau7 + socau8 + socau9;
+        String tongsocau = String.valueOf(sum);
+
+        questions = new ArrayList<Question>();
+        questionController = new QuestionController(getActivity());
+        questions = questionController.getQuestionById(socau1,socau2,socau3,socau4,socau5,socau6,socau7,socau8,socau9);
+        Integer n = questions.size();
+        Integer a[] = new Integer[n];
+        for(int i = 0 ; i < questions.size(); i++)
+        {
+            a[i] = questions.get(i).get_id();
+        }
+
+        Map<String, Integer> map = new HashMap<String, Integer>();
+
+        UserExam userExam = new UserExam(a,n);
+
+        for (int i = 1; i <= n; i++) {
+            String x = "Câu " + i;
+            Integer y = userExam.cau[i-1];
+            map.put(x, y);
+            databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Câu hỏi").setValue(map);
+        }
+        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Tên đề thi").setValue(tendethi);
+        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Thời gian").setValue(thoigian);
+        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Tổng số câu").setValue(tongsocau);
+        Toast.makeText(getActivity(), "Tạo đề thành công", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
     }
 
     public void UpdateSumQuesttion()

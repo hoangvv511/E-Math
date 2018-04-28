@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     private UserInformation userInformation;
-    String email, fullname, imageavatar, username;
+    String email, fullname;
+    public static String username,imageavatar;
     String phone;
     de.hdodenhof.circleimageview.CircleImageView profile_userimage;
     TextView tv_username;

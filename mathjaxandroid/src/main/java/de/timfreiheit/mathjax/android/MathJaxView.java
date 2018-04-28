@@ -35,7 +35,6 @@ public class MathJaxView extends FrameLayout {
 
     public interface OnMathJaxRenderListener {
         void onRendered();
-
     }
 
     private OnMathJaxRenderListener onMathJaxRenderListener;
@@ -74,7 +73,7 @@ public class MathJaxView extends FrameLayout {
 
         if (attrSet != null) {
             TypedArray attrs = context.obtainStyledAttributes(attrSet, R.styleable.MathJaxView);
-            gravity = attrs.getInteger(R.styleable.MathJaxView_android_gravity, Gravity.LEFT);
+            gravity = attrs.getInteger(R.styleable.MathJaxView_gravity, Gravity.LEFT);
             verticalScrollbarsEnabled = attrs.getBoolean(R.styleable.MathJaxView_verticalScrollbarsEnabled, false);
             horizontalScrollbarsEnabled = attrs.getBoolean(R.styleable.MathJaxView_horizontalScrollbarsEnabled, false);
             config = new MathJaxConfig(attrs);
@@ -92,7 +91,6 @@ public class MathJaxView extends FrameLayout {
                         gravity
                 )
         );
-
         // callback when WebView is loading completed
         webViewLoaded = false;
         mWebView.setWebViewClient(new WebViewClient() {

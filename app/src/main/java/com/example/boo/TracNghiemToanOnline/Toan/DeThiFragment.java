@@ -43,16 +43,16 @@ public class DeThiFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         gvExam=(ListView) getActivity().findViewById(R.id.gvExam);
-        arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 số 01", "90","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia năm 2018 - THPT Chuyên Thái Nguyên lần 1","90","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia năm 2018 - THPT Chuyên Thái Bình lần 3","90","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - Đại học Vinh","90","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia năm 2018 - VIETMATHS.NET - Đề 02","90","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - THPT Lê Văn Thịnh - Bắc Ninh lần 1","90","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-        arr_exam.add(new Exam("Đề thi THPT Quốc Gia Lần 1 - THPT Kim Liên - Hà Nội","90","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia năm 2018 - VIETMATHS.NET - Đề 01","90","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-        arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 - Bộ GD và ĐT","90","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - THPT Chuyên Hùng Vương - Bình Dương","90","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 số 01", "90", 50,"http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia năm 2018 - THPT Chuyên Thái Nguyên lần 1","90",50,"http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia năm 2018 - THPT Chuyên Thái Bình lần 3","90",50,"http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - Đại học Vinh","90",50,"http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia năm 2018 - VIETMATHS.NET - Đề 02","90",50,"http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - THPT Lê Văn Thịnh - Bắc Ninh lần 1","90",50,"http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi THPT Quốc Gia Lần 1 - THPT Kim Liên - Hà Nội","90",50,"http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia năm 2018 - VIETMATHS.NET - Đề 01","90",50,"http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 - Bộ GD và ĐT","90",50,"http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - THPT Chuyên Hùng Vương - Bình Dương","90",50,"http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
 
         examAdapter=new ExamAdapter(getActivity(),arr_exam);
         gvExam.setAdapter(examAdapter);

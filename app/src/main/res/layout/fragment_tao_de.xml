@@ -118,7 +118,8 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:hint="Tên Đề Thi"
-                android:textStyle="bold"
+                android:textColor="@color/blue_primary"
+                android:textColorHint="@color/red_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -153,9 +154,10 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:hint="Thời gian làm bài ( phút )"
+                android:textColorHint="@color/red_primary"
+                android:textColor="@color/blue_primary"
                 android:inputType="number"
                 android:singleLine="true"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputLayoutTenDe" />

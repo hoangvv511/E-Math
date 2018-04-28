@@ -3,12 +3,23 @@ package com.example.boo.TracNghiemToanOnline.Toan;
 public class Exam {
     private String name;
     private String time;
+    private int numberquestion;
     private String avataruser;
     private String nameuser;
 
-    public Exam(String name, String time, String avataruser, String nameuser) {
+
+    public int getNumberquestion() {
+        return numberquestion;
+    }
+
+    public void setNumberquestion(int numberquestion) {
+        this.numberquestion = numberquestion;
+    }
+
+    public Exam(String name, String time, int numberquestion, String avataruser, String nameuser) {
         this.name = name;
         this.time = time;
+        this.numberquestion = numberquestion;
         this.avataruser = avataruser;
         this.nameuser = nameuser;
     }
