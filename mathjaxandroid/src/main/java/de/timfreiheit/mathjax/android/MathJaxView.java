@@ -165,7 +165,6 @@ public class MathJaxView extends FrameLayout {
         } else {
             mWebView.loadUrl(javascriptCommand);
         }
-
     }
 
     /**

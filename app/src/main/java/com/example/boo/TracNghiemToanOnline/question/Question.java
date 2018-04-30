@@ -48,6 +48,14 @@ public class Question implements Serializable{
         this.huongdangiai_image = huongdangiai_image;
     }
 
+    public int getChuyende() {
+        return chuyende;
+    }
+
+    public void setChuyende(int chuyende) {
+        this.chuyende = chuyende;
+    }
+
     public Question(int _id, String question, String ans_a, String ans_b, String ans_c, String ans_d, String result, int num_exam, int chuyende, String image, String huongdangiai, String huongdangiai_image, String dapAnChon) {
         this._id = _id;
         this.question = question;

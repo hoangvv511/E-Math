@@ -24,8 +24,17 @@ public class TestDoneActivity extends AppCompatActivity {
     int numNoAns=0;
     int numTrue=0;
     int numFalse=0;
-    int totalScore=0;
-
+    int numFalse_1 =0;
+    int numFalse_2 =0;
+    int numFalse_3 =0;
+    int numFalse_4 =0;
+    int numFalse_5 =0;
+    int numFalse_6 =0;
+    int numFalse_7 =0;
+    int numFalse_8 =0;
+    int numFalse_9 =0;
+    int totalScore =0;
+    int numcd1 = 0, numcd2 =0 , numcd3 =0 , numcd4 =0, numcd5 =0, numcd6=0, numcd7=0, numcd8=0, numcd9=0;
     ScoreController scoreController;
 
     TextView tvTrue, tvFalse, tvNotAns, tvTotalScore;
@@ -36,9 +45,20 @@ public class TestDoneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_done);
         scoreController=new ScoreController(TestDoneActivity.this);
-
         Intent intent= getIntent();
         arr_QuesBegin= (ArrayList<Question>) intent.getExtras().getSerializable("arr_Ques");
+        for(int i = 0; i <arr_QuesBegin.size() ; i++)
+        {
+            if(arr_QuesBegin.get(i).getChuyende() == 1) numcd1++;
+            if(arr_QuesBegin.get(i).getChuyende() == 2) numcd2++;
+            if(arr_QuesBegin.get(i).getChuyende() == 3) numcd3++;
+            if(arr_QuesBegin.get(i).getChuyende() == 4) numcd4++;
+            if(arr_QuesBegin.get(i).getChuyende() == 5) numcd5++;
+            if(arr_QuesBegin.get(i).getChuyende() == 6) numcd6++;
+            if(arr_QuesBegin.get(i).getChuyende() == 7) numcd7++;
+            if(arr_QuesBegin.get(i).getChuyende() == 8) numcd8++;
+            if(arr_QuesBegin.get(i).getChuyende() == 9) numcd9++;
+        }
         begin();
         checkResult();
         totalScore= numTrue*10;
@@ -121,11 +141,23 @@ public class TestDoneActivity extends AppCompatActivity {
     //PT Check kết quả
     public void checkResult(){
         for(int i=0; i< arr_QuesBegin.size(); i++){
-            if(arr_QuesBegin.get(i).getDapAnChon().equals("")==true){
+            if(arr_QuesBegin.get(i).getDapAnChon().equals("")){
                 numNoAns++;
-            }else if(arr_QuesBegin.get(i).getResult().equals(arr_QuesBegin.get(i).getDapAnChon())==true){
+            }else if(arr_QuesBegin.get(i).getResult().equals(arr_QuesBegin.get(i).getDapAnChon())){
                 numTrue++;
-            }else numFalse++;
+            }else
+            {
+                numFalse++;
+                if(arr_QuesBegin.get(i).getChuyende() == 1) numFalse_1++;
+                if(arr_QuesBegin.get(i).getChuyende() == 2) numFalse_2++;
+                if(arr_QuesBegin.get(i).getChuyende() == 3) numFalse_3++;
+                if(arr_QuesBegin.get(i).getChuyende() == 4) numFalse_4++;
+                if(arr_QuesBegin.get(i).getChuyende() == 5) numFalse_5++;
+                if(arr_QuesBegin.get(i).getChuyende() == 6) numFalse_6++;
+                if(arr_QuesBegin.get(i).getChuyende() == 7) numFalse_7++;
+                if(arr_QuesBegin.get(i).getChuyende() == 8) numFalse_8++;
+                if(arr_QuesBegin.get(i).getChuyende() == 9) numFalse_9++;
+            }
         }
     }
 }

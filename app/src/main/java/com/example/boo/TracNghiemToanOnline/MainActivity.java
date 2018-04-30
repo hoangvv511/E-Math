@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -81,10 +82,17 @@ public class MainActivity extends AppCompatActivity
 
                 tv_useremail.setText(email);
                 tv_username.setText(username);
-                byte[] decodeString2 = Base64.decode(imageavatar, Base64.DEFAULT);
-                Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
-                Bitmap bMapScaled2 = Bitmap.createScaledBitmap(decoded2, 100, 100, true);
-                profile_userimage.setImageBitmap(bMapScaled2);
+                if(imageavatar.length() > 1000)
+                {
+                    byte[] decodeString2 = Base64.decode(imageavatar, Base64.DEFAULT);
+                    Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
+                    Bitmap bMapScaled2 = Bitmap.createScaledBitmap(decoded2, 100, 100, true);
+                    profile_userimage.setImageBitmap(bMapScaled2);
+                }
+                else
+                {
+                    Picasso.get().load(imageavatar).into(profile_userimage);
+                }
             }
 
             @Override

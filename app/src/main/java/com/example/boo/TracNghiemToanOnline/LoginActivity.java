@@ -2,6 +2,7 @@ package com.example.boo.TracNghiemToanOnline;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -23,8 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -68,19 +68,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "Please enter password", Toast.LENGTH_LONG).show();
             return;
         }
-
-        progressDialog.setMessage("Sign in...  ");
-        progressDialog.show();
+        final Handler handler = new Handler();
+        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Loading...");
+        pDialog.setCancelable(false);
+        pDialog.show();
 
         firebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
-
                         if(task.isSuccessful()){
-                            finish();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    finish();
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                }
+                            }, 3000);
+                            pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                            pDialog.setTitleText("Đăng nhập thành công!");
+                        }
+                        else
+                        {
+                            pDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                            pDialog.setTitleText("Sai email hoặc mật khẩu");
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    pDialog.dismissWithAnimation();
+                                }
+                            }, 2000);
                         }
                     }
                 });

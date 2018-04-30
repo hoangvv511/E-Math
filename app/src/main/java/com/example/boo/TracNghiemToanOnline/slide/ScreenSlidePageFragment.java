@@ -3,6 +3,7 @@ package com.example.boo.TracNghiemToanOnline.slide;
 
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothManager;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -21,8 +22,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.boo.TracNghiemToanOnline.MainActivity;
 import com.example.boo.TracNghiemToanOnline.R;
 import com.example.boo.TracNghiemToanOnline.question.Question;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
+
 import java.util.ArrayList;
 
 import de.timfreiheit.mathjax.android.MathJaxView;
@@ -42,12 +46,13 @@ public class ScreenSlidePageFragment extends Fragment {
     TextView tvNum, tv_goiy;
     RadioGroup radioGroup;
     RadioButton radA, radB, radC, radD;
+    String ansA, ansB, ansC, ansD,question, result, base64image, base64image2;
     ImageView im_question, im_goiy;
     public MathJaxView mv_question,mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD, mv_goiy;
     public ScreenSlidePageFragment() {
         // Required empty public constructor
     }
-
+    final Handler handler = new Handler();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,6 +87,14 @@ public class ScreenSlidePageFragment extends Fragment {
         arr_Ques = slideActivity.getData();
         mPageNumber = getArguments().getInt(ARG_PAGE);
         checkAns= getArguments().getInt(ARG_CHECKANSWER);
+        question= arr_Ques.get(mPageNumber).getQuestion();
+        base64image = arr_Ques.get(mPageNumber).getImage();
+        base64image2 = arr_Ques.get(mPageNumber).getHuongdangiai_image();
+        ansA = getItem(mPageNumber).getAns_a();
+        ansB = getItem(mPageNumber).getAns_b();
+        ansC = getItem(mPageNumber).getAns_c();
+        ansD = getItem(mPageNumber).getAns_d();
+        result = getItem(mPageNumber).getHuongdangiai();
     }
 
     public static ScreenSlidePageFragment create(int pageNumber, int checkAnswer) {
@@ -97,18 +110,14 @@ public class ScreenSlidePageFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        String question= arr_Ques.get(mPageNumber).getQuestion();
-
-        final String base64image = arr_Ques.get(mPageNumber).getImage();
-        final String base64image2 = arr_Ques.get(mPageNumber).getHuongdangiai_image();
 
         tvNum.setText("Câu " + (mPageNumber + 1));
-        mv_goiy.setInputText(getItem(mPageNumber).getHuongdangiai());
+        mv_goiy.setInputText(result);
         mv_question.setInputText(question);
-        mv_AnsA.setInputText(getItem(mPageNumber).getAns_a());
-        mv_AnsB.setInputText(getItem(mPageNumber).getAns_b());
-        mv_AnsC.setInputText(getItem(mPageNumber).getAns_c());
-        mv_AnsD.setInputText(getItem(mPageNumber).getAns_d());
+        mv_AnsA.setInputText(ansA);
+        mv_AnsB.setInputText(ansB);
+        mv_AnsC.setInputText(ansC);
+        mv_AnsD.setInputText(ansD);
         tv_goiy.setEnabled(false);
         tv_goiy.setVisibility(View.GONE);
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.boo.TracNghiemToanOnline">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,8 +12,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/owl"
         android:label="E-Math"
+        android:icon="@drawable/owl"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -30,6 +31,7 @@
         <activity android:name=".slide.ScreenSlideActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".slide.TestDoneActivity"
+            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity android:name=".RegisterActivity"
             android:screenOrientation="portrait"

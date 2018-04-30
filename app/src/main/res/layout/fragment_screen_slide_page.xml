@@ -60,7 +60,10 @@
                     android:layout_marginTop="3dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvNum" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvNum"
+                    app:horizontalScrollbarsEnabled="false"
+                    app:verticalScrollbarsEnabled="true"
+                    app:automaticLinebreaks="true"/>
 
                 <ImageView
                     android:id="@+id/imV_question"
@@ -92,7 +95,10 @@
                         android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:horizontalScrollbarsEnabled="false"
+                        app:verticalScrollbarsEnabled="true"
+                        app:automaticLinebreaks="true"/>
 
                     <de.timfreiheit.mathjax.android.MathJaxView
                         android:id="@+id/mv_AnsB"
@@ -101,7 +107,10 @@
                         android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mv_AnsA" />
+                        app:layout_constraintTop_toBottomOf="@+id/mv_AnsA"
+                        app:horizontalScrollbarsEnabled="false"
+                        app:verticalScrollbarsEnabled="true"
+                        app:automaticLinebreaks="true"/>
 
                     <de.timfreiheit.mathjax.android.MathJaxView
                         android:id="@+id/mv_AnsC"
@@ -110,7 +119,10 @@
                         android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mv_AnsB" />
+                        app:layout_constraintTop_toBottomOf="@+id/mv_AnsB"
+                        app:horizontalScrollbarsEnabled="false"
+                        app:verticalScrollbarsEnabled="true"
+                        app:automaticLinebreaks="true"/>
 
                     <de.timfreiheit.mathjax.android.MathJaxView
                         android:id="@+id/mv_AnsD"
@@ -121,7 +133,10 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/mv_AnsC">
+                        app:layout_constraintTop_toBottomOf="@+id/mv_AnsC"
+                        app:horizontalScrollbarsEnabled="false"
+                        app:verticalScrollbarsEnabled="true"
+                        app:automaticLinebreaks="true">
 
                     </de.timfreiheit.mathjax.android.MathJaxView>
 
@@ -233,9 +248,9 @@
                         android:id="@+id/imv_goiy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="9dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="center"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_goiy"
@@ -250,7 +265,10 @@
                         android:layout_marginTop="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imv_goiy">
+                        app:layout_constraintTop_toBottomOf="@+id/imv_goiy"
+                        app:horizontalScrollbarsEnabled="false"
+                        app:verticalScrollbarsEnabled="true"
+                        app:automaticLinebreaks="true">
 
                     </de.timfreiheit.mathjax.android.MathJaxView>
 

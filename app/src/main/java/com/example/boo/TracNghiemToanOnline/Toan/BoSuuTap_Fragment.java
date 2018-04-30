@@ -50,7 +50,6 @@ public class BoSuuTap_Fragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -67,7 +66,6 @@ public class BoSuuTap_Fragment extends Fragment {
         try
         {
             lvCreateTest= getActivity().findViewById(R.id.gvBoSuuTap);
-
             databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -76,29 +74,31 @@ public class BoSuuTap_Fragment extends Fragment {
                         databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tende).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                tendethi = data.child("Tên đề thi").getValue().toString();
-                                thoigian = data.child("Thời gian").getValue().toString();
-                                tongsocau = data.child("Tổng số câu").getValue().toString();
-                                arr_examcreate.add(new Exam(tendethi,thoigian,tongsocau,MainActivity.imageavatar, MainActivity.username));
-                                examAdapter=new ExamAdapter(getActivity(),arr_examcreate);
-                                lvCreateTest.setAdapter(examAdapter);
-                                lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                        Intent intent = new Intent(getActivity(), ScreenSlideActivity.class);
-                                        intent.putExtra("TenDe", tendethi);
-                                        intent.putExtra("Thoigian", thoigian);
-                                        intent.putExtra("SoCau", tongsocau);
-                                        startActivity(intent);
-                                    }
-                                });
+                                if(dataSnapshot != null)
+                                {
+                                    tendethi = data.child("Tên đề thi").getValue().toString();
+                                    thoigian = data.child("Thời gian").getValue().toString();
+                                    tongsocau = data.child("Tổng số câu").getValue().toString();
+                                    arr_examcreate.add(new Exam(tendethi,thoigian + " phút",tongsocau + " câu",MainActivity.imageavatar, MainActivity.username));
+                                    examAdapter=new ExamAdapter(getActivity(),arr_examcreate);
+                                    lvCreateTest.setAdapter(examAdapter);
+                                    lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                            Intent intent = new Intent(getActivity(), ScreenSlideActivity.class);
+                                            intent.putExtra("TenDe", tendethi);
+                                            intent.putExtra("Thoigian", thoigian);
+                                            intent.putExtra("SoCau", tongsocau);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
-
+                                Toast.makeText(getActivity(), "Không tìm thấy đề thi nào", Toast.LENGTH_SHORT).show();
                             }
                         });
-
                     }
                 }
                 @Override
@@ -109,6 +109,10 @@ public class BoSuuTap_Fragment extends Fragment {
 
         }
         catch (Exception e)
+        {
+
+        }
+        if(lvCreateTest.getCount() == 0)
         {
             tv_notest.setVisibility(getView().VISIBLE);
         }

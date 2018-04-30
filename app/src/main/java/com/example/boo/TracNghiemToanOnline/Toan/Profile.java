@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -98,10 +99,17 @@ public class Profile extends Fragment {
                 tv_nickname.setText(username);
                 image = userInformation.imageAvatar.toString().trim();
 
-                byte[] decodeString2 = Base64.decode(image, Base64.DEFAULT);
-                Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
-                Bitmap bMapScaled2 = Bitmap.createScaledBitmap(decoded2, 100, 100, true);
-                cimv_avatar.setImageBitmap(bMapScaled2);
+                if(image.length() > 1000)
+                {
+                    byte[] decodeString2 = Base64.decode(image, Base64.DEFAULT);
+                    Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
+                    Bitmap bMapScaled2 = Bitmap.createScaledBitmap(decoded2, 100, 100, true);
+                    cimv_avatar.setImageBitmap(bMapScaled2);
+                }
+                else
+                {
+                    Picasso.get().load(image).into(cimv_avatar);
+                }
             }
 
             @Override

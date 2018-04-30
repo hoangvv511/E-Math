@@ -44,7 +44,7 @@ public class ExamAdapter extends ArrayAdapter<Exam> {
             {
                 byte[] decodeString2 = Base64.decode(p.getAvataruser(), Base64.DEFAULT);
                 Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
-                Bitmap bMapScaled2 = Bitmap.createScaledBitmap(decoded2, 100, 100, true);
+                Bitmap bMapScaled2 = Bitmap.createScaledBitmap(decoded2, decoded2.getWidth(), decoded2.getHeight(), true);
                 imvAvatarUser.setImageBitmap(bMapScaled2);
             }
             else

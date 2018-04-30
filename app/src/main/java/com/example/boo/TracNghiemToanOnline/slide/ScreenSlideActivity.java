@@ -24,7 +24,6 @@ import com.example.boo.TracNghiemToanOnline.question.QuestionController;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-import info.hoang8f.widget.FButton;
 
 public class ScreenSlideActivity extends FragmentActivity {
     /**

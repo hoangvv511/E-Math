@@ -1,11 +1,14 @@
 package com.example.boo.TracNghiemToanOnline;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
@@ -28,9 +31,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,10 +55,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private FirebaseAuth firebaseAuth;
     private CircleImageView cimv_useravatar;
     private Uri filepath;
+    private ArrayList<String> user_name;
     private final int PICK_IMAGE_REQUEST = 71;
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    private StorageReference storageRef;
-    private String imagebase64;
+    private String imagebase64 = "https://firebasestorage.googleapis.com/v0/b/myapplication-6d1ae.appspot.com/o/ic_user.png?alt=media&token=a7dd14a7-a01c-4021-833c-31e6cf8afb85";
+    private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
         cimv_useravatar = findViewById(R.id.cimv_useravatar);
+        user_name = new ArrayList<>();
 
         cimv_useravatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,84 +98,87 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 final String confirmpassword = editTextConfirmPassword.getText().toString().trim();
                 final String fullname = editTextFullname.getText().toString().trim();
                 final String phone = editTextPhone.getText().toString().trim();
-                Query usernamequery = FirebaseDatabase.getInstance().getReference().child("Users").child("Information").orderByChild("username").equalTo(username);
-                usernamequery.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.getChildrenCount()>0)
-                        {
-                            Toast.makeText( RegisterActivity.this, "Choose a different username", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            if(TextUtils.isEmpty(username))
-                            {
-                                Toast.makeText(RegisterActivity.this, "Please enter username", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            if(username.length()<6)
-                            {
-                                Toast.makeText(RegisterActivity.this, "Username must at least 6 character", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            if(TextUtils.isEmpty(email)) // k nhập tài khoản sẽ báo lỗi
-                            {
-                                Toast.makeText(RegisterActivity.this, "Please enter email", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            if(TextUtils.isEmpty(password)) // k nhập pass sẽ báo lỗi
-                            {
-                                Toast.makeText(RegisterActivity.this, "Please enter password", Toast.LENGTH_LONG).show();
-                                return;
-                            }
-                            if(TextUtils.isEmpty(confirmpassword))
-                            {
-                                Toast.makeText(RegisterActivity.this, "Please enter confirm password", Toast.LENGTH_LONG).show();
-                                return;
-                            }
-                            if(!password.equals(confirmpassword))
-                            {
-                                Toast.makeText(RegisterActivity.this, "Password must be same", Toast.LENGTH_LONG).show();
-                                return;
-                            }
-                            if(TextUtils.isEmpty(fullname))
-                            {
-                                Toast.makeText(RegisterActivity.this, "Please enter your fullname", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            if(TextUtils.isEmpty(phone))
-                            {
-                                Toast.makeText(RegisterActivity.this, "Please enter your phone number", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                            progressDialog.setMessage("Registering User...  ");
-                            progressDialog.show();
 
-                            firebaseAuth.createUserWithEmailAndPassword(email,password)
-                                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if(task.isSuccessful()){
-                                                String user_id = firebaseAuth.getCurrentUser().getUid();
-                                                final DatabaseReference current_user = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id).child("Information");
-                                                UserInformation userInformation = new UserInformation(email, fullname, imagebase64, phone, username);
-                                                current_user.setValue(userInformation);
+                if(TextUtils.isEmpty(username))
+                {
+                    Toast.makeText(RegisterActivity.this, "Bạn chưa nhập Username", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(username.length()<6)
+                {
+                    Toast.makeText(RegisterActivity.this, "Mật khẩu ít nhất 6 kí tự", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(email)) // k nhập tài khoản sẽ báo lỗi
+                {
+                    Toast.makeText(RegisterActivity.this, "Bạn chưa nhập email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(password)) // k nhập pass sẽ báo lỗi
+                {
+                    Toast.makeText(RegisterActivity.this, "Bạn chưa nhập mật khẩu", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(confirmpassword))
+                {
+                    Toast.makeText(RegisterActivity.this, "Bạn chưa nhập mật khẩu xác thực", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(!password.equals(confirmpassword))
+                {
+                    Toast.makeText(RegisterActivity.this, "Mật khẩu không khớp", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(fullname))
+                {
+                    Toast.makeText(RegisterActivity.this, "Bạn chưa nhập tên", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(phone))
+                {
+                    Toast.makeText(RegisterActivity.this, "Bạn chưa nhập số điện thoại", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                final Handler handler = new Handler();
+                final SweetAlertDialog Dialog = new SweetAlertDialog(RegisterActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+                Dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                Dialog.setTitleText("Đang đăng kí....");
+                Dialog.setCancelable(false);
+                Dialog.show();
+                    firebaseAuth.createUserWithEmailAndPassword(email,password)
+                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        String user_id = firebaseAuth.getCurrentUser().getUid();
+                                        final DatabaseReference current_user = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id).child("Information");
+                                        UserInformation userInformation = new UserInformation(email, fullname, imagebase64, phone, username);
+                                        current_user.setValue(userInformation);
+
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
                                                 if(firebaseAuth.getCurrentUser() != null){
                                                     finish();
                                                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                                 }
-                                            } else { // tạo không thành công ( do tài khoản hay mật khẩu không đúng định dạng )
-                                                Toast.makeText(RegisterActivity.this, "Could not register...please try again", Toast.LENGTH_SHORT).show();
                                             }
-                                            progressDialog.dismiss();
-                                        }
-                                    });
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
+                                        }, 3000);
+                                        Dialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                        Dialog.setTitleText("Đăng kí thành công!");
+                                    } else { // tạo không thành công
+                                        Dialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                        Dialog.setTitleText("Đăng kí thất bại!");
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Dialog.dismissWithAnimation();
+                                            }
+                                        },2000);
+                                    }
+                                    progressDialog.dismiss();
+                                }
+                            });
             }
         });
         textViewSignin.setOnClickListener(this);

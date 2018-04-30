@@ -7,12 +7,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,6 +68,22 @@ public class UserSetting extends android.support.v4.app.DialogFragment {
                 fullname = edt_fullname.getText().toString().trim();
                 phone = edt_phone.getText().toString().trim();
                 email = getArguments().getString("emailuser");
+
+                if(TextUtils.isEmpty(fullname)) // k nhập tài khoản sẽ báo lỗi
+                {
+                    Toast.makeText(getActivity(), "Please enter your fullname", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(phone)) // k nhập pass sẽ báo lỗi
+                {
+                    Toast.makeText(getActivity(), "Please enter your phone number", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(TextUtils.isEmpty(imagebase64)) // k nhập pass sẽ báo lỗi
+                {
+                    Toast.makeText(getActivity(), "Please choose your picture", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 UserInformation userInformation = new UserInformation(email, fullname, imagebase64, phone, username);
                 databaseRefence.child("Users").child(user.getUid()).child("Information").setValue(userInformation);
             }
