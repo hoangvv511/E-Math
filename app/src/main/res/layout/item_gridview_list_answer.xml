@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvNumAns"
+        android:textColor="@color/blue_primary"
         android:layout_weight="1" />
 
     <TextView
@@ -15,5 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvAnswer"
+        android:textColor="@color/red_primary"
         android:layout_weight="1" />
+
+
 </LinearLayout>

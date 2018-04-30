@@ -65,5 +65,4 @@ public class UserInformation {
         this.username = username;
     }
 
-
 }

@@ -11,7 +11,6 @@ public class UserExam {
     public String tendethi;
     public String thoigian;
     public String socauhoi;
-    public Map<String, Integer> cauhoi;
 
     public UserExam()
     {
@@ -48,11 +47,4 @@ public class UserExam {
         this.socauhoi = socauhoi;
     }
 
-    public Map<String, Integer> getCauhoi() {
-        return cauhoi;
-    }
-
-    public void setCauhoi(HashMap<String, Integer> cauhoi) {
-        this.cauhoi = cauhoi;
-    }
 }

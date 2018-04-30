@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
+    android:layout_marginLeft="6dp"
+    android:layout_marginRight="6dp"
+    android:background="#ffffff"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardBackgroundColor="#ffffff"
+    card_view:cardElevation="8dp">
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent">
 
+        <com.lid.lib.LabelTextView
+            android:id="@+id/text"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_gravity="left"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            app:label_backgroundColor="#03A9F4"
+            app:label_distance="10dp"
+            app:label_orientation="LEFT_TOP"
+            app:label_text="Mới"
+            app:label_textSize="10sp"
+            app:layout_constraintTop_toTopOf="parent" />
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="20dp"
@@ -36,19 +61,19 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView3"
-            app:srcCompat="@drawable/unknown" />
+            app:layout_constraintStart_toEndOf="@+id/tv_time"
+            app:srcCompat="@drawable/questionnumber" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imv_avataruser"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/tvNumExam"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_numberQuestion"
             app:srcCompat="@drawable/useradmin" />
 
         <TextView
@@ -57,19 +82,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
-            android:text="50"
+            android:text="50 câu"
+            android:textStyle="bold"
+            android:textColor="#DF0101"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView3" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="3dp"
-            android:text="câu"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_numberQuestion" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -77,7 +94,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="10dp"
-            android:text="90"
+            android:text="90 phút"
+            android:textStyle="bold"
+            android:textColor="@color/light_green_primary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView" />
 
@@ -85,14 +104,14 @@
             android:id="@+id/tvNumExam"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:gravity="left"
+            android:padding="13dp"
             android:text="Đề số 1"
             android:textColor="#435cec"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -103,18 +122,12 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             android:text="TextView"
+            android:textColor="@color/app_yellow_dark"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imv_avataruser" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="3dp"
-            android:text="phút"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_time" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

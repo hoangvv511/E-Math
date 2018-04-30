@@ -5,7 +5,7 @@
 
     <GridView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:numColumns="3"
         android:id="@+id/gvLsQuestion" />
 
@@ -19,6 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnCancle"
+            android:textColor="#FFFFFF"
+            android:background="@color/blue_primary"
             android:layout_weight="1" />
 
         <Button
@@ -26,6 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnFinish"
+            android:textColor="#FFFFFF"
+            android:background="@color/red_primary"
             android:layout_weight="1" />
     </LinearLayout>
 

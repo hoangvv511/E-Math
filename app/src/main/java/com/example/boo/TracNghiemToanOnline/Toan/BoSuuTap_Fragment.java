@@ -79,7 +79,7 @@ public class BoSuuTap_Fragment extends Fragment {
                                 tendethi = data.child("Tên đề thi").getValue().toString();
                                 thoigian = data.child("Thời gian").getValue().toString();
                                 tongsocau = data.child("Tổng số câu").getValue().toString();
-                                arr_examcreate.add(new Exam(tendethi,thoigian,Integer.valueOf(tongsocau),MainActivity.imageavatar, MainActivity.username));
+                                arr_examcreate.add(new Exam(tendethi,thoigian,tongsocau,MainActivity.imageavatar, MainActivity.username));
                                 examAdapter=new ExamAdapter(getActivity(),arr_examcreate);
                                 lvCreateTest.setAdapter(examAdapter);
                                 lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {

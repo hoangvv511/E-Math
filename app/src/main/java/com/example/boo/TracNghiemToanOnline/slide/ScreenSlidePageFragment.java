@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
@@ -42,7 +43,6 @@ public class ScreenSlidePageFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton radA, radB, radC, radD;
     ImageView im_question, im_goiy;
-    //public io.github.sidvenu.mathjaxview.MathJaxView mv_question,mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD, mv_goiy;
     public MathJaxView mv_question,mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD, mv_goiy;
     public ScreenSlidePageFragment() {
         // Required empty public constructor
@@ -103,14 +103,12 @@ public class ScreenSlidePageFragment extends Fragment {
         final String base64image2 = arr_Ques.get(mPageNumber).getHuongdangiai_image();
 
         tvNum.setText("Câu " + (mPageNumber + 1));
-
         mv_goiy.setInputText(getItem(mPageNumber).getHuongdangiai());
         mv_question.setInputText(question);
         mv_AnsA.setInputText(getItem(mPageNumber).getAns_a());
         mv_AnsB.setInputText(getItem(mPageNumber).getAns_b());
         mv_AnsC.setInputText(getItem(mPageNumber).getAns_c());
         mv_AnsD.setInputText(getItem(mPageNumber).getAns_d());
-
         tv_goiy.setEnabled(false);
         tv_goiy.setVisibility(View.GONE);
 
@@ -227,21 +225,50 @@ public class ScreenSlidePageFragment extends Fragment {
     //Hàm kiểm tra câu đúng, nếu câu đúng thì đổi màu background radiobutton tương ứng
     private void getCheckAns(String DapAnChon)
     {
-        if(DapAnChon.equals("A"))
+        String MyAns = getItem(mPageNumber).getDapAnChon();
+        if(DapAnChon.equals("A") && MyAns.equals("A"))
         {
             mv_AnsA.setBackgroundColor(Color.rgb(0	,255 	,64));
         }
-        if(DapAnChon.equals("B"))
+        if(DapAnChon.equals("A") && !MyAns.equals("A"))
+        {
+            mv_AnsA.setBackgroundColor(Color.rgb(0	,255 	,64));
+            if(MyAns.equals("B"))  mv_AnsB.setBackgroundColor(Color.rgb(255	,0 	,0));
+            if(MyAns.equals("C"))  mv_AnsC.setBackgroundColor(Color.rgb(255	,0 	,0));
+            if(MyAns.equals("D"))  mv_AnsD.setBackgroundColor(Color.rgb(255	,0 	,0));
+        }
+        if(DapAnChon.equals("B") && MyAns.equals("B"))
         {
             mv_AnsB.setBackgroundColor(Color.rgb(0	,255 	,64));
         }
-        if(DapAnChon.equals("C"))
+        if(DapAnChon.equals("B") && !MyAns.equals("B"))
+        {
+            mv_AnsB.setBackgroundColor(Color.rgb(0	,255 	,64));
+            if(MyAns.equals("A"))  mv_AnsA.setBackgroundColor(Color.rgb(255	,0 	,0));
+            if(MyAns.equals("C"))  mv_AnsC.setBackgroundColor(Color.rgb(255	,0 	,0));
+            if(MyAns.equals("D"))  mv_AnsD.setBackgroundColor(Color.rgb(255	,0 	,0));
+        }
+        if(DapAnChon.equals("C") && MyAns.equals("C"))
         {
             mv_AnsC.setBackgroundColor(Color.rgb(0	,255 	,64));
         }
-        if(DapAnChon.equals("D"))
+        if(DapAnChon.equals("C") && !MyAns.equals("C"))
+        {
+            mv_AnsC.setBackgroundColor(Color.rgb(0	,255 	,64));
+            if(MyAns.equals("B"))  mv_AnsB.setBackgroundColor(Color.rgb(255	,0 	,0));
+            if(MyAns.equals("A"))  mv_AnsA.setBackgroundColor(Color.rgb(255	,0 	,0));
+            if(MyAns.equals("D"))  mv_AnsD.setBackgroundColor(Color.rgb(255	,0 	,0));
+        }
+        if(DapAnChon.equals("D") && MyAns.equals("D"))
         {
             mv_AnsD.setBackgroundColor(Color.rgb(0	,255 	,64));
+        }
+        if(DapAnChon.equals("D") && !MyAns.equals("D"))
+        {
+            mv_AnsD.setBackgroundColor(Color.rgb(0	,255 	,64));
+            if(MyAns.equals("B"))  mv_AnsB.setBackgroundColor(Color.rgb(255	,0 	,0));
+            if(MyAns.equals("C"))  mv_AnsC.setBackgroundColor(Color.rgb(255	,0 	,0));
+            if(MyAns.equals("A"))  mv_AnsA.setBackgroundColor(Color.rgb(255	,0 	,0));
         }
     }
 }

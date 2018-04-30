@@ -24,6 +24,7 @@ import com.example.boo.TracNghiemToanOnline.question.QuestionController;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import info.hoang8f.widget.FButton;
 
 public class ScreenSlideActivity extends FragmentActivity {
     /**
@@ -132,7 +133,7 @@ public class ScreenSlideActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        if (mPager.getCurrentItem() == 0) {
+        if (mPager.getCurrentItem() == 0 ||  checkAns == 1) {
             dialogExit();
         } else {
             // Otherwise, select the previous step.
@@ -237,8 +238,8 @@ public class ScreenSlideActivity extends FragmentActivity {
         });
 
         Button btnCancle, btnFinish;
-        btnCancle = (Button) dialog.findViewById(R.id.btnCancle);
-        btnFinish = (Button) dialog.findViewById(R.id.btnFinish);
+        btnCancle = dialog.findViewById(R.id.btnCancle);
+        btnFinish = dialog.findViewById(R.id.btnFinish);
         btnCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
