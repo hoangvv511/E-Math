@@ -91,6 +91,7 @@ public class MathJaxView extends FrameLayout {
                         gravity
                 )
         );
+
         // callback when WebView is loading completed
         webViewLoaded = false;
         mWebView.setWebViewClient(new WebViewClient() {
@@ -114,7 +115,7 @@ public class MathJaxView extends FrameLayout {
         mWebView.addJavascriptInterface(config, "BridgeConfig");
 
         // be careful, we do not need internet access
-        mWebView.getSettings().setBlockNetworkLoads(true);
+        //mWebView.getSettings().setBlockNetworkLoads(true);
 
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(HTML_LOCATION);

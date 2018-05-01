@@ -49,7 +49,7 @@ public class ExamAdapter extends ArrayAdapter<Exam> {
             }
             else
             {
-                Picasso.get().load(p.getAvataruser()).into(imvAvatarUser);
+                Picasso.with(getContext()).load(p.getAvataruser()).into(imvAvatarUser);
             }
         }
         return convertView;

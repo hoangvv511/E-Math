@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     finish();
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 }
-                            }, 3000);
+                            }, 1500);
                             pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
                             pDialog.setTitleText("Đăng nhập thành công!");
                         }
@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 public void run() {
                                     pDialog.dismissWithAnimation();
                                 }
-                            }, 2000);
+                            }, 1500);
                         }
                     }
                 });

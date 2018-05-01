@@ -22,9 +22,11 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.example.boo.TracNghiemToanOnline.MainActivity;
 import com.example.boo.TracNghiemToanOnline.R;
 import com.example.boo.TracNghiemToanOnline.question.Question;
 import com.example.boo.TracNghiemToanOnline.question.QuestionController;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -53,6 +55,7 @@ public class ScreenSlideActivity extends FragmentActivity {
     QuestionController questionController;
     ArrayList<Question> arr_Ques;
     CounterClass timer;
+    TextView tende;
     //String subject;
     int num_exam;
     int totalTimer;
@@ -64,12 +67,15 @@ public class ScreenSlideActivity extends FragmentActivity {
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
+        tende = findViewById(R.id.tv_tendethi);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
         mPager.setPageTransformer(true, new DepthPageTransformer());
 
         Intent intent = getIntent();
         name = intent.getStringExtra("TenDe");
+        tende.setText(intent.getStringExtra("tendethi"));
+        tende.setSelected(true);
         if(name != null)
         {
             totalTimer = Integer.valueOf(intent.getStringExtra("Thoigian"));
@@ -124,6 +130,7 @@ public class ScreenSlideActivity extends FragmentActivity {
                 public void onClick(View v) {
                     Intent intent1 = new Intent(ScreenSlideActivity.this, TestDoneActivity.class);
                     intent1.putExtra("arr_Ques", arr_Ques);
+                    intent1.putExtra("exam", num_exam);
                     startActivity(intent1);
                     overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
                 }
@@ -147,23 +154,25 @@ public class ScreenSlideActivity extends FragmentActivity {
     }
 
     public void dialogExit(){
-        final AlertDialog.Builder builder=new AlertDialog.Builder(ScreenSlideActivity.this);
-        builder.setIcon(R.drawable.exit);
-        builder.setTitle("Thông báo");
-        builder.setMessage("Bạn có muốn thoát hay không?");
-        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                timer.cancel();
-                finish();
-            }
-        });
-        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        builder.show();
+        new SweetAlertDialog(ScreenSlideActivity.this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Bạn muốn thoát hay không ?")
+                .setCancelText("No")
+                .setConfirmText("Yes")
+                .showCancelButton(true)
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.cancel();
+                    }
+                })
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        timer.cancel();
+                        finish();
+                    }
+                })
+                .show();
     }
 
     /**
@@ -245,6 +254,7 @@ public class ScreenSlideActivity extends FragmentActivity {
         Button btnCancle, btnFinish;
         btnCancle = dialog.findViewById(R.id.btnCancle);
         btnFinish = dialog.findViewById(R.id.btnFinish);
+        if(checkAns==1) btnFinish.setVisibility(View.GONE);
         btnCancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -260,7 +270,7 @@ public class ScreenSlideActivity extends FragmentActivity {
                 dialog.dismiss();
             }
         });
-        //ok
+
         dialog.show();
     }
 
@@ -269,7 +279,6 @@ public class ScreenSlideActivity extends FragmentActivity {
         if (mPager.getCurrentItem() >= 4) mPager.setCurrentItem(mPager.getCurrentItem() - 4);
         else if (mPager.getCurrentItem() <= 4) mPager.setCurrentItem(mPager.getCurrentItem() + 4);
         tvXemDiem.setVisibility(View.VISIBLE);
-        tvKiemtra.setVisibility(View.GONE);
     }
 
     public class CounterClass extends CountDownTimer {

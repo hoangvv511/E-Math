@@ -51,7 +51,7 @@ public class Profile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Thông tin cá nhân");
+
         View view = inflater.inflate(R.layout.profile, container, false);
 
         imv_logout = view.findViewById(R.id.imv_userlogout);
@@ -83,22 +83,11 @@ public class Profile extends Fragment {
         tv_phone = view.findViewById(R.id.tv_phone);
         tv_nickname = view.findViewById(R.id.tv_nickname);
 
-
-        databaseRefence.child("Users").child(user.getUid()).child("Information").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                userInformation = dataSnapshot.getValue(UserInformation.class);
-                email = userInformation.email.toString().trim();
-                fullname = userInformation.fullname.toString().trim();
-                phone = userInformation.phone.toString().trim() ;
-                username = userInformation.username.toString().trim();
-
-                tv_fullname.setText(fullname);
-                tv_email.setText(email);
-                tv_phone.setText(phone);
-                tv_nickname.setText(username);
-                image = userInformation.imageAvatar.toString().trim();
-
+        tv_fullname.setText(MainActivity.fullname);
+        tv_email.setText(MainActivity.email);
+        tv_phone.setText(MainActivity.phone);
+        tv_nickname.setText(MainActivity.username);
+        image = MainActivity.imageavatar;
                 if(image.length() > 1000)
                 {
                     byte[] decodeString2 = Base64.decode(image, Base64.DEFAULT);
@@ -108,15 +97,9 @@ public class Profile extends Fragment {
                 }
                 else
                 {
-                    Picasso.get().load(image).into(cimv_avatar);
+                    Picasso.with(getActivity()).load(image).into(cimv_avatar);
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         return view;
     }
 

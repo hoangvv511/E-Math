@@ -163,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                     startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                                 }
                                             }
-                                        }, 3000);
+                                        }, 1500);
                                         Dialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
                                         Dialog.setTitleText("Đăng kí thành công!");
                                     } else { // tạo không thành công
@@ -174,7 +174,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             public void run() {
                                                 Dialog.dismissWithAnimation();
                                             }
-                                        },2000);
+                                        },1500);
                                     }
                                     progressDialog.dismiss();
                                 }

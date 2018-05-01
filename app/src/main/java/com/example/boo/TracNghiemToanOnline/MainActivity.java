@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.boo.TracNghiemToanOnline.Toan.BoSuuTap_Fragment;
 import com.example.boo.TracNghiemToanOnline.Toan.Profile;
@@ -29,21 +34,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
 
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     private UserInformation userInformation;
-    String email, fullname;
-    public static String username,imageavatar;
-    String phone;
+    public static String username,imageavatar,phone,email,fullname;
     de.hdodenhof.circleimageview.CircleImageView profile_userimage;
     TextView tv_username;
     TextView tv_useremail;
@@ -56,19 +57,10 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.nav_view);
+        navigationView.setOnNavigationItemSelectedListener(navListener);
         navigationView.setItemIconTintList(null);
-        View header = navigationView.getHeaderView(0);
-        profile_userimage = (de.hdodenhof.circleimageview.CircleImageView) header.findViewById(R.id.profile_image);
-        tv_username = (TextView) header.findViewById(R.id.tv_username);
-        tv_useremail = (TextView) header.findViewById(R.id.tv_useremail);
+
 
         databaseRefence.child("Users").child(user.getUid()).child("Information").addValueEventListener(new ValueEventListener() {
             @Override
@@ -79,20 +71,6 @@ public class MainActivity extends AppCompatActivity
                 phone = userInformation.phone.toString().trim();
                 username = userInformation.username.toString().trim();
                 imageavatar = userInformation.imageAvatar.toString().trim();
-
-                tv_useremail.setText(email);
-                tv_username.setText(username);
-                if(imageavatar.length() > 1000)
-                {
-                    byte[] decodeString2 = Base64.decode(imageavatar, Base64.DEFAULT);
-                    Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
-                    Bitmap bMapScaled2 = Bitmap.createScaledBitmap(decoded2, 100, 100, true);
-                    profile_userimage.setImageBitmap(bMapScaled2);
-                }
-                else
-                {
-                    Picasso.get().load(imageavatar).into(profile_userimage);
-                }
             }
 
             @Override
@@ -101,10 +79,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
-        DeThiFragment homeFragment = new DeThiFragment();
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.content_main, homeFragment, homeFragment.getTag()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DeThiFragment()).commit();
 
         DBHelper db = new DBHelper(this);
 
@@ -119,15 +94,23 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
+    boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce=false;
+                }
+            }, 2000);
     }
 
     @Override
@@ -153,54 +136,28 @@ public class MainActivity extends AppCompatActivity
     }
 
     //
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selectedFragment = null;
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_profile)
-        {
-            // Handle the camera action
-            Profile profile = new Profile();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main, profile, profile.getTag()).commit();
+            switch (item.getItemId())
+            {
+                case R.id.nav_dethi:
+                    selectedFragment = new DeThiFragment();
+                    break;
+                case R.id.nav_bosuutap:
+                    selectedFragment = new BoSuuTap_Fragment();
+                    break;
+                case R.id.nav_tailieu:
+                    selectedFragment = new TaiLieuFragment();
+                    break;
+                case R.id.nav_profile:
+                    selectedFragment = new Profile();
+                    break;
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            return true;
         }
-        else if (id == R.id.nav_dethi)
-        {
-            DeThiFragment deThi_fragment = new DeThiFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main, deThi_fragment, deThi_fragment.getTag()).commit();
-
-        }
-        else if (id == R.id.nav_chuyende)
-        {
-            TaoDeFragment taoDeFragment = new TaoDeFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main, taoDeFragment, taoDeFragment.getTag()).commit();
-        }
-        else if (id == R.id.nav_bosuutap)
-        {
-            BoSuuTap_Fragment boSuuTap_fragment = new BoSuuTap_Fragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(R.id.content_main, boSuuTap_fragment, boSuuTap_fragment.getTag()).commit();
-        }
-        else if (id == R.id.nav_box)
-        {
-
-        }
-        else if (id == R.id.nav_share)
-        {
-
-        }
-        else if(id == R.id.nav_danhgia)
-        {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+    };
 }
