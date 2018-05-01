@@ -6,6 +6,7 @@ buildscript {
         maven {
             url 'https://maven.google.com/'
             name 'Google'
+
         }
         google()
 
@@ -24,7 +25,11 @@ allprojects {
     repositories {
         jcenter()
         google()
-        maven { url "https://jitpack.io" }
+        maven { url "https://jitpack.io"
+        }
+        maven { url 'http://dl.bintray.com/amulyakhare/maven'
+        }
+
     }
 }
 

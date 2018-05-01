@@ -3,11 +3,18 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Click vào câu hỏi để xem chi tiết"
+        android:textStyle="italic"
+        android:gravity="center"/>
+
     <GridView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numColumns="3"
-        android:id="@+id/gvLsQuestion" />
+        android:id="@+id/gvLsQuestion"/>
 
     <LinearLayout
         android:orientation="horizontal"

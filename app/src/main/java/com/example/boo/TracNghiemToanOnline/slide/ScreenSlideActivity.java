@@ -1,6 +1,8 @@
 package com.example.boo.TracNghiemToanOnline.slide;
 
 import android.app.Dialog;
+import android.app.PendingIntent;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.CountDownTimer;
@@ -8,6 +10,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -90,6 +94,7 @@ public class ScreenSlideActivity extends FragmentActivity {
                     Intent intent1 = new Intent(ScreenSlideActivity.this, TestDoneActivity.class);
                     intent1.putExtra("arr_Ques", arr_Ques);
                     startActivity(intent1);
+                    overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
                 }
             });
 
@@ -113,13 +118,14 @@ public class ScreenSlideActivity extends FragmentActivity {
                     checkAnswer();
                 }
             });
+
             tvXemDiem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    finish();
                     Intent intent1 = new Intent(ScreenSlideActivity.this, TestDoneActivity.class);
                     intent1.putExtra("arr_Ques", arr_Ques);
                     startActivity(intent1);
+                    overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
                 }
             });
             timer.start();

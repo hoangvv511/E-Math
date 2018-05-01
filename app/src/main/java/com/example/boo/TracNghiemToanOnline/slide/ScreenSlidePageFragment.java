@@ -42,7 +42,6 @@ public class ScreenSlidePageFragment extends Fragment {
     public static final String ARG_CHECKANSWER = "checkAnswer";
     public int mPageNumber; // vị trí trang hiện tại
     public int checkAns;   // biến kiểm tra ...
-    public String MyAns;
     TextView tvNum, tv_goiy;
     RadioGroup radioGroup;
     RadioButton radA, radB, radC, radD;
@@ -120,7 +119,8 @@ public class ScreenSlidePageFragment extends Fragment {
         mv_AnsD.setInputText(ansD);
         tv_goiy.setEnabled(false);
         tv_goiy.setVisibility(View.GONE);
-
+        im_goiy.setEnabled(false);
+        im_goiy.setVisibility(View.GONE);
         if(base64image2 == null)
         {
             im_goiy.setEnabled(false);
@@ -141,7 +141,6 @@ public class ScreenSlidePageFragment extends Fragment {
                     Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
                     Bitmap bMapScaled2 = Bitmap.createScaledBitmap(decoded2, decoded2.getWidth()*2, decoded2.getHeight()*2, true);
                     im_goiy.setImageBitmap(bMapScaled2);
-                    im_goiy.setVisibility(View.GONE);
                 }
             }.execute();
         }
@@ -149,7 +148,7 @@ public class ScreenSlidePageFragment extends Fragment {
         mv_goiy.setEnabled(false);
         mv_goiy.setVisibility(View.GONE);
 
-        if(mv_goiy.getInputText() == null) mv_goiy.setInputText("Câu này dễ quá bạn tự làm nha ^^");
+        if(mv_goiy.getInputText() == null) mv_goiy.setInputText("Câu này bạn tự suy nghĩ đáp án nha ^^");
 
         if(base64image == null)
         {
