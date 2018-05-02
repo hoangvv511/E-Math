@@ -48,17 +48,18 @@ public class ScreenSlideActivity extends FragmentActivity {
      */
     private PagerAdapter mPagerAdapter;
 
-    TextView tvKiemtra, tvTimer, tvXemDiem;
+    private TextView tvKiemtra, tvTimer, tvXemDiem;
     public int checkAns = 0;
 
     //CSDL
-    QuestionController questionController;
-    ArrayList<Question> arr_Ques;
-    CounterClass timer;
-    TextView tende;
+    private QuestionController questionController;
+    private ArrayList<Question> arr_Ques;
+    private CounterClass timer;
+    private TextView tende;
     //String subject;
-    int num_exam;
-    int totalTimer;
+    private int num_exam;
+    private int totalTimer;
+    private String name_exam;
     String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +74,9 @@ public class ScreenSlideActivity extends FragmentActivity {
         mPager.setPageTransformer(true, new DepthPageTransformer());
 
         Intent intent = getIntent();
+        name_exam = intent.getStringExtra("tendethi");
         name = intent.getStringExtra("TenDe");
-        tende.setText(intent.getStringExtra("tendethi"));
+        tende.setText(name_exam);
         tende.setSelected(true);
         if(name != null)
         {
@@ -131,6 +133,7 @@ public class ScreenSlideActivity extends FragmentActivity {
                     Intent intent1 = new Intent(ScreenSlideActivity.this, TestDoneActivity.class);
                     intent1.putExtra("arr_Ques", arr_Ques);
                     intent1.putExtra("exam", num_exam);
+                    intent1.putExtra("name_exam", name_exam);
                     startActivity(intent1);
                     overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
                 }
@@ -145,12 +148,13 @@ public class ScreenSlideActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        if (mPager.getCurrentItem() == 0 ||  checkAns == 1) {
-            dialogExit();
-        } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
+//        if (mPager.getCurrentItem() == 0 ||  checkAns == 1) {
+//            dialogExit();
+//        } else {
+//            // Otherwise, select the previous step.
+//            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
+//        }
+        dialogExit();
     }
 
     public void dialogExit(){

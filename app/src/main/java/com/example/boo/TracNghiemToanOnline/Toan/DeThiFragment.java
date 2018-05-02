@@ -53,6 +53,12 @@ public class DeThiFragment extends Fragment {
         arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia năm 2018 - VIETMATHS.NET - Đề 01","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
         arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 - Bộ GD và ĐT","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
         arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - THPT Chuyên Hùng Vương - Bình Dương","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+//        arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 số 14","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+//        arr_exam.add(new Exam("Đề thi THPT Chuyên Phan Bội Châu - Nghệ An - Năm 2018","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+//        arr_exam.add(new Exam("Đề thi THPT Chuyên Lê Quý Đôn - Quảng Trị lần 1","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+//        arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 số 93","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+//        arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 số 147","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+//        arr_exam.add(new Exam("Đề thi thử THPT Chuyên Quang Trung lần 1","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
 
         tv_soluongde.setText("ĐỀ THI TỔNG HỢP " + "( " + arr_exam.size() + " ĐỀ" + " )");
         examAdapter=new ExamAdapter(getActivity(),arr_exam);

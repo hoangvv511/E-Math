@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.*;
@@ -24,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private FirebaseAuth firebaseAuth;
     private CircleImageView cimv_useravatar;
     private Uri filepath;
+    private String email,password,username,confirmpassword,fullname,phone;
     private ArrayList<String> user_name;
     private final int PICK_IMAGE_REQUEST = 71;
     private String imagebase64 = "https://firebasestorage.googleapis.com/v0/b/myapplication-6d1ae.appspot.com/o/ic_user.png?alt=media&token=a7dd14a7-a01c-4021-833c-31e6cf8afb85";
@@ -90,15 +93,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
+
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String email = editTextEmail.getText().toString().trim();
-                final String password = editTextPassword.getText().toString().trim();
-                final String username = editTextUserName.getText().toString().trim();
-                final String confirmpassword = editTextConfirmPassword.getText().toString().trim();
-                final String fullname = editTextFullname.getText().toString().trim();
-                final String phone = editTextPhone.getText().toString().trim();
+                email = editTextEmail.getText().toString().trim();
+                password = editTextPassword.getText().toString().trim();
+                username = editTextUserName.getText().toString().trim();
+                confirmpassword = editTextConfirmPassword.getText().toString().trim();
+                fullname = editTextFullname.getText().toString().trim();
+                phone = editTextPhone.getText().toString().trim();
 
                 if(TextUtils.isEmpty(username))
                 {
@@ -146,41 +150,45 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 Dialog.setTitleText("Đang đăng kí....");
                 Dialog.setCancelable(false);
                 Dialog.show();
-                    firebaseAuth.createUserWithEmailAndPassword(email,password)
-                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if(task.isSuccessful()){
-                                        String user_id = firebaseAuth.getCurrentUser().getUid();
-                                        final DatabaseReference current_user = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id).child("Information");
-                                        UserInformation userInformation = new UserInformation(email, fullname, imagebase64, phone, username);
-                                        current_user.setValue(userInformation);
 
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                if(firebaseAuth.getCurrentUser() != null){
-                                                    finish();
-                                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                                                }
+                            // User does not exist. NOW call createUserWithEmailAndPassword
+                            firebaseAuth.createUserWithEmailAndPassword(email,password)
+                                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if(task.isSuccessful()){
+                                                String user_id = firebaseAuth.getCurrentUser().getUid();
+                                                final DatabaseReference current_user = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id).child("Information");
+                                                UserInformation userInformation = new UserInformation(email, fullname, imagebase64, phone, username);
+                                                current_user.setValue(userInformation);
+
+                                                handler.postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        if(firebaseAuth.getCurrentUser() != null){
+                                                            finish();
+                                                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                                        }
+                                                    }
+                                                }, 1500);
+                                                Dialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                                Dialog.setTitleText("Đăng kí thành công!");
                                             }
-                                        }, 1500);
-                                        Dialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                                        Dialog.setTitleText("Đăng kí thành công!");
-                                    } else { // tạo không thành công
-                                        Dialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-                                        Dialog.setTitleText("Đăng kí thất bại!");
-                                        handler.postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                Dialog.dismissWithAnimation();
+                                            else { // tạo không thành công
+                                                Dialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                                Dialog.setTitleText("Đăng kí thất bại!");
+                                                handler.postDelayed(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Dialog.dismissWithAnimation();
+                                                    }
+                                                },1500);
                                             }
-                                        },1500);
-                                    }
-                                    progressDialog.dismiss();
-                                }
-                            });
-            }
+                                            progressDialog.dismiss();
+                                        }
+                                    });
+                            // Your previous code here.
+                        }
         });
         textViewSignin.setOnClickListener(this);
     }
@@ -204,6 +212,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override

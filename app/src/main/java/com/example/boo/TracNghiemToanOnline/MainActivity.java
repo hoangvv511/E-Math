@@ -1,31 +1,21 @@
 package com.example.boo.TracNghiemToanOnline;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.boo.TracNghiemToanOnline.TaiLieu.TaiLieuFragment;
 import com.example.boo.TracNghiemToanOnline.Toan.BoSuuTap_Fragment;
 import com.example.boo.TracNghiemToanOnline.Toan.Profile;
 import com.example.boo.TracNghiemToanOnline.Toan.DeThiFragment;
-import com.example.boo.TracNghiemToanOnline.Toan.TaoDeFragment;
 import com.example.boo.TracNghiemToanOnline.question.DBHelper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.nav_view);
         navigationView.setOnNavigationItemSelectedListener(navListener);
         navigationView.setItemIconTintList(null);
-
-
+        
         databaseRefence.child("Users").child(user.getUid()).child("Information").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.example.boo.TracNghiemToanOnline.MainActivity;
 import com.example.boo.TracNghiemToanOnline.R;
 import com.example.boo.TracNghiemToanOnline.TaoDeActivity;
@@ -54,7 +56,9 @@ public class BoSuuTap_Fragment extends Fragment {
     String name, tende, xacnhan;
     TextView tv_notest;
     FloatingActionButton btn_taode;
-
+    PullRefreshLayout layout;
+    private Integer[] a;
+    private ArrayList<Integer> b;
     public BoSuuTap_Fragment() {
         // Required empty public constructor
     }
@@ -66,11 +70,11 @@ public class BoSuuTap_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_bo_suu_tap_, container, false);
         tv_notest = view.findViewById(R.id.tv_notest);
         btn_taode = view.findViewById(R.id.btnTaode);
+        lvCreateTest= view.findViewById(R.id.gvBoSuuTap);
+        layout = (PullRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
 
         return view;
     }
-
-
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -83,58 +87,85 @@ public class BoSuuTap_Fragment extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }
         });
-        try
-        {
-            lvCreateTest= getActivity().findViewById(R.id.gvBoSuuTap);
-            databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(final DataSnapshot data : dataSnapshot.getChildren()){
-                        final String tende = data.getKey();
-                        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tende).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot != null)
-                                {
-                                    tendethi = data.child("Tên đề thi").getValue().toString();
-                                    thoigian = data.child("Thời gian").getValue().toString();
-                                    tongsocau = data.child("Tổng số câu").getValue().toString();
-                                    arr_examcreate.add(new Exam(tendethi,thoigian + " phút",tongsocau + " câu",MainActivity.imageavatar, MainActivity.username));
-                                    examAdapter=new ExamAdapter(getActivity(),arr_examcreate);
-                                    lvCreateTest.setAdapter(examAdapter);
-                                    lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                            Intent intent = new Intent(getActivity(), ScreenSlideActivity.class);
-                                            intent.putExtra("TenDe", tendethi);
-                                            intent.putExtra("Thoigian", thoigian);
-                                            intent.putExtra("SoCau", tongsocau);
-                                            startActivity(intent);
+        layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // start refresh
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        layout.setRefreshing(false);
+                    }
+                }, 3000);
+                try
+                {
+                    databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(final DataSnapshot data : dataSnapshot.getChildren()){
+                                final String tende = data.getKey();
+                                databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tende).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if(dataSnapshot != null)
+                                        {
+                                            databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tende).child("Câu hỏi").addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                                    for(final DataSnapshot data : dataSnapshot.getChildren())
+                                                    {
+                                                        b.add(Integer.valueOf(data.getValue().toString()));
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(DatabaseError databaseError) {
+
+                                                }
+                                            });
+                                            tendethi = data.child("Tên đề thi").getValue().toString();
+                                            thoigian = data.child("Thời gian").getValue().toString();
+                                            tongsocau = data.child("Tổng số câu").getValue().toString();
+                                            arr_examcreate.add(new Exam(tendethi,thoigian + " phút",tongsocau + " câu",MainActivity.imageavatar, MainActivity.username));
+                                            examAdapter=new ExamAdapter(getActivity(),arr_examcreate);
+                                            lvCreateTest.setAdapter(examAdapter);
+                                            lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                @Override
+                                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                                    Intent intent = new Intent(getActivity(), ScreenSlideActivity.class);
+                                                    intent.putExtra("TenDe", tendethi);
+                                                    intent.putExtra("Thoigian", thoigian);
+                                                    intent.putExtra("SoCau", tongsocau);
+                                                    startActivity(intent);
+                                                }
+                                            });
+
                                         }
-                                    });
-                                }
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        Toast.makeText(getActivity(), "Không tìm thấy đề thi nào", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                Toast.makeText(getActivity(), "Không tìm thấy đề thi nào", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                    if(lvCreateTest.getCount() == 0)
+                    {
+                        tv_notest.setVisibility(getView().VISIBLE);
                     }
                 }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                catch (Exception e)
+                {
 
                 }
-            });
+            }
+        });
 
-        }
-        catch (Exception e)
-        {
-
-        }
-        if(lvCreateTest.getCount() == 0)
-        {
-            tv_notest.setVisibility(getView().VISIBLE);
-        }
     }
 }

@@ -42,7 +42,10 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
-        <activity android:name=".TaoDeActivity"></activity>
+        <activity android:name=".TaoDeActivity" />
+        <activity android:name=".TaiLieu.ItemChuyenDe" />
+        <activity android:name=".TaiLieu.TailieuItemActivity" />
+        <activity android:name=".TaiLieu.TaiLieuWebView"></activity>
     </application>
 
 </manifest>

@@ -1,31 +1,24 @@
 package com.example.boo.TracNghiemToanOnline.slide;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.boo.TracNghiemToanOnline.MainActivity;
 import com.example.boo.TracNghiemToanOnline.R;
+import com.example.boo.TracNghiemToanOnline.TaiLieu.TailieuItemActivity;
 import com.example.boo.TracNghiemToanOnline.question.Question;
-import com.example.boo.TracNghiemToanOnline.score.ScoreController;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -40,7 +33,7 @@ public class TestDoneActivity extends AppCompatActivity {
 
     private PieChart mChart;
     private Typeface tf;
-    ArrayList<Question> arr_QuesBegin= new ArrayList<Question>();
+    private ArrayList<Question> arr_QuesBegin= new ArrayList<Question>();
     int numNoAns=0;
     int numTrue=0;
     int numFalse=0;
@@ -54,12 +47,12 @@ public class TestDoneActivity extends AppCompatActivity {
     int numFalse_8 =0;
     int numFalse_9 =0;
     int exam;
-    int numNoAns_1,numNoAns_2,numNoAns_3,numNoAns_4,numNoAns_5,numNoAns_6,numNoAns_7,numNoAns_8,numNoAns_9;
+    private int numNoAns_1,numNoAns_2,numNoAns_3,numNoAns_4,numNoAns_5,numNoAns_6,numNoAns_7,numNoAns_8,numNoAns_9;
     private TextView tv_cd1, tv_cd2, tv_cd3, tv_cd4, tv_cd5, tv_cd6, tv_cd7, tv_cd8;
-    int numcd1 = 0, numcd2 =0 , numcd3 =0 , numcd4 =0, numcd5 =0, numcd6=0, numcd7=0, numcd8=0, numcd9=0;
-    Button btnAgain, btnBack;
-    double TongDiem;
-    String XepLoai;
+    private int numcd1 = 0, numcd2 =0 , numcd3 =0 , numcd4 =0, numcd5 =0, numcd6=0, numcd7=0, numcd8=0, numcd9=0;
+    private Button btnAgain, btnBack;
+    private double TongDiem;
+    private String XepLoai, name_exam;
 
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
@@ -74,6 +67,7 @@ public class TestDoneActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         exam = intent.getIntExtra("exam",0);
+        name_exam = intent.getStringExtra("name_exam");
         arr_QuesBegin = (ArrayList<Question>) intent.getExtras().getSerializable("arr_Ques");
 
         for (int i = 0; i < arr_QuesBegin.size(); i++) {
@@ -88,9 +82,11 @@ public class TestDoneActivity extends AppCompatActivity {
             if (arr_QuesBegin.get(i).getChuyende() == 9) numcd9++; //9.	Tổ hợp, xác suất.
         }
 
+
         begin();
         checkResult();
         checkGoiy();
+        clickGoiy();
         TongDiem= Tinhdiem(numTrue,(numTrue+numFalse+numNoAns));
         XepLoai= Xeploai(TongDiem);
 
@@ -132,6 +128,7 @@ public class TestDoneActivity extends AppCompatActivity {
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 Intent intent= new Intent(TestDoneActivity.this, ScreenSlideActivity.class);
                                 intent.putExtra("num_exam",exam);
+                                intent.putExtra("tendethi",name_exam );
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
@@ -240,6 +237,90 @@ public class TestDoneActivity extends AppCompatActivity {
            btnBack=(Button)findViewById(R.id.btnBack);
         }
 
+    public void clickGoiy()
+    {
+        tv_cd1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { //hamso
+                Intent intent = new Intent(TestDoneActivity.this, TailieuItemActivity.class);
+                intent.putExtra("cd", "cd1");
+                intent.putExtra("chuyende", "CHUYÊN ĐỀ HÀM SỐ");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
+        tv_cd2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TestDoneActivity.this, TailieuItemActivity.class);
+                intent.putExtra("cd", "cd5");
+                intent.putExtra("chuyende", "CHUYÊN ĐỀ BÀI TOÁN THỰC TẾ");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
+        tv_cd3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TestDoneActivity.this, TailieuItemActivity.class);
+                intent.putExtra("cd", "cd2");
+                intent.putExtra("chuyende", "CHUYÊN ĐỀ MŨ-LÔGARIT");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
+        tv_cd4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TestDoneActivity.this, TailieuItemActivity.class);
+                intent.putExtra("cd", "cd3");
+                intent.putExtra("chuyende", "CHUYÊN ĐỀ NGUYÊN HÀM-TÍCH PHÂN");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
+        tv_cd5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TestDoneActivity.this, TailieuItemActivity.class);
+                intent.putExtra("cd", "cd6");
+                intent.putExtra("chuyende", "CHUYÊN ĐỀ SỐ PHỨC");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
+        tv_cd6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TestDoneActivity.this, TailieuItemActivity.class);
+                intent.putExtra("cd", "cd7");
+                intent.putExtra("chuyende", "CHUYÊN ĐỀ XÁC SUẤT");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
+        tv_cd7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TestDoneActivity.this, TailieuItemActivity.class);
+                intent.putExtra("cd", "cd4");
+                intent.putExtra("chuyende", "CHUYÊN ĐỀ HÌNH HỌC KHÔNG GIAN");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
+        tv_cd8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TestDoneActivity.this, TailieuItemActivity.class);
+                intent.putExtra("cd", "cd8");
+                intent.putExtra("chuyende", "CHUYÊN ĐỀ TỌA ĐỘ KHÔNG GIAN");
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
+    }
+
     //PT Check kết quả
     public void checkResult(){
         for(int i=0; i< arr_QuesBegin.size(); i++)
@@ -310,6 +391,7 @@ public class TestDoneActivity extends AppCompatActivity {
     private static double Tinhdiem(double socaudung, double tongsocau)
     {
         double a = (socaudung / tongsocau) * 10;
+        a = Math.round(a)/10;
         return a;
     }
 }

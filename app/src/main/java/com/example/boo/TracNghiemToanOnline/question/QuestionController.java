@@ -29,6 +29,21 @@ public class QuestionController {
         return lsData;
     }
 
+    //Lay cau hoi bang id
+    public ArrayList<Question> getQuestionByID(int num_id){
+        ArrayList<Question> lsData= new ArrayList<Question>();
+        SQLiteDatabase db= dbHelper.getReadableDatabase();
+        Cursor cursor= db.rawQuery("SELECT * FROM tracnghiem WHERE num_exam = '"+num_id+"'",null);
+        cursor.moveToFirst();
+        do {
+            Question item;
+            item= new Question(cursor.getInt(0), cursor.getString(1),cursor.getString(2),cursor.getString(3),
+                    cursor.getString(4),cursor.getString(5),cursor.getString(6),cursor.getInt(7),cursor.getInt(8),cursor.getString(9),cursor.getString(10),cursor.getString(11),"");
+            lsData.add(item);
+        }while (cursor.moveToNext());
+        return lsData;
+    }
+
     //Lay danh sach cau hoi theo chuyen de
     public ArrayList<Question> getQuestionByChuyenDe()
     {
