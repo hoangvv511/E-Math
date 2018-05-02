@@ -35,6 +35,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <EditText
+            android:hint="Enter your username"
+            android:id="@+id/editTextUsername2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <Button
             android:layout_margin="15dp"
             android:id="@+id/buttonRegister"
