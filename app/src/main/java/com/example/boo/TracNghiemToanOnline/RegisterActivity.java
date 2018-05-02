@@ -86,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-        databaseRefence.child("Username").addChildEventListener(new ChildEventListener() {
+        databaseRefence.child("Username").addChildEventListener(new ChildEventListener() { // kiểm tra database username vừa nhấp có trùng không
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String a = String.valueOf(dataSnapshot.getValue());
