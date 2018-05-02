@@ -15,8 +15,8 @@
         android:background="@color/light_blue_primary"
         android:gravity="center"
         android:padding="10dp"
-        android:text="ĐỀ THI CÁ NHÂN ( 0 ĐỀ )"
         android:singleLine="true"
+        android:text="ĐỀ THI CÁ NHÂN ( 0 ĐỀ )"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -34,11 +34,42 @@
         android:background="#FFFFFF"
         android:divider="#ffffff"
         android:dividerHeight="10dp"
+        android:stateListAnimator="@null"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_soluongde2" />
+
+    <TextView
+        android:id="@+id/tv_notest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:text="Bạn chưa tạo đề thi nào"
+        android:textColor="@color/blue_primary_dark"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/gvBoSuuTap"
+        app:layout_constraintStart_toStartOf="@+id/gvBoSuuTap"
+        app:layout_constraintTop_toBottomOf="@+id/tv_soluongde2" />
+
+    <com.rey.material.widget.FloatingActionButton
+        android:id="@+id/btnTaode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:fab_backgroundColor="@color/blue_primary"
+        app:fab_iconSrc="@drawable/add"
+        app:fab_animDuration="100"
+        app:fab_backgroundAnimDuration="100"
+        android:elevation="4dp" />
 
 </android.support.constraint.ConstraintLayout>

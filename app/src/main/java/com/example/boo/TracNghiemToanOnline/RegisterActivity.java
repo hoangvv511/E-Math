@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.*;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -78,7 +79,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
         cimv_useravatar = findViewById(R.id.cimv_useravatar);
         user_name = new ArrayList<>();
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         cimv_useravatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

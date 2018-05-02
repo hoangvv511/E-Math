@@ -6,18 +6,22 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.boo.TracNghiemToanOnline.MainActivity;
 import com.example.boo.TracNghiemToanOnline.R;
+import com.example.boo.TracNghiemToanOnline.TaoDeActivity;
 import com.example.boo.TracNghiemToanOnline.UserInformation;
 import com.example.boo.TracNghiemToanOnline.slide.ScreenSlideActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,11 +31,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.rey.material.widget.Button;
+import com.rey.material.widget.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +52,9 @@ public class BoSuuTap_Fragment extends Fragment {
     ArrayList<Exam> arr_examcreate= new ArrayList<Exam>();
     public String tendethi, thoigian, tongsocau;
     String name, tende, xacnhan;
+    TextView tv_notest;
+    FloatingActionButton btn_taode;
+
     public BoSuuTap_Fragment() {
         // Required empty public constructor
     }
@@ -54,12 +64,25 @@ public class BoSuuTap_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bo_suu_tap_, container, false);
+        tv_notest = view.findViewById(R.id.tv_notest);
+        btn_taode = view.findViewById(R.id.btnTaode);
+
         return view;
     }
+
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        btn_taode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(getActivity(), TaoDeActivity.class);
+                startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            }
+        });
         try
         {
             lvCreateTest= getActivity().findViewById(R.id.gvBoSuuTap);
@@ -111,7 +134,7 @@ public class BoSuuTap_Fragment extends Fragment {
         }
         if(lvCreateTest.getCount() == 0)
         {
-
+            tv_notest.setVisibility(getView().VISIBLE);
         }
     }
 }

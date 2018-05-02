@@ -42,6 +42,7 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
+        <activity android:name=".TaoDeActivity"></activity>
     </application>
 
 </manifest>
