@@ -27,6 +27,7 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/background_login"
             android:text="Xoay"
+            android:visibility="gone"
             android:textColor="#FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

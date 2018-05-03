@@ -18,13 +18,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/dangki"
+            />
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/cimv_useravatar"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="0dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="0dp"
             android:padding="16dp"
             android:src="@drawable/ic_user" />
 
@@ -33,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="0dp"
-            android:text="Choose your avatar"
+            android:text="Chọn ảnh đại diện của bạn"
             android:textColor="@color/gray"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -43,6 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:background="@drawable/background_login"
             android:textColor="#FFFFFF"
             android:text="Xoay" />
