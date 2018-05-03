@@ -38,16 +38,26 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/btn_xoay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/background_login"
+            android:textColor="#FFFFFF"
+            android:text="Xoay" />
+
         <EditText
             android:id="@+id/editUserName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/ic_person_white_24dp"
             android:drawablePadding="12dp"
             android:ems="10"
-            android:hint="UserName"
+            android:hint="Tên tài khoản
+"
             android:textColor="#000000"
             android:inputType="textEmailAddress"
             android:maxLines="1"
@@ -93,7 +103,7 @@
             android:drawablePadding="12dp"
             android:ems="10"
             android:textColor="#000000"
-            android:hint="Password"
+            android:hint="Mật khẩu"
             android:inputType="textPassword"
             android:maxLines="1"
             android:paddingBottom="8dp"
@@ -116,7 +126,7 @@
             android:drawableLeft="@drawable/ic_lock_white_24dp"
             android:drawablePadding="12dp"
             android:ems="10"
-            android:hint="Confirm Password"
+            android:hint="Nhập lại mật khẩu"
             android:textColor="#000000"
             android:inputType="textPassword"
             android:maxLines="1"
@@ -131,6 +141,7 @@
             android:layout_height="1dp"
             android:background="#f9d7db"
             />
+
         <EditText
             android:id="@+id/editTextFullname"
             android:layout_width="match_parent"
@@ -141,8 +152,9 @@
             android:drawablePadding="12dp"
             android:ems="10"
             android:textColor="#000000"
-            android:hint="Full name"
+            android:hint="Họ và tên"
             android:maxLines="1"
+            android:singleLine="true"
             android:paddingBottom="8dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -163,7 +175,7 @@
             android:drawableLeft="@drawable/call"
             android:drawablePadding="12dp"
             android:ems="10"
-            android:hint="Phone"
+            android:hint="Điện thoại"
             android:inputType="number"
             android:textColor="#000000"
             android:maxLines="1"

@@ -19,6 +19,7 @@ import com.example.boo.TracNghiemToanOnline.MainActivity;
 import com.example.boo.TracNghiemToanOnline.R;
 import com.example.boo.TracNghiemToanOnline.UserInformation;
 import com.example.boo.TracNghiemToanOnline.UserSetting;
+import com.example.boo.TracNghiemToanOnline.slide.TestDoneActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -38,8 +40,7 @@ public class Profile extends Fragment {
     private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     private UserInformation userInformation;
-    String email, fullname, image, username;
-    String phone;
+    String  image;
     CircleImageView cimv_avatar;
     TextView tv_fullname, tv_email, tv_phone, tv_nickname;
     ImageView imv_logout, imv_usersetting;
@@ -58,9 +59,26 @@ public class Profile extends Fragment {
         imv_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firebaseAuth.signOut();
-                getActivity().finish();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
+                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Bạn muốn đăng xuất ?")
+                        .setCancelText("No")
+                        .setConfirmText("Yes")
+                        .showCancelButton(true)
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.cancel();
+                            }
+                        })
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                firebaseAuth.signOut();
+                                getActivity().finish();
+                                startActivity(new Intent(getActivity(), LoginActivity.class));
+                            }
+                        })
+                        .show();
             }
         });
 
@@ -69,9 +87,6 @@ public class Profile extends Fragment {
             @Override
             public void onClick(View view) {
                 UserSetting userSetting = new UserSetting();
-                Bundle bundle = new Bundle();
-                bundle.putString("emailuser", email);
-                userSetting.setArguments(bundle);
                 FragmentManager manager = getActivity().getSupportFragmentManager();
                 userSetting.show(manager, "Thông tin");
             }
@@ -88,18 +103,10 @@ public class Profile extends Fragment {
         tv_phone.setText(MainActivity.phone);
         tv_nickname.setText(MainActivity.username);
         image = MainActivity.imageavatar;
-                if(image.length() > 1000)
-                {
-                    byte[] decodeString2 = Base64.decode(image, Base64.DEFAULT);
-                    Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
-                    Bitmap bMapScaled2 = Bitmap.createScaledBitmap(decoded2, 100, 100, true);
-                    cimv_avatar.setImageBitmap(bMapScaled2);
-                }
-                else
-                {
-                    Picasso.with(getActivity()).load(image).into(cimv_avatar);
-                }
-
+        byte[] decodeString2 = Base64.decode(image, Base64.DEFAULT);
+        Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
+        Bitmap bitmapUser = Bitmap.createScaledBitmap(decoded2, decoded2.getWidth(), decoded2.getHeight(), true);
+        cimv_avatar.setImageBitmap(bitmapUser);
         return view;
     }
 

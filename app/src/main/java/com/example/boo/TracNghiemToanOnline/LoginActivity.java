@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void userLogin(){
         final String email = editTextEmail.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
+        final String password = editTextPassword.getText().toString().trim();
 
         if(TextUtils.isEmpty(email))
         {
@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 public void run() {
                                     finish();
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    pDialog.dismissWithAnimation();
                                 }
                             }, 1500);
                             pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);

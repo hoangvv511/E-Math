@@ -2,6 +2,9 @@ package com.example.boo.TracNghiemToanOnline;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,15 +19,20 @@ import android.widget.Toast;
 
 import com.example.boo.TracNghiemToanOnline.question.Question;
 import com.example.boo.TracNghiemToanOnline.question.QuestionController;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PropertyPermission;
 
 public class TaoDeActivity extends AppCompatActivity {
 
@@ -36,8 +44,10 @@ public class TaoDeActivity extends AppCompatActivity {
     TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv_sum;
     Button btnTaoDe;
     String tende;
+    int check = 0;
     ArrayList<Question> questions;
     QuestionController questionController;
+    private String tendethi,thoigian,tongsocau;
     private ProgressDialog progressDialog;
 
     @Override
@@ -212,11 +222,8 @@ public class TaoDeActivity extends AppCompatActivity {
 
     public void PullTest()
     {
-        progressDialog.setMessage("Sign in...  ");
-        progressDialog.show();
-        String tendethi = edtTenDeThi.getText().toString().trim();
-        String thoigian = edtThoiGian.getText().toString().trim();
-
+        tendethi = edtTenDeThi.getText().toString().trim();
+        thoigian = edtThoiGian.getText().toString().trim();
         int socau1 = Integer.valueOf(tv1.getText().toString());
         int socau2 = Integer.valueOf(tv2.getText().toString());
         int socau3 = Integer.valueOf(tv3.getText().toString());
@@ -227,7 +234,7 @@ public class TaoDeActivity extends AppCompatActivity {
         int socau8 = Integer.valueOf(tv8.getText().toString());
         int socau9 = Integer.valueOf(tv9.getText().toString());
         int sum = socau1 + socau2 + socau3 + socau4 + socau5 + socau6 + socau7 + socau8 + socau9;
-        String tongsocau = String.valueOf(sum);
+        tongsocau = String.valueOf(sum);
 
         questions = new ArrayList<Question>();
         questionController = new QuestionController(this);
@@ -239,23 +246,98 @@ public class TaoDeActivity extends AppCompatActivity {
             a[i] = questions.get(i).get_id();
         }
 
-        Map<String, Integer> map = new HashMap<String, Integer>();
+        Map<String, Long> map = new HashMap<String, Long>();
 
         UserExam userExam = new UserExam(a,n);
 
         for (int i = 1; i <= n; i++) {
             String x = "Câu " + i;
-            Integer y = userExam.cau[i-1];
+            Long y = Long.valueOf(userExam.cau[i-1]);
             map.put(x, y);
-            databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Câu hỏi").setValue(map);
+            //databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Câu hỏi").setValue(map);
         }
-        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Tên đề thi").setValue(tendethi);
-        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Thời gian").setValue(thoigian);
-        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Tổng số câu").setValue(tongsocau);
-        Toast.makeText(this, "Tạo đề thành công", Toast.LENGTH_SHORT).show();
-        progressDialog.dismiss();
+//        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Tên đề thi").setValue(tendethi);
+//        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Thời gian").setValue(thoigian);
+//        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Tổng số câu").setValue(tongsocau);
+
+        final Handler handler = new Handler();
+        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Đang tạo đề...");
+        pDialog.setCancelable(false);
+        pDialog.show();
+
+        UserExam userExam1 = new UserExam(tendethi,thoigian,tongsocau,map);
+        TaoDe(tendethi,"Tên đề thi", tendethi);
+        TaoDe(tendethi,"Thời gian", thoigian);
+        TaoDe(tendethi,"Tổng số câu", tongsocau);
+        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Câu hỏi")
+                .setValue(map)
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                }
+                            }, 500);
+                            check++;
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+        if(check == 4)
+        {
+            pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+            pDialog.setTitleText("Tạo đề thành công!");
+        }
+        else
+        {
+            pDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+            pDialog.setTitleText("Tạo đề thất bại!");
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    pDialog.dismissWithAnimation();
+                }
+            }, 1500);
+        }
+
     }
 
+    public void TaoDe(String key, String children, String value) {
+        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(key).child(children)
+                .setValue(value)
+                .addOnCompleteListener( new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                }
+                            }, 500);
+                            check++;
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+    }
     public void UpdateSumQuesttion()
     {
         int socau1 = Integer.valueOf(tv1.getText().toString());

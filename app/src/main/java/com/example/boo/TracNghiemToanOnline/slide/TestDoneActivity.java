@@ -391,7 +391,7 @@ public class TestDoneActivity extends AppCompatActivity {
     private static double Tinhdiem(double socaudung, double tongsocau)
     {
         double a = (socaudung / tongsocau) * 10;
-        a = Math.round(a)/10;
+        a = (double) Math.round(a * 10) / 10;
         return a;
     }
 }

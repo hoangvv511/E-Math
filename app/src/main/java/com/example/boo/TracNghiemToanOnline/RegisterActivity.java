@@ -2,10 +2,14 @@ package com.example.boo.TracNghiemToanOnline;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -35,14 +39,18 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.example.boo.TracNghiemToanOnline.R.drawable.ic_user;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -58,10 +66,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private FirebaseAuth firebaseAuth;
     private CircleImageView cimv_useravatar;
     private Uri filepath;
+    private Button btn_xoay;
+    private int check = 0;
     private String email,password,username,confirmpassword,fullname,phone;
-    private ArrayList<String> user_name;
     private final int PICK_IMAGE_REQUEST = 71;
-    private String imagebase64 = "https://firebasestorage.googleapis.com/v0/b/myapplication-6d1ae.appspot.com/o/ic_user.png?alt=media&token=a7dd14a7-a01c-4021-833c-31e6cf8afb85";
+    private String imagebase64;
     private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
 
     @Override
@@ -70,7 +79,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
         progressDialog = new ProgressDialog(this);
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
@@ -80,19 +88,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editTextFullname = (EditText) findViewById(R.id.editTextFullname);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
+        imagebase64 = getString(R.string.ic_user);
+
         cimv_useravatar = findViewById(R.id.cimv_useravatar);
-        user_name = new ArrayList<>();
+        btn_xoay = findViewById(R.id.btn_xoay);
+        btn_xoay.setVisibility(View.GONE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         cimv_useravatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent galleryIntent = new Intent();
                 galleryIntent.setType("image/*");
+                galleryIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(galleryIntent, "Select Picture"), PICK_IMAGE_REQUEST);
             }
         });
-
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +161,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 Dialog.setTitleText("Đang đăng kí....");
                 Dialog.setCancelable(false);
                 Dialog.show();
-
                             // User does not exist. NOW call createUserWithEmailAndPassword
                             firebaseAuth.createUserWithEmailAndPassword(email,password)
                                     .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
@@ -201,12 +211,30 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             filepath = data.getData();
             try
             {
-                final Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
-                cimv_useravatar.setImageBitmap(bitmap);
+                final Bitmap bmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
+                cimv_useravatar.setImageBitmap(bmap);
+//                if(bmap != null)
+//                {
+//                    btn_xoay.setVisibility(View.VISIBLE);
+//                    btn_xoay.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            check++;
+//                            cimv_useravatar.setRotation(cimv_useravatar.getRotation()+90F);
+//                        }
+//                    });
+//                }
+                // create a new bitmap from the original using the matrix to transform the result
+                Matrix matrix = new Matrix();
+                if(check > 0) matrix.postRotate(90*check);
+                else matrix.postRotate(0);
+                Bitmap scaledBitmap = Bitmap.createScaledBitmap(bmap,bmap.getWidth(),bmap.getHeight(),true);
+                Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0, scaledBitmap .getWidth(), scaledBitmap .getHeight(), matrix, true);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] b = baos.toByteArray();
-                imagebase64 = Base64.encodeToString(b, Base64.DEFAULT);
+                imagebase64= Base64.encodeToString(b, Base64.DEFAULT);
+
             }catch (IOException e)
             {
                 e.printStackTrace();
@@ -226,4 +254,5 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             startActivity(new Intent(this, LoginActivity.class));
         }
     }
+
 }

@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class DBHelper extends SQLiteOpenHelper {
 
     private static String DB_PATH = "/data/data/com.example.boo.TracNghiemToanOnline/databases/";
-    private static String DB_NAME = "emath15.sqlite";
+    private static String DB_NAME = "emath24.sqlite";
     private static final int DATABASE_VERSION = 1;
 
     private SQLiteDatabase myDataBase;
