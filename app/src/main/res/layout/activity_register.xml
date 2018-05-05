@@ -197,12 +197,6 @@
             android:background="#f9d7db"
             />
 
-        <EditText
-            android:hint="Enter your username"
-            android:id="@+id/editTextUsername2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <Button
             android:id="@+id/buttonRegister"
             style="@style/Base.TextAppearance.AppCompat.Body1"
