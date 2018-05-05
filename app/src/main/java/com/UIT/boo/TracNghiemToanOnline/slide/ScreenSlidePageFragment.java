@@ -54,6 +54,7 @@ public class ScreenSlidePageFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_screen_slide_page, container, false);
 
+        //Khoi tao
         tvNum = rootView.findViewById(R.id.tvNum);
         mv_AnsA = rootView.findViewById(R.id.mv_AnsA);
         mv_AnsB = rootView.findViewById(R.id.mv_AnsB);
