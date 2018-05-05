@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.UIT.boo.TracNghiemToanOnline.TaoDeActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="18dp"
+                android:text="câu"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/tv_3"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="12dp"
+                android:text="câu"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/tv_5"
+                app:layout_constraintTop_toBottomOf="@+id/cB_4" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="18dp"
+                android:text="câu"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/tv_7"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="19dp"
+                android:text="câu"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/tv_8"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="12dp"
+                android:text="câu"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/tv_2"
+                app:layout_constraintTop_toBottomOf="@+id/cB_1" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="12dp"
+                android:text="câu"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/tv_4"
+                app:layout_constraintTop_toBottomOf="@+id/cB_3" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="18dp"
+                android:text="câu"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/tv_6"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="12dp"
+                android:text="câu"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/tv_9"
+                app:layout_constraintTop_toBottomOf="@+id/cB_8" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputLayoutTenDe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/edtTenDe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="Tên Đề Thi"
+                    android:textColor="@color/blue_primary"
+                    android:textColorHint="@color/red_primary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputLayoutSoCauHoi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputLayoutTenDe">
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputLayoutThoiGian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputLayoutSoCauHoi">
+
+                <EditText
+                    android:id="@+id/edtThoiGian"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="Thời gian làm bài ( phút )"
+                    android:textColorHint="@color/red_primary"
+                    android:textColor="@color/blue_primary"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/inputLayoutTenDe" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Chọn chủ đề :"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/inputLayoutThoiGian" />
+
+            <CheckBox
+                android:id="@+id/cB_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:text="Khảo sát sự biến thiên và vẽ đồ thị hàm số"
+                android:buttonTint="#FE642E"
+                android:checked="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <CheckBox
+                android:id="@+id/cB_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:text="Các bài toán khảo sát hàm số"
+                android:buttonTint="#FE642E"
+                android:checked="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cB_1" />
+
+            <CheckBox
+                android:id="@+id/cB_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:buttonTint="#FE642E"
+                android:checked="true"
+                android:text="Lũy thừa, hàm số mũ, logarit, lượng giác"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cB_2" />
+
+            <CheckBox
+                android:id="@+id/cB_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:text="Nguyên hàm, tích phân"
+                android:buttonTint="#FE642E"
+                android:checked="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cB_3" />
+
+            <CheckBox
+                android:id="@+id/cB_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:text="Số phức"
+                android:buttonTint="#FE642E"
+                android:checked="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cB_4" />
+
+            <CheckBox
+                android:id="@+id/cB_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:text="Bài toán ứng dụng thực tiễn"
+                android:buttonTint="#FE642E"
+                android:checked="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cB_5" />
+
+            <CheckBox
+                android:id="@+id/cB_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:text="Hình học không gian cổ điển"
+                android:buttonTint="#FE642E"
+                android:checked="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cB_6" />
+
+            <CheckBox
+                android:id="@+id/cB_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:text="Phương pháp tọa độ trong không gian"
+                android:buttonTint="#FE642E"
+                android:checked="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cB_7" />
+
+            <CheckBox
+                android:id="@+id/cB_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="5dp"
+                android:text="Tổ hợp, xác suất"
+                android:buttonTint="#FE642E"
+                android:checked="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cB_8" />
+
+            <Button
+                android:id="@+id/btn_taode"
+                style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/app_blue"
+                android:text="Tạo đề"
+                android:buttonTint="#FE642E"
+                android:checked="true"
+                android:textColor="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cB_9" />
+
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="46dp"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/cB_1"
+                app:layout_constraintTop_toBottomOf="@+id/inputLayoutThoiGian" />
+
+            <TextView
+                android:id="@+id/tv_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="18dp"
+                android:text="0"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/cB_3"
+                app:layout_constraintTop_toBottomOf="@+id/tv_2" />
+
+            <TextView
+                android:id="@+id/tv_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:text="0"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/cB_4"
+                app:layout_constraintTop_toBottomOf="@+id/cB_3" />
+
+            <TextView
+                android:id="@+id/tv_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="18dp"
+                android:text="0"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/cB_6"
+                app:layout_constraintTop_toBottomOf="@+id/tv_5" />
+
+            <TextView
+                android:id="@+id/tv_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="18dp"
+                android:text="0"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/cB_7"
+                app:layout_constraintTop_toBottomOf="@+id/tv_6" />
+
+            <TextView
+                android:id="@+id/tv_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="19dp"
+                android:text="0"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/cB_8"
+                app:layout_constraintTop_toBottomOf="@+id/tv_7" />
+
+            <TextView
+                android:id="@+id/tv_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:text="0"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/cB_2"
+                app:layout_constraintTop_toBottomOf="@+id/cB_1" />
+
+            <TextView
+                android:id="@+id/tv_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:text="0"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/cB_5"
+                app:layout_constraintTop_toBottomOf="@+id/cB_4" />
+
+            <TextView
+                android:id="@+id/tv_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:text="0"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/cB_9"
+                app:layout_constraintTop_toBottomOf="@+id/cB_8" />
+
+            <TextView
+                android:id="@+id/tv_sumquestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:text="Tổng số câu : 0"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/textView7"
+                app:layout_constraintTop_toBottomOf="@+id/inputLayoutThoiGian" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="46dp"
+                android:text="câu"
+                android:textColor="@color/red_primary"
+                app:layout_constraintStart_toEndOf="@+id/tv_1"
+                app:layout_constraintTop_toBottomOf="@+id/inputLayoutThoiGian" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
