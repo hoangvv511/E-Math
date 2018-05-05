@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.boo.TracNghiemToanOnline">
+    package="com.Lego.TracNghiemToanOnline">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.FullScreen">
         <activity
-            android:name=".LoginActivity"
+            android:name="com.UIT.boo.TracNghiemToanOnline.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
@@ -29,24 +29,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".slide.ScreenSlideActivity"
+            android:name="com.UIT.boo.TracNghiemToanOnline.slide.ScreenSlideActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
         <activity
-            android:name=".slide.TestDoneActivity"
+            android:name="com.UIT.boo.TracNghiemToanOnline.slide.TestDoneActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
         <activity
-            android:name=".RegisterActivity"
+            android:name="com.UIT.boo.TracNghiemToanOnline.RegisterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.UIT.boo.TracNghiemToanOnline.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
-        <activity android:name=".TaoDeActivity" />
-        <activity android:name=".TaiLieu.TailieuItemActivity" />
-        <activity android:name=".TaiLieu.TaiLieuWebView"></activity>
+        <activity android:name="com.UIT.boo.TracNghiemToanOnline.TaoDeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity android:name="com.UIT.boo.TracNghiemToanOnline.TaiLieu.TailieuItemActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity android:name="com.UIT.boo.TracNghiemToanOnline.TaiLieu.TaiLieuWebView"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"></activity>
     </application>
 
 </manifest>

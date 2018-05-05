@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.boo.TracNghiemToanOnline.slide.TestDoneActivity">
+    tools:context="com.UIT.boo.TracNghiemToanOnline.slide.TestDoneActivity">
 
     <ScrollView
         android:layout_width="match_parent"
