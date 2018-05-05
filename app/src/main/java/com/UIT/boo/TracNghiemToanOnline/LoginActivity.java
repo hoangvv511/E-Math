@@ -36,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     String fullname,emailuser,imageAvatar, phone,username;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
