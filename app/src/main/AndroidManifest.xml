@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.boo.TracNghiemToanOnline">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.Lego.TracNghiemToanOnline">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -11,15 +14,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/owl"
+        android:label="E-Math"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.FullScreen">
         <activity
-            android:name=".LoginActivity"
-            android:label="Login"
+            android:name="com.UIT.boo.TracNghiemToanOnline.LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,26 +29,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".slide.ScreenSlideActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".slide.TestDoneActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".RegisterActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ProfileActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:name="com.UIT.boo.TracNghiemToanOnline.slide.ScreenSlideActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".test" />
-        <activity android:name=".following" />
-        <activity android:name=".TrangCaNhan" />
-        <activity android:name=".BoSuuTap"></activity>
+            android:theme="@style/AppTheme.FullScreen" />
+        <activity
+            android:name="com.UIT.boo.TracNghiemToanOnline.slide.TestDoneActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen" />
+        <activity
+            android:name="com.UIT.boo.TracNghiemToanOnline.RegisterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen" />
+        <activity
+            android:name="com.UIT.boo.TracNghiemToanOnline.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen" />
+        <activity android:name="com.UIT.boo.TracNghiemToanOnline.TaoDeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity android:name="com.UIT.boo.TracNghiemToanOnline.TaiLieu.TailieuItemActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"/>
+        <activity android:name="com.UIT.boo.TracNghiemToanOnline.TaiLieu.TaiLieuWebView"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen"></activity>
     </application>
 
 </manifest>

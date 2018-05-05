@@ -1,51 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_trangchu"
-            android:icon="@drawable/home_48px"
-            android:title="Trang chủ" />
-        <item
-            android:title="Trắc nghiệm toán">
-            <menu>
-                <group android:checkableBehavior="single">
-                    <item
-                        android:id="@+id/nav_dethi"
-                        android:icon="@drawable/book1"
-                        android:title="Đề thi tổng hợp" />
-                    <item
-                        android:id="@+id/nav_chuyende"
-                        android:icon="@drawable/taode"
-                        android:title="Tạo đề thi" />
-                    <item
-                        android:id="@+id/nav_bosuutap"
-                        android:icon="@drawable/bosuutap"
-                        android:title="Bộ sưu tập" />
-                </group>
-            </menu>
-        </item>
-        <item
-            android:title="Communicate">
-            <menu>
-                <group android:checkableBehavior="single">
-                    <item
-                        android:id="@+id/nav_box"
-                        android:icon="@drawable/box"
-                        android:title="Box trao đổi"/>
-                    <item
-                        android:id="@+id/nav_share"
-                        android:icon="@drawable/share"
-                        android:title="Chia sẻ" />
-                    <item
-                        android:id="@+id/nav_danhgia"
-                        android:icon="@drawable/star"
-                        android:title="Đánh giá"/>
-                </group>
-            </menu>
-        </item>
-    </group>
-
+    <item
+        android:id="@+id/nav_dethi"
+        android:icon="@drawable/home_48px"
+        android:title="Học tập" />
+    <item
+        android:id="@+id/nav_bosuutap"
+        android:icon="@drawable/category"
+        android:title="Bộ sưu tập" />
+    <item
+        android:id="@+id/nav_tailieu"
+        android:icon="@drawable/bosuutap"
+        android:title="Tài liệu" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/student"
+        android:title="Trang cá nhân" />
 </menu>

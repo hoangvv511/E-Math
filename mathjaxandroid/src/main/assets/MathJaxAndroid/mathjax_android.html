@@ -1,9 +1,9 @@
 <html>
     <body>
-        <script type='text/x-mathjax-config'>
+    <script type='text/x-mathjax-config'>
              MathJax.Hub.Config({
                 showMathMenu: false,
-                showProcessingMessages: false,
+                showProcessingMessages: true,
                 messageStyle: "none",
                 jax: [BridgeConfig.getInput(),BridgeConfig.getOutput()],
                 extensions: ['tex2jax.js'],
@@ -47,7 +47,7 @@
 
           function changeToMML() {
             MathJax.Hub.Config({
-                 jax: ['input/TeX','output/NativeMML']
+                 jax: ['input/TeX','output/NativeMML'],
             });
 
                 var element = document.getElementById('math');
@@ -67,7 +67,7 @@
 
         </script>
 
-        <div style="text-align: center;">
+        <div style="text-align: left;">
             <span id='math'></span>
         </div>
     </body>
