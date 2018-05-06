@@ -26,6 +26,8 @@ import java.util.ArrayList;
 
 import de.timfreiheit.mathjax.android.MathJaxView;
 
+import static com.UIT.boo.TracNghiemToanOnline.slide.ScreenSlideActivity.mPager;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +42,8 @@ public class ScreenSlidePageFragment extends Fragment {
     TextView tvNum, tv_goiy;
     RadioGroup radioGroup;
     RadioButton radA, radB, radC, radD;
+    private TextView tv_numpape;
+    private ImageView imv_back, imv_go;
     String ansA, ansB, ansC, ansD,question, result, base64image, base64image2;
     ImageView im_question, im_goiy;
     public MathJaxView mv_question,mv_AnsA, mv_AnsB, mv_AnsC, mv_AnsD, mv_goiy;
@@ -67,6 +71,9 @@ public class ScreenSlidePageFragment extends Fragment {
         im_question = rootView.findViewById(R.id.imV_question);
         radA = rootView.findViewById(R.id.radA);
         radB =  rootView.findViewById(R.id.radB);
+        tv_numpape = rootView.findViewById(R.id.tv_numpage);
+        imv_back = rootView.findViewById(R.id.imv_backpage);
+        imv_go = rootView.findViewById(R.id.imv_gopage);
         radC =  rootView.findViewById(R.id.radC);
         radD =  rootView.findViewById(R.id.radD);
         radioGroup = rootView.findViewById(R.id.radG_Ans);
@@ -105,7 +112,7 @@ public class ScreenSlidePageFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        tv_numpape.setText((mPageNumber+1) + "/" + arr_Ques.size());
         tvNum.setText("Câu " + (mPageNumber + 1));
         mv_goiy.setInputText(result);
         mv_question.setInputText(question);
@@ -117,6 +124,21 @@ public class ScreenSlidePageFragment extends Fragment {
         tv_goiy.setVisibility(View.GONE);
         im_goiy.setEnabled(false);
         im_goiy.setVisibility(View.GONE);
+
+        imv_go.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPager.setCurrentItem(mPager.getCurrentItem()+1);
+            }
+        });
+
+        imv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPager.setCurrentItem(mPager.getCurrentItem()-1);
+            }
+        });
+
         if(base64image2 == null)
         {
             im_goiy.setEnabled(false);
@@ -197,7 +219,7 @@ public class ScreenSlidePageFragment extends Fragment {
         }
 
         if(checkAns!=0){
-            radioGroup.setVisibility(View.GONE);
+            //radioGroup.setVisibility(View.GONE);
             tv_goiy.setVisibility(View.VISIBLE);
             im_goiy.setVisibility(View.VISIBLE);
             mv_goiy.setVisibility(View.VISIBLE);
@@ -207,6 +229,8 @@ public class ScreenSlidePageFragment extends Fragment {
             radD.setClickable(false);
             getCheckAns(getItem(mPageNumber).getResult().toString());
         }
+
+
     }
 
     public Question getItem(int posotion){

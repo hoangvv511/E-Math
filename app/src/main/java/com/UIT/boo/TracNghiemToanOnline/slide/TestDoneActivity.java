@@ -32,7 +32,8 @@ public class TestDoneActivity extends AppCompatActivity {
 
     private PieChart mChart;
     private Typeface tf;
-    private ArrayList<Question> arr_QuesBegin= new ArrayList<Question>();
+
+    private TextView tv_cd1, tv_cd2, tv_cd3, tv_cd4, tv_cd5, tv_cd6, tv_cd7, tv_cd8;
     int numNoAns=0;
     int numTrue=0;
     int numFalse=0;
@@ -47,11 +48,11 @@ public class TestDoneActivity extends AppCompatActivity {
     int numFalse_9 =0;
     int exam;
     private int numNoAns_1,numNoAns_2,numNoAns_3,numNoAns_4,numNoAns_5,numNoAns_6,numNoAns_7,numNoAns_8,numNoAns_9;
-    private TextView tv_cd1, tv_cd2, tv_cd3, tv_cd4, tv_cd5, tv_cd6, tv_cd7, tv_cd8;
     private int numcd1 = 0, numcd2 =0 , numcd3 =0 , numcd4 =0, numcd5 =0, numcd6=0, numcd7=0, numcd8=0, numcd9=0;
     private Button btnAgain, btnBack;
     private double TongDiem;
     private String XepLoai, name_exam;
+    private ArrayList<Question> arr_QuesBegin= new ArrayList<Question>();
 
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
@@ -80,7 +81,6 @@ public class TestDoneActivity extends AppCompatActivity {
             if (arr_QuesBegin.get(i).getChuyende() == 8) numcd8++; //8.	Phương pháp tọa độ trong không gian.
             if (arr_QuesBegin.get(i).getChuyende() == 9) numcd9++; //9.	Tổ hợp, xác suất.
         }
-
 
         begin();
         checkResult();
@@ -141,7 +141,7 @@ public class TestDoneActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new SweetAlertDialog(TestDoneActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Bạn muốn thoát không ?")
+                        .setTitleText("Trở lại góc học tập ?")
                         .setCancelText("No")
                         .setConfirmText("Yes")
                         .showCancelButton(true)
@@ -236,6 +236,66 @@ public class TestDoneActivity extends AppCompatActivity {
            btnBack=(Button)findViewById(R.id.btnBack);
         }
 
+    //PT Check kết quả
+    public void checkResult(){
+        for(int i=0; i< arr_QuesBegin.size(); i++)
+        {
+            if(arr_QuesBegin.get(i).getDapAnChon().equals(""))
+            {
+                numNoAns++;
+                if(arr_QuesBegin.get(i).getChuyende() == 1) numNoAns_1++;
+                if(arr_QuesBegin.get(i).getChuyende() == 2) numNoAns_2++;
+                if(arr_QuesBegin.get(i).getChuyende() == 3) numNoAns_3++;
+                if(arr_QuesBegin.get(i).getChuyende() == 4) numNoAns_4++;
+                if(arr_QuesBegin.get(i).getChuyende() == 5) numNoAns_5++;
+                if(arr_QuesBegin.get(i).getChuyende() == 6) numNoAns_6++;
+                if(arr_QuesBegin.get(i).getChuyende() == 7) numNoAns_7++;
+                if(arr_QuesBegin.get(i).getChuyende() == 8) numNoAns_8++;
+                if(arr_QuesBegin.get(i).getChuyende() == 9) numNoAns_9++;
+            }
+            else if(arr_QuesBegin.get(i).getResult().equals(arr_QuesBegin.get(i).getDapAnChon())){
+                numTrue++;
+            }
+            else
+            {
+                numFalse++;
+                if(arr_QuesBegin.get(i).getChuyende() == 1) numFalse_1++;
+                if(arr_QuesBegin.get(i).getChuyende() == 2) numFalse_2++;
+                if(arr_QuesBegin.get(i).getChuyende() == 3) numFalse_3++;
+                if(arr_QuesBegin.get(i).getChuyende() == 4) numFalse_4++;
+                if(arr_QuesBegin.get(i).getChuyende() == 5) numFalse_5++;
+                if(arr_QuesBegin.get(i).getChuyende() == 6) numFalse_6++;
+                if(arr_QuesBegin.get(i).getChuyende() == 7) numFalse_7++;
+                if(arr_QuesBegin.get(i).getChuyende() == 8) numFalse_8++;
+                if(arr_QuesBegin.get(i).getChuyende() == 9) numFalse_9++;
+            }
+        }
+    }
+
+    private static String Xeploai(double diem)
+    {
+        if (diem >= 9)
+            return "Xuất sắc";
+        if (diem >= 8 && diem < 9)
+            return "Giỏi";
+        if (diem >= 6.5 && diem < 8)
+            return "Khá";
+        if (diem >= 5 && diem < 6.5)
+            return "Trung bình";
+        if (diem >= 3.5 && diem < 5)
+            return "Yếu";
+        if (diem < 3.5)
+            return "Kém";
+        return "";
+    }
+
+    private static double Tinhdiem(double socaudung, double tongsocau)
+    {
+        double a = (socaudung / tongsocau) * 10;
+        a = (double) Math.round(a * 10) / 10;
+        return a;
+    }
+
     public void clickGoiy()
     {
         tv_cd1.setOnClickListener(new View.OnClickListener() {
@@ -320,42 +380,6 @@ public class TestDoneActivity extends AppCompatActivity {
         });
     }
 
-    //PT Check kết quả
-    public void checkResult(){
-        for(int i=0; i< arr_QuesBegin.size(); i++)
-        {
-            if(arr_QuesBegin.get(i).getDapAnChon().equals(""))
-            {
-                numNoAns++;
-                if(arr_QuesBegin.get(i).getChuyende() == 1) numNoAns_1++;
-                if(arr_QuesBegin.get(i).getChuyende() == 2) numNoAns_2++;
-                if(arr_QuesBegin.get(i).getChuyende() == 3) numNoAns_3++;
-                if(arr_QuesBegin.get(i).getChuyende() == 4) numNoAns_4++;
-                if(arr_QuesBegin.get(i).getChuyende() == 5) numNoAns_5++;
-                if(arr_QuesBegin.get(i).getChuyende() == 6) numNoAns_6++;
-                if(arr_QuesBegin.get(i).getChuyende() == 7) numNoAns_7++;
-                if(arr_QuesBegin.get(i).getChuyende() == 8) numNoAns_8++;
-                if(arr_QuesBegin.get(i).getChuyende() == 9) numNoAns_9++;
-            }
-            else if(arr_QuesBegin.get(i).getResult().equals(arr_QuesBegin.get(i).getDapAnChon())){
-                numTrue++;
-            }
-            else
-            {
-                numFalse++;
-                if(arr_QuesBegin.get(i).getChuyende() == 1) numFalse_1++;
-                if(arr_QuesBegin.get(i).getChuyende() == 2) numFalse_2++;
-                if(arr_QuesBegin.get(i).getChuyende() == 3) numFalse_3++;
-                if(arr_QuesBegin.get(i).getChuyende() == 4) numFalse_4++;
-                if(arr_QuesBegin.get(i).getChuyende() == 5) numFalse_5++;
-                if(arr_QuesBegin.get(i).getChuyende() == 6) numFalse_6++;
-                if(arr_QuesBegin.get(i).getChuyende() == 7) numFalse_7++;
-                if(arr_QuesBegin.get(i).getChuyende() == 8) numFalse_8++;
-                if(arr_QuesBegin.get(i).getChuyende() == 9) numFalse_9++;
-            }
-        }
-    }
-
     //Gợi ý ôn tập
     public void checkGoiy()
     {
@@ -368,29 +392,5 @@ public class TestDoneActivity extends AppCompatActivity {
         if((numFalse_7 +numNoAns_7) <= (numcd7/2)) tv_cd7.setVisibility(View.GONE); //hình không gian
         if((numFalse_8 +numNoAns_8) <= (numcd8/2)) tv_cd8.setVisibility(View.GONE); //Oxyz
         if((numFalse_9 +numNoAns_9) <= (numcd9/2)) tv_cd6.setVisibility(View.GONE); //xác suất
-    }
-
-    private static String Xeploai(double diem)
-    {
-        if (diem >= 9)
-            return "Xuất sắc";
-        if (diem >= 8 && diem < 9)
-            return "Giỏi";
-        if (diem >= 6.5 && diem < 8)
-        return "Khá";
-        if (diem >= 5 && diem < 6.5)
-            return "Trung bình";
-        if (diem >= 3.5 && diem < 5)
-            return "Yếu";
-        if (diem < 3.5)
-            return "Kém";
-        return "";
-    }
-
-    private static double Tinhdiem(double socaudung, double tongsocau)
-    {
-        double a = (socaudung / tongsocau) * 10;
-        a = (double) Math.round(a * 10) / 10;
-        return a;
     }
 }

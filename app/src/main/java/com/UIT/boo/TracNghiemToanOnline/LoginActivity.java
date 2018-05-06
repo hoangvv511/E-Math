@@ -113,6 +113,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if(view == buttonSignUp){
             finish();
             startActivity(new Intent(this, RegisterActivity.class));
+            overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         }
     }
 }

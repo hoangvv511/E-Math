@@ -3,12 +3,16 @@ package com.UIT.boo.TracNghiemToanOnline;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -51,6 +55,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private final int PICK_IMAGE_REQUEST = 71;
     private String imagebase64;
     private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
+    private boolean isUsername;
+    private int count2 = 0;
+
+    Handler handler;
+    SweetAlertDialog Dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +74,22 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editTextUserName = (EditText) findViewById(R.id.editUserName);
         editTextConfirmPassword = (EditText) findViewById(R.id.editTextConfirmPassword);
         editTextFullname = (EditText) findViewById(R.id.editTextFullname);
+        //imagebase64 = getString(R.string.ic_user);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
-        imagebase64 = getString(R.string.ic_user);
-
         cimv_useravatar = findViewById(R.id.cimv_useravatar);
         btn_xoay = findViewById(R.id.btn_xoay);
         btn_xoay.setVisibility(View.GONE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        //String b = String.valueOf(SplashScreen.count1) + "";
+        //Toast.makeText(RegisterActivity.this, b, Toast.LENGTH_SHORT).show();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_user);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        imagebase64 = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
         cimv_useravatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(RegisterActivity.this, "Bạn chưa nhập Username", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(username.length()<6)
+                if(password.length()<6)
                 {
                     Toast.makeText(RegisterActivity.this, "Mật khẩu ít nhất 6 kí tự", Toast.LENGTH_SHORT).show();
                     return;
@@ -157,6 +174,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                         if(firebaseAuth.getCurrentUser() != null){
                                                             finish();
                                                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                                            overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                                                         }
                                                     }
                                                 }, 1500);
@@ -231,6 +249,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(view == textViewSignin)
         {
             startActivity(new Intent(this, LoginActivity.class));
+            overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
         }
     }
 

@@ -142,33 +142,64 @@
 
                 </android.support.constraint.ConstraintLayout>
 
+
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/constraintLayout3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
 
+                    <ImageView
+                        android:id="@+id/imv_backpage"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/back_26px"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imv_gopage"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/forward_26px"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_numpage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:text="16/50"
+                        android:textStyle="bold"
+                        android:textColor="#1502c7"
+                        android:textSize="18dp"
+                        app:layout_constraintEnd_toStartOf="@+id/imv_gopage"
+                        app:layout_constraintStart_toEndOf="@+id/imv_backpage"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <RadioGroup
                         android:id="@+id/radG_Ans"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:visibility="visible"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imv_gopage"
+                        app:layout_constraintStart_toEndOf="@+id/imv_backpage">
 
                         <RadioButton
                             android:id="@+id/radA"
-                            android:layout_width="80dp"
+                            android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:checked="false"
@@ -181,7 +212,7 @@
 
                         <RadioButton
                             android:id="@+id/radB"
-                            android:layout_width="80dp"
+                            android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:checked="false"
@@ -194,7 +225,7 @@
 
                         <RadioButton
                             android:id="@+id/radC"
-                            android:layout_width="80dp"
+                            android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:checked="false"
@@ -207,7 +238,7 @@
 
                         <RadioButton
                             android:id="@+id/radD"
-                            android:layout_width="80dp"
+                            android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:checked="false"

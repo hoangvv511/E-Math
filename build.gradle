@@ -31,6 +31,9 @@ allprojects {
         }
         maven { url 'http://dl.bintray.com/amulyakhare/maven'
         }
+        maven {
+            url 'http://dl.bintray.com/amulyakhare/maven'
+        }
 
     }
 }

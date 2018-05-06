@@ -4,6 +4,7 @@ import android.app.Dialog;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -13,12 +14,14 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.Lego.TracNghiemToanOnline.R;
+import com.UIT.boo.TracNghiemToanOnline.ScorePreviewFragment;
 import com.UIT.boo.TracNghiemToanOnline.question.Question;
 import com.UIT.boo.TracNghiemToanOnline.question.QuestionController;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
@@ -30,13 +33,13 @@ public class ScreenSlideActivity extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    private static int NUM_PAGES =50;
+    public static int NUM_PAGES =50;
 
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
      */
-    private ViewPager mPager;
+    public static ViewPager mPager;
 
     /**
      * The pager adapter, which provides the pages to the view pager widget.
@@ -250,7 +253,7 @@ public class ScreenSlideActivity extends FragmentActivity {
             }
         });
 
-        Button btnCancle, btnFinish;
+        final Button btnCancle, btnFinish;
         btnCancle = dialog.findViewById(R.id.btnCancle);
         btnFinish = dialog.findViewById(R.id.btnFinish);
         if(checkAns==1) btnFinish.setVisibility(View.GONE);
@@ -265,6 +268,24 @@ public class ScreenSlideActivity extends FragmentActivity {
             public void onClick(View v) {
                 /////
                 timer.cancel();
+                final SweetAlertDialog newDialog = new SweetAlertDialog(ScreenSlideActivity.this,SweetAlertDialog.PROGRESS_TYPE);
+                newDialog.setTitleText("Đang tính điểm....");
+                newDialog.show();
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        newDialog.dismissWithAnimation();
+                        ScorePreviewFragment fragment = new ScorePreviewFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("arr_Ques2", arr_Ques);
+                        bundle.putInt("exam2", num_exam);
+                        bundle.putString("name_exam", name_exam);
+                        fragment.setArguments(bundle);
+                        FragmentManager manager = getSupportFragmentManager();
+                        fragment.show(manager, "SCORE");
+                    }
+                },3000);
                 result();
                 dialog.dismiss();
             }
@@ -272,6 +293,8 @@ public class ScreenSlideActivity extends FragmentActivity {
 
         dialog.show();
     }
+
+
 
     public void result() {
         checkAns = 1;
