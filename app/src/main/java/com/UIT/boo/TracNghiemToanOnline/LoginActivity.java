@@ -12,28 +12,32 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.Lego.TracNghiemToanOnline.R;
+import com.github.ybq.android.spinkit.style.CubeGrid;
+import com.github.ybq.android.spinkit.style.Wave;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     private Button buttonSignIn;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private Button buttonSignUp;
-    private ProgressDialog progressDialog;
-    String fullname,emailuser,imageAvatar, phone,username;
 
 
     @Override
@@ -45,13 +49,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextPassword = (EditText)findViewById(R.id.editTextPassword);
         buttonSignIn = (Button)findViewById(R.id.buttonSignin);
         buttonSignUp = (Button) findViewById(R.id.buttonSignUp);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        progressDialog = new ProgressDialog(this);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         buttonSignIn.setOnClickListener(this);
         buttonSignUp.setOnClickListener(this);
 
     }
+
 
     private void userLogin(){
         final String email = editTextEmail.getText().toString().trim();

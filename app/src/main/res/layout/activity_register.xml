@@ -211,7 +211,6 @@
             android:textSize="18sp"
             android:textStyle="normal" />
 
-
         <TextView
             android:textAlignment="center"
             android:text="Đã có tài khoản ? Đăng nhập ở đây"

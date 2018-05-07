@@ -54,7 +54,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private String email,password,username,confirmpassword,fullname,phone;
     private final int PICK_IMAGE_REQUEST = 71;
     private String imagebase64;
-    private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
     private boolean isUsername;
     private int count2 = 0;
 
@@ -82,8 +81,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         btn_xoay.setVisibility(View.GONE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        //String b = String.valueOf(SplashScreen.count1) + "";
-        //Toast.makeText(RegisterActivity.this, b, Toast.LENGTH_SHORT).show();
+        String b = String.valueOf(SplashScreen.count1) + "";
+        Toast.makeText(RegisterActivity.this, b, Toast.LENGTH_SHORT).show();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_user);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -111,91 +110,133 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 fullname = editTextFullname.getText().toString().trim();
                 phone = editTextPhone.getText().toString().trim();
 
-                if(TextUtils.isEmpty(username))
-                {
+                if (TextUtils.isEmpty(username)) {
                     Toast.makeText(RegisterActivity.this, "Bạn chưa nhập Username", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(password.length()<6)
-                {
+                if (password.length() < 6) {
                     Toast.makeText(RegisterActivity.this, "Mật khẩu ít nhất 6 kí tự", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(email)) // k nhập tài khoản sẽ báo lỗi
+                if (TextUtils.isEmpty(email)) // k nhập tài khoản sẽ báo lỗi
                 {
                     Toast.makeText(RegisterActivity.this, "Bạn chưa nhập email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(password)) // k nhập pass sẽ báo lỗi
+                if (TextUtils.isEmpty(password)) // k nhập pass sẽ báo lỗi
                 {
                     Toast.makeText(RegisterActivity.this, "Bạn chưa nhập mật khẩu", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(TextUtils.isEmpty(confirmpassword))
-                {
+                if (TextUtils.isEmpty(confirmpassword)) {
                     Toast.makeText(RegisterActivity.this, "Bạn chưa nhập mật khẩu xác thực", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(!password.equals(confirmpassword))
-                {
+                if (!password.equals(confirmpassword)) {
                     Toast.makeText(RegisterActivity.this, "Mật khẩu không khớp", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(TextUtils.isEmpty(fullname))
-                {
+                if (TextUtils.isEmpty(fullname)) {
                     Toast.makeText(RegisterActivity.this, "Bạn chưa nhập tên", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(phone))
-                {
+                if (TextUtils.isEmpty(phone)) {
                     Toast.makeText(RegisterActivity.this, "Bạn chưa nhập số điện thoại", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                final Handler handler = new Handler();
-                final SweetAlertDialog Dialog = new SweetAlertDialog(RegisterActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-                Dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                Dialog.setTitleText("Đang đăng kí....");
-                Dialog.setCancelable(false);
-                Dialog.show();
-                            // User does not exist. NOW call createUserWithEmailAndPassword
-                            firebaseAuth.createUserWithEmailAndPassword(email,password)
-                                    .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if(task.isSuccessful()){
-                                                String user_id = firebaseAuth.getCurrentUser().getUid();
-                                                final DatabaseReference current_user = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id).child("Information");
-                                                UserInformation userInformation = new UserInformation(email, fullname, imagebase64, phone, username);
-                                                current_user.setValue(userInformation);
 
-                                                handler.postDelayed(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        if(firebaseAuth.getCurrentUser() != null){
-                                                            finish();
-                                                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                                                            overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
-                                                        }
-                                                    }
-                                                }, 1500);
-                                                Dialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                                                Dialog.setTitleText("Đăng kí thành công!");
-                                            }
-                                            else { // tạo không thành công
-                                                Dialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-                                                Dialog.setTitleText("Đăng kí thất bại!");
-                                                handler.postDelayed(new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        Dialog.dismissWithAnimation();
-                                                    }
-                                                },1500);
-                                            }
-                                            progressDialog.dismiss();
-                                        }
-                                    });
-                            // Your previous code here.
+                SplashScreen.databaseRefence.child("Username").addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        String a = String.valueOf(dataSnapshot.getValue());
+                        if (a.equals(username)) {
+                            isUsername = true;
                         }
+                        count2++;
+                        if (count2 >= SplashScreen.count1) {
+                            handler = new Handler();
+                            Dialog = new SweetAlertDialog(RegisterActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+                            Dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                            Dialog.setTitleText("Đang đăng kí....");
+                            Dialog.setCancelable(false);
+                            Dialog.show();
+                            count2 = 0;
+                            if (isUsername) {
+                                Dialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                Dialog.setTitleText("Tên tài khoản đã tồn tại !");
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Dialog.dismissWithAnimation();
+                                    }
+                                }, 5000);
+                                //Toast.makeText(RegisterActivity.this, "Username exists", Toast.LENGTH_SHORT).show();
+                                isUsername = false;
+                                //return;
+                            } else {
+                                // User does not exist. NOW call createUserWithEmailAndPassword
+                                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+                                                    String user_id = firebaseAuth.getCurrentUser().getUid();
+                                                    final DatabaseReference current_user = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id).child("Information");
+                                                    UserInformation userInformation = new UserInformation(email, fullname, imagebase64, phone, username);
+                                                    current_user.setValue(userInformation);
+                                                    SplashScreen.databaseRefence.child("Username").push().setValue(username);
+
+                                                    handler.postDelayed(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            if (firebaseAuth.getCurrentUser() != null) {
+                                                                finish();
+                                                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                                                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+                                                            }
+                                                        }
+                                                    }, 1500);
+                                                    Dialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                                    Dialog.setTitleText("Đăng kí thành công!");
+                                                } else { // tạo không thành công
+                                                    Dialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                                    Dialog.setTitleText("Đăng kí thất bại!");
+                                                    handler.postDelayed(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Dialog.dismissWithAnimation();
+                                                        }
+                                                    }, 1500);
+                                                }
+                                                progressDialog.dismiss();
+                                            }
+                                        });
+                                // Your previous code here.
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
         });
         textViewSignin.setOnClickListener(this);
     }

@@ -22,6 +22,7 @@
 
             <!-- Here you can replace it with your logo or brand name -->
             <ImageView
+                android:id="@+id/imv_app"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
@@ -29,7 +30,9 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/owl" />
 
+
             <ImageView
+                android:id="@+id/imv_titleapp"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
