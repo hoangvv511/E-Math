@@ -5,7 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -18,16 +18,19 @@
         android:label="E-Math"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.FullScreen">
+
         <activity
-            android:name="com.UIT.boo.TracNghiemToanOnline.LoginActivity"
+            android:name="com.UIT.boo.TracNghiemToanOnline.SplashScreen"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen">
+            android:theme="@style/AppTheme.FullScreen"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="com.UIT.boo.TracNghiemToanOnline.slide.ScreenSlideActivity"
             android:screenOrientation="portrait"
@@ -44,15 +47,21 @@
             android:name="com.UIT.boo.TracNghiemToanOnline.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
-        <activity android:name="com.UIT.boo.TracNghiemToanOnline.TaoDeActivity"
+        <activity
+            android:name="com.UIT.boo.TracNghiemToanOnline.TaoDeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen" />
+        <activity
+            android:name="com.UIT.boo.TracNghiemToanOnline.TaiLieu.TailieuItemActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen" />
+        <activity
+            android:name="com.UIT.boo.TracNghiemToanOnline.TaiLieu.TaiLieuWebView"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.FullScreen" />
+        <activity android:name="com.UIT.boo.TracNghiemToanOnline.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"/>
-        <activity android:name="com.UIT.boo.TracNghiemToanOnline.TaiLieu.TailieuItemActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"/>
-        <activity android:name="com.UIT.boo.TracNghiemToanOnline.TaiLieu.TaiLieuWebView"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.FullScreen"></activity>
     </application>
 
 </manifest>

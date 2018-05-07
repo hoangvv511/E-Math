@@ -17,23 +17,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <!-- Here you can replace it with your logo or brand name -->
             <ImageView
+                android:id="@+id/imv_app"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="0dp"
-                android:layout_marginTop="30dp"
                 android:padding="16dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/owl" />
 
+
             <ImageView
+                android:id="@+id/imv_titleapp"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
+                android:visibility="visible"
                 android:src="@drawable/title" />
 
 
@@ -44,6 +47,7 @@
                 android:layout_marginTop="50dp"
                 android:background="@android:color/transparent"
                 android:clickable="false"
+                android:visibility="visible"
                 android:drawableLeft="@drawable/ic_person_white_24dp"
                 android:drawablePadding="12dp"
                 android:ems="10"
@@ -56,8 +60,10 @@
                 android:textColorHint="@color/gray" />
 
             <View
+                android:id="@+id/view1"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:visibility="visible"
                 android:background="#f9d7db" />
 
 
@@ -71,6 +77,7 @@
                 android:drawablePadding="12dp"
                 android:ems="10"
                 android:hint="Password"
+                android:visibility="visible"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:paddingBottom="8dp"
@@ -81,8 +88,10 @@
                 android:textColorHint="@color/gray" />
 
             <View
+                android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:visibility="visible"
                 android:background="#f9d7db" />
 
             <Button
@@ -95,6 +104,7 @@
                 android:clickable="true"
                 android:padding="16dp"
                 android:text="Đăng nhập"
+                android:visibility="visible"
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
@@ -109,6 +119,7 @@
                 android:background="@drawable/background_signup"
                 android:clickable="true"
                 android:padding="16dp"
+                android:visibility="visible"
                 android:text="Tạo tài khoản"
                 android:textAllCaps="false"
                 android:textColor="#fff"
