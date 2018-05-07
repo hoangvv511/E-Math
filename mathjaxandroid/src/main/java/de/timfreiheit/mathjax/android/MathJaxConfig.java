@@ -46,8 +46,19 @@ public class MathJaxConfig {
     private boolean automaticLinebreaks = false;
     private int blacker = 1;
 
+    @JavascriptInterface
+    public int getGravity() {
+        return gravity;
+    }
+
+    public void setGravity(int gravity) {
+        this.gravity = gravity;
+    }
+
+    private int gravity = 3;
+
     public MathJaxConfig(){
-        if (Build.VERSION.SDK_INT >= 14) {
+        if (Build.VERSION.SDK_INT >= 17) {
             output = Output.SVG.value;
         }else {
             output = Output.HTML_CSS.value;
@@ -68,6 +79,7 @@ public class MathJaxConfig {
         setMinScaleAdjust(attrs.getInteger(R.styleable.MathJaxView_minScaleAdjust, minScaleAdjust));
         setOutputScale(attrs.getInteger(R.styleable.MathJaxView_outputScale,outputScale));
         setBlacker(attrs.getInteger(R.styleable.MathJaxView_blacker,blacker));
+        setGravity(attrs.getInteger(R.styleable.MathJaxView_gravity, gravity));
     }
 
 

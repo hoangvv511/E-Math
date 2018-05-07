@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,224 +15,70 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tvNum"
-                android:layout_width="101dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Câu 1"
-                android:textColor="#ff0011"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <io.github.sidvenu.mathjaxview.MathJaxView
-                android:id="@+id/mv_question"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="3dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvNum"></io.github.sidvenu.mathjaxview.MathJaxView>
-
-            <ImageView
-                android:id="@+id/imV_question"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:adjustViewBounds="true"
-                android:scaleType="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mv_question"
-                auto:srcCompat="@drawable/googleg_standard_color_18" />
-
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/constraintLayout2"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imV_question">
-
-                <io.github.sidvenu.mathjaxview.MathJaxView
-                    android:id="@+id/mv_AnsA"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <io.github.sidvenu.mathjaxview.MathJaxView
-                    android:id="@+id/mv_AnsB"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mv_AnsA" />
-
-                <io.github.sidvenu.mathjaxview.MathJaxView
-                    android:id="@+id/mv_AnsC"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mv_AnsB" />
-
-                <io.github.sidvenu.mathjaxview.MathJaxView
-                    android:id="@+id/mv_AnsD"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mv_AnsC">
-
-                </io.github.sidvenu.mathjaxview.MathJaxView>
-
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/constraintLayout3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:layout_weight="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
-
-                <RadioGroup
-                    android:id="@+id/radG_Ans"
-                    android:layout_width="338dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <RadioButton
-                        android:id="@+id/radA"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:checked="false"
-                        android:text="A"
-                        android:textColor="#1502c7"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:layout_editor_absoluteX="72dp"
-                        tools:layout_editor_absoluteY="388dp" />
-
-                    <RadioButton
-                        android:id="@+id/radB"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:checked="false"
-                        android:text="B"
-                        android:textColor="#1502c7"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:layout_editor_absoluteX="16dp"
-                        tools:layout_editor_absoluteY="339dp" />
-
-                    <RadioButton
-                        android:id="@+id/radC"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:checked="false"
-                        android:text="C"
-                        android:textColor="#1502c7"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:layout_editor_absoluteX="52dp"
-                        tools:layout_editor_absoluteY="356dp" />
-
-                    <RadioButton
-                        android:id="@+id/radD"
-                        android:layout_width="30dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:checked="false"
-                        android:text="D"
-                        android:textColor="#1502c7"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        tools:layout_editor_absoluteX="24dp"
-                        tools:layout_editor_absoluteY="519dp" />
-
-                </RadioGroup>
-
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="#E8E8E8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/tv_goiy"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvNum"
+                    android:layout_width="101dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="Gợi ý lời giải :"
-                    android:textColor="#1E90FF"
-                    android:textSize="16dp"
-                    android:textStyle="bold|italic"
+                    android:layout_gravity="center"
+                    android:text="Câu 1"
+                    android:textColor="#ff0011"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imv_goiy"
+                <de.timfreiheit.mathjax.android.MathJaxView
+                    android:id="@+id/mv_question"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="3dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_goiy"
-                    auto:srcCompat="@drawable/about" />
+                    app:layout_constraintTop_toBottomOf="@+id/tvNum"
+                    app:horizontalScrollbarsEnabled="false"
+                    app:verticalScrollbarsEnabled="true"
+                    app:automaticLinebreaks="true"/>
 
-                <io.github.sidvenu.mathjaxview.MathJaxView
-                    android:id="@+id/mv_goiy"
+                <ImageView
+                    android:id="@+id/imV_question"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mv_question"
+                    auto:srcCompat="@drawable/googleg_standard_color_18" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -239,12 +86,226 @@
                     android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imv_goiy">
+                    app:layout_constraintTop_toBottomOf="@+id/imV_question">
 
-                </io.github.sidvenu.mathjaxview.MathJaxView>
+                    <de.timfreiheit.mathjax.android.MathJaxView
+                        android:id="@+id/mv_AnsA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:horizontalScrollbarsEnabled="false"
+                        app:verticalScrollbarsEnabled="true"
+                        app:automaticLinebreaks="true"/>
+
+                    <de.timfreiheit.mathjax.android.MathJaxView
+                        android:id="@+id/mv_AnsB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mv_AnsA"
+                        app:horizontalScrollbarsEnabled="false"
+                        app:verticalScrollbarsEnabled="true"
+                        app:automaticLinebreaks="true"/>
+
+                    <de.timfreiheit.mathjax.android.MathJaxView
+                        android:id="@+id/mv_AnsC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mv_AnsB"
+                        app:horizontalScrollbarsEnabled="false"
+                        app:verticalScrollbarsEnabled="true"
+                        app:automaticLinebreaks="true"/>
+
+                    <de.timfreiheit.mathjax.android.MathJaxView
+                        android:id="@+id/mv_AnsD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mv_AnsC"
+                        app:horizontalScrollbarsEnabled="false"
+                        app:verticalScrollbarsEnabled="true"
+                        app:automaticLinebreaks="true">
+
+                    </de.timfreiheit.mathjax.android.MathJaxView>
+
+                </android.support.constraint.ConstraintLayout>
+
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+
+                    <ImageView
+                        android:id="@+id/imv_backpage"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/back_26px"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imv_gopage"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/forward_26px"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_numpage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:text="16/50"
+                        android:textStyle="bold"
+                        android:textColor="#1502c7"
+                        android:textSize="18dp"
+                        app:layout_constraintEnd_toStartOf="@+id/imv_gopage"
+                        app:layout_constraintStart_toEndOf="@+id/imv_backpage"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <RadioGroup
+                        android:id="@+id/radG_Ans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imv_gopage"
+                        app:layout_constraintStart_toEndOf="@+id/imv_backpage">
+
+                        <RadioButton
+                            android:id="@+id/radA"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="false"
+                            android:text="A"
+                            android:textColor="#1502c7"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteX="72dp"
+                            tools:layout_editor_absoluteY="388dp" />
+
+                        <RadioButton
+                            android:id="@+id/radB"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="false"
+                            android:text="B"
+                            android:textColor="#1502c7"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteX="16dp"
+                            tools:layout_editor_absoluteY="339dp" />
+
+                        <RadioButton
+                            android:id="@+id/radC"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="false"
+                            android:text="C"
+                            android:textColor="#1502c7"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteX="52dp"
+                            tools:layout_editor_absoluteY="356dp" />
+
+                        <RadioButton
+                            android:id="@+id/radD"
+                            android:layout_width="60dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="false"
+                            android:text="D"
+                            android:textColor="#1502c7"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteX="24dp"
+                            tools:layout_editor_absoluteY="519dp" />
+
+                    </RadioGroup>
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="#E8E8E8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                    <TextView
+                        android:id="@+id/tv_goiy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="Gợi ý lời giải :"
+                        android:textColor="#1E90FF"
+                        android:textSize="16dp"
+                        android:textStyle="bold|italic"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imv_goiy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_goiy"
+                        auto:srcCompat="@drawable/about" />
+
+                    <de.timfreiheit.mathjax.android.MathJaxView
+                        android:id="@+id/mv_goiy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imv_goiy"
+                        app:horizontalScrollbarsEnabled="false"
+                        app:verticalScrollbarsEnabled="true"
+                        app:automaticLinebreaks="true">
+
+                    </de.timfreiheit.mathjax.android.MathJaxView>
+
+                </android.support.constraint.ConstraintLayout>
 
             </android.support.constraint.ConstraintLayout>
-
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
