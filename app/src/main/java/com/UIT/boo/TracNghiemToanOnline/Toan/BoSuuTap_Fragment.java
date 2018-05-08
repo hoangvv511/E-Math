@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.UIT.boo.TracNghiemToanOnline.SplashScreen;
 import com.baoyz.widget.PullRefreshLayout;
 import com.UIT.boo.TracNghiemToanOnline.MainActivity;
 import com.Lego.TracNghiemToanOnline.R;
@@ -20,6 +21,7 @@ import com.UIT.boo.TracNghiemToanOnline.TaoDeActivity;
 import com.UIT.boo.TracNghiemToanOnline.slide.ScreenSlideActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +38,7 @@ import java.util.Map;
  */
 public class BoSuuTap_Fragment extends Fragment {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
+    //private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     ExamAdapter examAdapter;
     ListView lvCreateTest;
@@ -95,7 +97,7 @@ public class BoSuuTap_Fragment extends Fragment {
                 }, 3000);
                 try
                 {
-                    CapNhatDanhSachDe();
+                    CapNhatDeThi();
                 }
                 catch (Exception e)
                 {
@@ -112,17 +114,17 @@ public class BoSuuTap_Fragment extends Fragment {
 
     }
 
-    public void CapNhatDanhSachDe()
+    public void CapNhatDeThi()
     {
         arr_examcreate.clear();
-        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").addValueEventListener(new ValueEventListener() {
+        SplashScreen.databaseRefence.child("Đề thi").child(MainActivity.username).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(final DataSnapshot data : dataSnapshot.getChildren()){
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                for(final DataSnapshot data : dataSnapshot.getChildren()) {
                     final String tende = data.getKey();
-                    databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tende).addValueEventListener(new ValueEventListener() {
+                    SplashScreen.databaseRefence.child("Đề thi").child(MainActivity.username).child(tende).addChildEventListener(new ChildEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             if(dataSnapshot != null)
                             {
                                 Map<String , Long> map = (Map<String, Long>) data.child("Câu hỏi").getValue();
@@ -152,17 +154,103 @@ public class BoSuuTap_Fragment extends Fragment {
                                 });
                             }
                         }
+
                         @Override
-                        public void onCancelled(DatabaseError databaseError)
-                        {
+                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                            if(dataSnapshot != null)
+                            {
+                                Map<String , Long> map = (Map<String, Long>) data.child("Câu hỏi").getValue();
+                                for (Map.Entry<String, Long> entry : map.entrySet()) {
+                                    cauhoi.add(entry.getValue());
+                                }
+                                dethi = data.child("Tên đề thi").getValue().toString();
+                                time = data.child("Thời gian").getValue().toString();
+                                tongcau = data.child("Tổng số câu").getValue().toString();
+                                tendethi.add(dethi);
+                                thoigian.add(time);
+                                tongsocau.add(tongcau);
+                                idcauhoi.add(cauhoi);
+                                arr_examcreate.add(new Exam(dethi,time + " phút",tongcau + " câu", MainActivity.imageavatar, MainActivity.username));
+                                examAdapter = new ExamAdapter(getActivity(), arr_examcreate);
+                                lvCreateTest.setAdapter(examAdapter);
+                                lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        Intent intent = new Intent(getActivity(), ScreenSlideActivity.class);
+                                        intent.putExtra("TenDe", tendethi.get(i));
+                                        intent.putExtra("Thoigian", thoigian.get(i));
+                                        intent.putExtra("SoCau", tongsocau.get(i));
+                                        intent.putExtra("Cauhoi", idcauhoi.get(i));
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
                         }
                     });
                 }
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Log.w(TAG, "postComments:onCancelled", databaseError.toException());
             }
         });
     }
+
+//    public void CapNhatDanhSachDe()
+//    {
+//
+//        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for(final DataSnapshot data : dataSnapshot.getChildren()){
+//                    final String tende = data.getKey();
+//                    databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tende).addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                        }
+//                        @Override
+//                        public void onCancelled(DatabaseError databaseError)
+//                        {
+//                        }
+//                    });
+//                }
+//            }
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 }

@@ -157,7 +157,7 @@ public class ScreenSlideActivity extends FragmentActivity {
 
     public void dialogExit(){
         new SweetAlertDialog(ScreenSlideActivity.this, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Bạn muốn thoát hay không ?")
+                .setTitleText("Trở lại góc học tập ?")
                 .setCancelText("No")
                 .setConfirmText("Yes")
                 .showCancelButton(true)

@@ -2,6 +2,7 @@ package com.UIT.boo.TracNghiemToanOnline;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -37,24 +38,23 @@ import java.util.Map;
 public class TaoDeActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
+    //private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     EditText edtTenDeThi, edtThoiGian;
     CheckBox cB1, cB2, cB3, cB4, cB5, cB6, cB7, cB8, cB9;
-    TextView tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9, tv_sum;
+    Button tv1, tv2, tv3, tv4, tv5, tv6, tv7, tv8, tv9;
+    TextView tv_sum;
     Button btnTaoDe;
     String tende;
     int check = 0;
     ArrayList<Question> questions;
     QuestionController questionController;
     private String tendethi,thoigian,tongsocau;
-    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tao_de);
-        progressDialog = new ProgressDialog(this);
         edtTenDeThi = findViewById(R.id.edtTenDe);
         edtThoiGian = findViewById(R.id.edtThoiGian);
         btnTaoDe = findViewById(R.id.btn_taode);
@@ -266,78 +266,65 @@ public class TaoDeActivity extends AppCompatActivity {
         pDialog.setTitleText("Đang tạo đề...");
         pDialog.setCancelable(false);
         pDialog.show();
-
         UserExam userExam1 = new UserExam(tendethi,thoigian,tongsocau,map);
-        TaoDe(tendethi,"Tên đề thi", tendethi);
-        TaoDe(tendethi,"Thời gian", thoigian);
-        TaoDe(tendethi,"Tổng số câu", tongsocau);
-        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tendethi).child("Câu hỏi")
-                .setValue(map)
+//        TaoDe(tendethi,"Tên đề thi", tendethi);
+//        TaoDe(tendethi,"Thời gian", thoigian);
+//        TaoDe(tendethi,"Tổng số câu", tongsocau);
+        SplashScreen.databaseRefence.child("Đề thi").child(MainActivity.username).child(tendethi)
+                .setValue(userExam1)
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                    pDialog.setTitleText("Tạo đề thành công!");
+                                    pDialog.setConfirmText("Về kho đề");
+                                    pDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                        @Override
+                                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                            finish();
+                                            overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+                                        }
+                                    });
+                                }
+                            },2000);
+
                             final Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-
+                                    finish();
+                                    overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                                 }
-                            }, 500);
-                            check++;
+                            }, 5000);
+
                         }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-        if(check == 4)
-        {
-            pDialog.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-            pDialog.setTitleText("Tạo đề thành công!");
-        }
-        else
-        {
-            pDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-            pDialog.setTitleText("Tạo đề thất bại!");
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    pDialog.dismissWithAnimation();
-                }
-            }, 1500);
-        }
-
-    }
-
-    public void TaoDe(String key, String children, String value) {
-        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(key).child(children)
-                .setValue(value)
-                .addOnCompleteListener( new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            final Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                }
-                            }, 500);
-                            check++;
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
+                        pDialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                        pDialog.setTitleText("Tạo đề thất bại!");
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                pDialog.dismissWithAnimation();
+                            }
+                        }, 1500);
                     }
                 });
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+    }
+
     public void UpdateSumQuesttion()
     {
         int socau1 = Integer.valueOf(tv1.getText().toString());

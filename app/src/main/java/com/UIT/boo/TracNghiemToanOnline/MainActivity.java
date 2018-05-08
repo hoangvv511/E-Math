@@ -35,7 +35,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
+    //private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = firebaseAuth.getCurrentUser();
     private UserInformation userInformation;
     public static String username,imageavatar,phone,email,fullname, user_id;
@@ -67,9 +67,10 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.nav_view);
         navigationView.setOnNavigationItemSelectedListener(navListener);
         navigationView.setItemIconTintList(null);
-        navigationView.getMenu().removeItem(R.id.nav_bosuutap);
+        //navigationView.getMenu().removeItem(R.id.nav_bosuutap);
+
         user_id = user.getUid();
-        databaseRefence.child("Users").child(user_id).child("Information").addValueEventListener(new ValueEventListener() {
+        SplashScreen.databaseRefence.child("Users").child(user_id).child("Information").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 if(dataSnapshot != null)
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ấn nút Back lần nữa để thoát", Toast.LENGTH_SHORT).show();
 
             new Handler().postDelayed(new Runnable() {
 

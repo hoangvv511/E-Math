@@ -14,101 +14,29 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_soluongde2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="18dp"
-                android:text="câu"
-                android:textColor="@color/red_primary"
-                app:layout_constraintStart_toEndOf="@+id/tv_3"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="12dp"
-                android:text="câu"
-                android:textColor="@color/red_primary"
-                app:layout_constraintStart_toEndOf="@+id/tv_5"
-                app:layout_constraintTop_toBottomOf="@+id/cB_4" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="18dp"
-                android:text="câu"
-                android:textColor="@color/red_primary"
-                app:layout_constraintStart_toEndOf="@+id/tv_7"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="19dp"
-                android:text="câu"
-                android:textColor="@color/red_primary"
-                app:layout_constraintStart_toEndOf="@+id/tv_8"
-                app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="12dp"
-                android:text="câu"
-                android:textColor="@color/red_primary"
-                app:layout_constraintStart_toEndOf="@+id/tv_2"
-                app:layout_constraintTop_toBottomOf="@+id/cB_1" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="12dp"
-                android:text="câu"
-                android:textColor="@color/red_primary"
-                app:layout_constraintStart_toEndOf="@+id/tv_4"
-                app:layout_constraintTop_toBottomOf="@+id/cB_3" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="18dp"
-                android:text="câu"
-                android:textColor="@color/red_primary"
-                app:layout_constraintStart_toEndOf="@+id/tv_6"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="12dp"
-                android:text="câu"
-                android:textColor="@color/red_primary"
-                app:layout_constraintStart_toEndOf="@+id/tv_9"
-                app:layout_constraintTop_toBottomOf="@+id/cB_8" />
+                android:background="@color/light_blue_primary"
+                android:gravity="center"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:text="NGÂN HÀNG CÂU HỎI ( 1234 CÂU )"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/inputLayoutTenDe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/tv_soluongde2">
 
                 <EditText
                     android:id="@+id/edtTenDe"
@@ -171,6 +99,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Chọn chủ đề :"
                 android:textStyle="bold"
+                android:textColor="@color/light_blue_primary"
                 android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inputLayoutThoiGian" />
@@ -300,101 +229,109 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cB_9" />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="46dp"
-                android:gravity="center"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="40dp"
+                android:background="#d1c7c7"
                 android:text="0"
                 android:textColor="@color/red_primary"
                 app:layout_constraintStart_toEndOf="@+id/cB_1"
                 app:layout_constraintTop_toBottomOf="@+id/inputLayoutThoiGian" />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="8dp"
+                android:background="#d1c7c7"
                 android:text="0"
                 android:textColor="@color/red_primary"
                 app:layout_constraintStart_toEndOf="@+id/cB_3"
                 app:layout_constraintTop_toBottomOf="@+id/tv_2" />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="6dp"
+                android:background="#d1c7c7"
                 android:text="0"
                 android:textColor="@color/red_primary"
                 app:layout_constraintStart_toEndOf="@+id/cB_4"
                 app:layout_constraintTop_toBottomOf="@+id/cB_3" />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="7dp"
+                android:background="#d1c7c7"
                 android:text="0"
                 android:textColor="@color/red_primary"
                 app:layout_constraintStart_toEndOf="@+id/cB_6"
                 app:layout_constraintTop_toBottomOf="@+id/tv_5" />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="8dp"
+                android:background="#d1c7c7"
                 android:text="0"
                 android:textColor="@color/red_primary"
                 app:layout_constraintStart_toEndOf="@+id/cB_7"
                 app:layout_constraintTop_toBottomOf="@+id/tv_6" />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="6dp"
+                android:background="#d1c7c7"
                 android:text="0"
                 android:textColor="@color/red_primary"
                 app:layout_constraintStart_toEndOf="@+id/cB_8"
                 app:layout_constraintTop_toBottomOf="@+id/tv_7" />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="5dp"
+                android:background="#d1c7c7"
                 android:text="0"
                 android:textColor="@color/red_primary"
                 app:layout_constraintStart_toEndOf="@+id/cB_2"
                 app:layout_constraintTop_toBottomOf="@+id/cB_1" />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="6dp"
+                android:background="#d1c7c7"
                 android:text="0"
                 android:textColor="@color/red_primary"
                 app:layout_constraintStart_toEndOf="@+id/cB_5"
                 app:layout_constraintTop_toBottomOf="@+id/cB_4" />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="6dp"
+                android:background="#d1c7c7"
                 android:text="0"
                 android:textColor="@color/red_primary"
                 app:layout_constraintStart_toEndOf="@+id/cB_9"
@@ -409,17 +346,6 @@
                 android:text="Tổng số câu : 0"
                 android:textColor="@color/red_primary"
                 app:layout_constraintStart_toEndOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/inputLayoutThoiGian" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="46dp"
-                android:text="câu"
-                android:textColor="@color/red_primary"
-                app:layout_constraintStart_toEndOf="@+id/tv_1"
                 app:layout_constraintTop_toBottomOf="@+id/inputLayoutThoiGian" />
 
 

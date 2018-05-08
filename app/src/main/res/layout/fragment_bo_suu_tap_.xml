@@ -8,7 +8,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-
     <TextView
         android:id="@+id/tv_soluongde2"
         android:layout_width="match_parent"
@@ -17,7 +16,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:singleLine="true"
-        android:text="ĐỀ THI CÁ NHÂN ( 0 ĐỀ )"
+        android:text="KHO ĐỀ THI CỦA BẠN ( 0 ĐỀ )"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
