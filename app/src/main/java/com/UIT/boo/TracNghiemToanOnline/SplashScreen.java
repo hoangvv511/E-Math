@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
 import com.Lego.TracNghiemToanOnline.R;
 import com.github.ybq.android.spinkit.style.CubeGrid;
+import com.github.ybq.android.spinkit.style.RotatingCircle;
+import com.github.ybq.android.spinkit.style.Wave;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,10 +37,10 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         progressBar = findViewById(R.id.spin_kit);
-        CubeGrid wave = new CubeGrid();
+        Wave wave = new Wave();
         progressBar.setIndeterminateDrawable(wave);
-        handler = new Handler();
-        handler.postDelayed(runnable, 4000);
+        //handler = new Handler();
+        //handler.postDelayed(runnable, 4000);
 
         GetInformation();
     }
@@ -55,9 +54,13 @@ public class SplashScreen extends AppCompatActivity {
                 if(a.equals("Username"))
                 {
                     count1 = (int) dataSnapshot.getChildrenCount();
-                    String b = String.valueOf(count1) + "";
-                    Toast.makeText(SplashScreen.this, b, Toast.LENGTH_SHORT).show();
-                    return;
+                    if (count1 != -1) {
+                        Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                        finish();
+                    }
                 }
             }
             @Override
@@ -66,9 +69,6 @@ public class SplashScreen extends AppCompatActivity {
                 if(a.equals("Username"))
                 {
                     count1 = (int) dataSnapshot.getChildrenCount();
-                    String b = String.valueOf(count1) + "";
-                    Toast.makeText(SplashScreen.this, b, Toast.LENGTH_SHORT).show();
-                    return;
                 }
             }
 
@@ -78,9 +78,6 @@ public class SplashScreen extends AppCompatActivity {
                 if(a.equals("Username"))
                 {
                     count1 = (int) dataSnapshot.getChildrenCount();
-                    String b = String.valueOf(count1) + "";
-                    Toast.makeText(SplashScreen.this, b, Toast.LENGTH_SHORT).show();
-                    return;
                 }
             }
 
@@ -90,9 +87,6 @@ public class SplashScreen extends AppCompatActivity {
                 if(a.equals("Username"))
                 {
                     count1 = (int) dataSnapshot.getChildrenCount();
-                    String b = String.valueOf(count1) + "";
-                    Toast.makeText(SplashScreen.this, b, Toast.LENGTH_SHORT).show();
-                    return;
                 }
             }
             @Override
@@ -100,5 +94,14 @@ public class SplashScreen extends AppCompatActivity {
                 //Log.w(TAG, "postComments:onCancelled", databaseError.toException());
             }
         });
+//        do {
+//            if (count1 != -1) {
+//                Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+//                finish();
+//            }
+//        }while (count1 == -1);
     }
 }
