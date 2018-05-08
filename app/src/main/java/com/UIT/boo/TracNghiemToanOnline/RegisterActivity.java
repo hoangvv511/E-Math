@@ -81,8 +81,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         btn_xoay.setVisibility(View.GONE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        String b = String.valueOf(SplashScreen.count1) + "";
-        Toast.makeText(RegisterActivity.this, b, Toast.LENGTH_SHORT).show();
+//        String b = String.valueOf(SplashScreen.count1) + "";
+//        Toast.makeText(RegisterActivity.this, b, Toast.LENGTH_SHORT).show();
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_user);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
