@@ -32,8 +32,9 @@
                     android:id="@+id/imgUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="46dp"
                     android:background="@drawable/circle_border">
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -68,9 +69,9 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="5dp"
                     android:fontFamily="sans-serif-light"
+                    android:text="nickname"
                     android:textColor="@color/white"
-                    android:textSize="18dp"
-                    android:text="nickname" />
+                    android:textSize="18dp" />
 
                 <ImageView
                     android:id="@+id/imv_usersetting"
@@ -171,7 +172,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif-light"
-                                android:text="đang theo dõi"
+                                android:text="người theo dõi"
                                 android:textAllCaps="true"
                                 android:textColor="@color/white"
                                 android:textSize="13sp" />

@@ -10,6 +10,7 @@
     android:paddingTop="0dp"
     android:background="#FFFFFF"
     tools:context="com.UIT.boo.TracNghiemToanOnline.RegisterActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
