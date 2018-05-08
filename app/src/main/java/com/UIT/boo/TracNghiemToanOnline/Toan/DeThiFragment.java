@@ -42,6 +42,8 @@ public class DeThiFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         tv_soluongde = getActivity().findViewById(R.id.tv_soluongde);
         gvExam=(ListView) getActivity().findViewById(R.id.gvExam);
+
+        //Doi voi de thi goc thi chi can them ten, may thong tin sau giu nguyen hoac thay doi tuy de
         arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 số 01", "90 phút", "50 câu" ,"http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
         arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia năm 2018 - THPT Chuyên Thái Nguyên lần 1","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
         arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia năm 2018 - THPT Chuyên Thái Bình lần 3","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
@@ -52,13 +54,17 @@ public class DeThiFragment extends Fragment {
         arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia năm 2018 - VIETMATHS.NET - Đề 01","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
         arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 - Bộ GD và ĐT","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
         arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - THPT Chuyên Hùng Vương - Bình Dương","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-        //arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 số 14","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-//        arr_exam.add(new Exam("Đề thi THPT Chuyên Phan Bội Châu - Nghệ An - Năm 2018","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-//        arr_exam.add(new Exam("Đề thi THPT Chuyên Lê Quý Đôn - Quảng Trị lần 1","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-//        arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 số 93","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-//        arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 số 147","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-//        arr_exam.add(new Exam("Đề thi thử THPT Chuyên Quang Trung lần 1","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
-
+        //Duoi day la 6 de cua ong ma dang bi loi nen t chua them, luc them phai theo thu tu neu khong se bi loi, cmt 1 doan code : boi den sau do an Ctrl + /
+        //Ong them de thi cu them o ben duoi nay
+        arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 số 14","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi THPT Chuyên Phan Bội Châu - Nghệ An - Năm 2018","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi THPT Chuyên Lê Quý Đôn - Quảng Trị lần 1","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 số 93","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi Minh họa kỳ thi THPT Quốc Gia năm 2018 số 147","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Chuyên Quang Trung lần 1","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - THPT CHUYÊN Hoàng Văn Thụ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - THPT chuyên Thái Bình  - lần 1","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - THPT Bình Gianh  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
         tv_soluongde.setText("ĐỀ THI TỔNG HỢP " + "( " + arr_exam.size() + " ĐỀ" + " )");
         examAdapter=new ExamAdapter(getActivity(),arr_exam);
         gvExam.setAdapter(examAdapter);
