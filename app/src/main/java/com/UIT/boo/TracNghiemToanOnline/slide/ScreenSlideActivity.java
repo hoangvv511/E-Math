@@ -27,14 +27,14 @@ import com.UIT.boo.TracNghiemToanOnline.question.QuestionController;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class ScreenSlideActivity extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    public static int NUM_PAGES =50;
-
+    public static int NUM_PAGES=50;
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
@@ -58,7 +58,10 @@ public class ScreenSlideActivity extends FragmentActivity {
     private int num_exam;
     private int totalTimer;
     private String name_exam;
-    String name;
+    private String name , thoigian, tongsocau;
+    private Map<String, Long> mapID;
+    private ArrayList<Long> listID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,22 +70,45 @@ public class ScreenSlideActivity extends FragmentActivity {
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         tende = findViewById(R.id.tv_tendethi);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mPagerAdapter);
-        mPager.setPageTransformer(true, new DepthPageTransformer());
 
         Intent intent = getIntent();
         name_exam = intent.getStringExtra("tendethi");
         name = intent.getStringExtra("TenDe");
-        tende.setText(name_exam);
-        tende.setSelected(true);
-        if(name != null)
+        thoigian = intent.getStringExtra("Thoigian");
+        tongsocau = intent.getStringExtra("SoCau");
+        listID = new ArrayList<>();
+        mapID = (Map<String, Long>) intent.getSerializableExtra("Cauhoi");
+        for(Long value : mapID.values())
+             {
+                 listID.add(value);
+             }
+        if(name_exam != null)
         {
-            totalTimer = Integer.valueOf(intent.getStringExtra("Thoigian"));
+            tende.setText(name_exam);
+        }
+        else if(name != null)
+        {
+            tende.setText(name);
+        }
+        tende.setSelected(true);
+
+        if(thoigian!= null && tongsocau!=null )
+        {
+            totalTimer = Integer.valueOf(thoigian);
+            NUM_PAGES = Integer.parseInt(tongsocau);
+
             timer = new CounterClass(totalTimer * 60 * 1000, 1000);
             questionController = new QuestionController(this);
             arr_Ques = new ArrayList<Question>();
-            arr_Ques = questionController.getQuestionByChuyenDe();
+
+            //Lay list cau hoi
+            for(int i=0; i<listID.size();i++)
+            {
+                ArrayList<Question> itemcauhoi = new ArrayList<>();
+                itemcauhoi = questionController.getQuestionByID(listID.get(i));
+                arr_Ques.add(itemcauhoi.get(0));
+            }
+
             tvKiemtra = (TextView) findViewById(R.id.tvKiemTra);
             tvTimer = (TextView) findViewById(R.id.tvTimer);
             tvXemDiem = (TextView) findViewById(R.id.tvScore);
@@ -138,6 +164,10 @@ public class ScreenSlideActivity extends FragmentActivity {
             });
             timer.start();
         }
+
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mPagerAdapter);
+        mPager.setPageTransformer(true, new DepthPageTransformer());
     }
 
     public ArrayList<Question> getData() {
@@ -233,7 +263,6 @@ public class ScreenSlideActivity extends FragmentActivity {
             }
         }
     }
-
 
     //Dialog hiện thị danh sách những câu trả lời và chưa trả lời...
     public void checkAnswer() {

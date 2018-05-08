@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 
 import com.Lego.TracNghiemToanOnline.R;
 
+import com.UIT.boo.TracNghiemToanOnline.Toan.BoSuuTap_Fragment;
 import com.UIT.boo.TracNghiemToanOnline.question.Question;
 import com.UIT.boo.TracNghiemToanOnline.question.QuestionController;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -286,6 +288,7 @@ public class TaoDeActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                                             finish();
+                                            pDialog.dismissWithAnimation();
                                             overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                                         }
                                     });
@@ -297,6 +300,7 @@ public class TaoDeActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     finish();
+                                    pDialog.dismissWithAnimation();
                                     overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                                 }
                             }, 5000);

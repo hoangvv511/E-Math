@@ -30,10 +30,10 @@ public class QuestionController {
     }
 
     //Lay cau hoi bang id
-    public ArrayList<Question> getQuestionByID(int num_id){
+    public ArrayList<Question> getQuestionByID(long num_id){
         ArrayList<Question> lsData= new ArrayList<Question>();
         SQLiteDatabase db= dbHelper.getReadableDatabase();
-        Cursor cursor= db.rawQuery("SELECT * FROM tracnghiem WHERE num_exam = '"+num_id+"'",null);
+        Cursor cursor= db.rawQuery("SELECT * FROM tracnghiem WHERE _id = '"+num_id+"'",null);
         cursor.moveToFirst();
         do {
             Question item;
