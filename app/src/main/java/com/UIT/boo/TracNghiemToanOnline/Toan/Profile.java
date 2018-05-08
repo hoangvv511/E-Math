@@ -55,26 +55,27 @@ public class Profile extends Fragment {
         imv_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Bạn muốn đăng xuất ?")
-                        .setCancelText("No")
-                        .setConfirmText("Yes")
-                        .showCancelButton(true)
-                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.WARNING_TYPE);
+                sweetAlertDialog.setTitleText("Bạn muốn đăng xuất ?");
+                sweetAlertDialog.setCancelText("No");
+                sweetAlertDialog.setConfirmText("Yes");
+                sweetAlertDialog.showCancelButton(true);
+                sweetAlertDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
-                                sDialog.cancel();
+                                sDialog.dismissWithAnimation();
                             }
-                        })
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        });
+                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 firebaseAuth.signOut();
                                 getActivity().finish();
                                 startActivity(new Intent(getActivity(), LoginActivity.class));
+                                sweetAlertDialog.dismissWithAnimation();
                             }
-                        })
-                        .show();
+                        });
+                sweetAlertDialog.show();
             }
         });
 
