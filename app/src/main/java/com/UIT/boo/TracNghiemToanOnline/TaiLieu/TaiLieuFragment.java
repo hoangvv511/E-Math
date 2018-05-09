@@ -109,6 +109,22 @@ public class TaiLieuFragment extends Fragment {
                         startActivity(intent);
                         getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
                     }
+                    else if(id == R.id.cv_cd9) //casio
+                    {
+                        Intent intent = new Intent(getActivity(), TailieuItemActivity.class);
+                        intent.putExtra("cd", "cd9");
+                        intent.putExtra("chuyende", "CHUYÊN ĐỀ CASIO");
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                    }
+                    else if(id == R.id.cv_cd10) //csc
+                    {
+                        Intent intent = new Intent(getActivity(), TailieuItemActivity.class);
+                        intent.putExtra("cd", "cd10");
+                        intent.putExtra("chuyende", "CHUYÊN ĐỀ DÃY SỐ - CSC - CSN");
+                        startActivity(intent);
+                        getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                    }
                 }
             });
         }

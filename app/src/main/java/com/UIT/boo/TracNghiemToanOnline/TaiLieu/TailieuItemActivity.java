@@ -134,6 +134,22 @@ public class TailieuItemActivity extends AppCompatActivity {
             itemChuyenDeList.add(new ItemChuyenDe("Tổng hợp câu hỏi trắc nghiệm hay chương tọa độ không gian – Nguyễn Quang Hưng, Nguyễn Thành Tiến", "https://drive.google.com/file/d/0B1NeyB1HG2f4NXh5a3pHVzZTbU0/view",R.drawable.toado5));
             itemChuyenDeList.add(new ItemChuyenDe("Các dạng bài tập phương trình đường thằng trong không gian – Đặng Ngọc Hiền, Lê Bá Bảo", "https://drive.google.com/file/d/0B1NeyB1HG2f4Uk5aV3luakNQcGs/view",R.drawable.toado6));
         }
+        else if (chuyende.equals("cd9")) //casio
+        {
+            itemChuyenDeList.add(new ItemChuyenDe("Casio luyện đề 2018 ver 1.0 – Nguyễn Thế Lực", "https://drive.google.com/file/d/1kI6SaxA97-uoMjfNXVGSd-EEtBwvrGTu/view",R.drawable.casio1));
+            itemChuyenDeList.add(new ItemChuyenDe("Kỹ thuật sử dụng Casio – Vinacal hỗ trợ giải nhanh đề thi môn Toán 12", "https://drive.google.com/file/d/1_M_HqeNod4eus0WDtATtbhK8I-rcLxAb/view",R.drawable.casio2));
+            itemChuyenDeList.add(new ItemChuyenDe("Bí kíp Thế Lực 2018 ver 1.0 (Chinh phục điểm 5 – 8)", "https://drive.google.com/file/d/0B8wVelaD8LHqYzVHVXRob2ZQWVE/view",R.drawable.casio3));
+            itemChuyenDeList.add(new ItemChuyenDe("Bí kíp Thế Lực 2018 ver 1.0 (Chinh phục điểm 8 – 9 – 10)", "https://drive.google.com/file/d/0B8wVelaD8LHqeXRBMm9WdDM5dUE/view",R.drawable.casio4));
+            itemChuyenDeList.add(new ItemChuyenDe("23 kỹ thuật sử dụng máy tính cầm tay Casio – Vinacal giải nhanh Toán 12 – Nguyễn Chiến", "https://drive.google.com/file/d/0B8wVelaD8LHqeXV3YmRHbFE4S0E/view",R.drawable.casio5));
+            itemChuyenDeList.add(new ItemChuyenDe("Kỹ thuật và sai lầm khi sử dụng máy tính bỏ túi trong giải toán – Đoàn Văn Bộ, Huỳnh Anh Kiệt", "https://drive.google.com/file/d/0B1NeyB1HG2f4dlpnb01EVGtXbFk/view",R.drawable.casio6));
+        }
+        else if (chuyende.equals("cd10")) //csc-csn
+        {
+            itemChuyenDeList.add(new ItemChuyenDe("Chuyên đề quy nạp toán học, dãy số, cấp số cộng và cấp số nhân – Nguyễn Bảo Vương", "https://drive.google.com/file/d/1P16tn6F792lsyG2JFKi3UmMtZNCt4Qo7/view",R.drawable.csc1));
+            itemChuyenDeList.add(new ItemChuyenDe("Hướng dẫn giải các dạng toán dãy số, cấp số cộng và cấp số nhân – Đặng Việt Đông", "https://drive.google.com/file/d/0B8wVelaD8LHqUHpqM2JBVWJJeUE/view",R.drawable.csc2));
+            itemChuyenDeList.add(new ItemChuyenDe("Cách tìm công thức tổng quát của dãy số cho bởi công thức truy hồi – Phạm Thị Thu Huyền", "https://drive.google.com/file/d/1Fo847zDh3bcgdQdFru2QWtxPp5lSgYqO/view",R.drawable.csc3));
+            itemChuyenDeList.add(new ItemChuyenDe("Dãy số và giới hạn của dãy số – Nguyễn Tất Thu", "https://drive.google.com/file/d/0B8wVelaD8LHqN3FNNENxcHNWcGc/view",R.drawable.csc4));
+        }
 
         adapter.notifyDataSetChanged();
     }

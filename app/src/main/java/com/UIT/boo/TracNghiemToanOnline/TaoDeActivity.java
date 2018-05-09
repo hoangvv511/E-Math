@@ -152,63 +152,63 @@ public class TaoDeActivity extends AppCompatActivity {
         tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(1);
+                numberPickerDialog(1,54);
             }
         });
 
         tv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(2);
+                numberPickerDialog(2,133);
             }
         });
 
         tv3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(3);
+                numberPickerDialog(3,194);
             }
         });
 
         tv4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(4);
+                numberPickerDialog(4,97);
             }
         });
 
         tv5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(5);
+                numberPickerDialog(5,58);
             }
         });
 
         tv6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(6);
+                numberPickerDialog(6,12);
             }
         });
 
         tv7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(7);
+                numberPickerDialog(7,215);
             }
         });
 
         tv8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(8);
+                numberPickerDialog(8,71);
             }
         });
 
         tv9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(9);
+                numberPickerDialog(9,66);
             }
         });
 
@@ -345,11 +345,12 @@ public class TaoDeActivity extends AppCompatActivity {
         tv_sum.setText(s);
     }
 
-    private void numberPickerDialog(final int chuyende)
+    private void numberPickerDialog(final int chuyende, final int maxQuestion)
     {
         NumberPicker numberPicker = new NumberPicker(this);
-        numberPicker.setMaxValue(10);
+        numberPicker.setMaxValue(maxQuestion);
         numberPicker.setMinValue(0);
+        numberPicker.setValue(0);
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {

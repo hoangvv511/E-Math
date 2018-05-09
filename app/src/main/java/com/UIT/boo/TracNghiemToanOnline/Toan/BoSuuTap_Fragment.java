@@ -45,16 +45,17 @@ import java.util.Map;
 public class BoSuuTap_Fragment extends Fragment {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
-    FirebaseUser user = firebaseAuth.getCurrentUser();
-    ExamAdapter examAdapter;
-    ListView lvCreateTest;
-    ArrayList<Exam> arr_examcreate= new ArrayList<Exam>();
+    private FirebaseUser user = firebaseAuth.getCurrentUser();
+    private ExamAdapter examAdapter;
+    private ListView lvCreateTest;
+    private ArrayList<Exam> arr_examcreate= new ArrayList<Exam>();
     private ArrayList<String> tendethi, thoigian, tongsocau;
     private ArrayList<Map<String, Long>> idcauhoi;
-    String dethi, time, tongcau;
-    TextView tv_notest;
-    FloatingActionButton btn_taode;
-    PullRefreshLayout layout;
+    private String dethi, time, tongcau;
+    private TextView tv_notest;
+    private FloatingActionButton btn_taode;
+    private PullRefreshLayout layout;
+    private TextView tv_soluongde;
 
     Map<String, Integer> map = new HashMap<String, Integer>();
     public BoSuuTap_Fragment() {
@@ -69,6 +70,8 @@ public class BoSuuTap_Fragment extends Fragment {
         tv_notest = view.findViewById(R.id.tv_notest);
         btn_taode = view.findViewById(R.id.btnTaode);
         lvCreateTest= view.findViewById(R.id.gvBoSuuTap);
+        tv_soluongde = view.findViewById(R.id.tv_soluongde2);
+
         tongsocau = new ArrayList<String>();
         thoigian = new ArrayList<String>();
         tendethi = new ArrayList<String>();
@@ -165,6 +168,7 @@ public class BoSuuTap_Fragment extends Fragment {
                                         }
                                     });
                                 }
+                                tv_soluongde.setText("KHO ĐỀ THI CỦA BẠN " +"( " +arr_examcreate.size() + " ĐỀ )");
 
                             }
                         }
