@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Base64;
@@ -20,6 +22,7 @@ import com.Lego.TracNghiemToanOnline.R;
 import com.UIT.boo.TracNghiemToanOnline.UserInformation;
 import com.UIT.boo.TracNghiemToanOnline.UserSetting;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -31,15 +34,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class Profile extends Fragment {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = firebaseAuth.getCurrentUser();
-    private UserInformation userInformation;
-    String  image;
-    CircleImageView cimv_avatar;
+    public String image;
+    public static CircleImageView cimv_avatar;
+    private PullRefreshLayout pullRefreshLayout;
     TextView tv_fullname, tv_email, tv_phone, tv_nickname;
     ImageView imv_logout, imv_usersetting;
+
     public Profile() {
         // Required empty public constructor
     }
@@ -50,8 +54,24 @@ public class Profile extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.profile, container, false);
-
         imv_logout = view.findViewById(R.id.imv_userlogout);
+        imv_usersetting = view.findViewById(R.id.imv_usersetting);
+        cimv_avatar = view.findViewById(R.id.cimv_useravatar);
+        tv_email = view.findViewById(R.id.tv_email);
+        tv_fullname = view.findViewById(R.id.tv_name);
+        tv_phone = view.findViewById(R.id.tv_phone);
+        tv_nickname = view.findViewById(R.id.tv_nickname);
+
+        pullRefreshLayout = view.findViewById(R.id.pullRefreshLayout);
+
+        pullRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // start refresh
+                Refresh();
+            }
+        });
+
         imv_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,7 +99,6 @@ public class Profile extends Fragment {
             }
         });
 
-        imv_usersetting = view.findViewById(R.id.imv_usersetting);
         imv_usersetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,12 +108,12 @@ public class Profile extends Fragment {
             }
         });
 
-        cimv_avatar = view.findViewById(R.id.cimv_useravatar);
-        tv_email = view.findViewById(R.id.tv_email);
-        tv_fullname = view.findViewById(R.id.tv_name);
-        tv_phone = view.findViewById(R.id.tv_phone);
-        tv_nickname = view.findViewById(R.id.tv_nickname);
+        GetInfor();
+        return view;
+    }
 
+    public void GetInfor()
+    {
         tv_fullname.setText(MainActivity.fullname);
         tv_email.setText(MainActivity.email);
         tv_phone.setText(MainActivity.phone);
@@ -104,7 +123,24 @@ public class Profile extends Fragment {
         Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
         Bitmap bitmapUser = Bitmap.createScaledBitmap(decoded2, decoded2.getWidth(), decoded2.getHeight(), true);
         cimv_avatar.setImageBitmap(bitmapUser);
-        return view;
     }
 
+    public void Refresh()
+    {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pullRefreshLayout.setRefreshing(false);
+            }
+        }, 1500);
+        try
+        {
+            GetInfor();
+        }
+        catch (Exception e)
+        {
+
+        }
+    }
 }

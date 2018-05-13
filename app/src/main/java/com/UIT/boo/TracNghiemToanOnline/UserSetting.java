@@ -1,7 +1,9 @@
 package com.UIT.boo.TracNghiemToanOnline;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.Lego.TracNghiemToanOnline.R;
 
+import com.UIT.boo.TracNghiemToanOnline.Toan.Profile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +52,7 @@ public class UserSetting extends android.support.v4.app.DialogFragment {
     EditText edt_fullname, edt_phone;
     private Button btn_xoay;
     CircleImageView cimv_avatar;
+    UserInformation userInformation;
     Button btn_save;
     String email, fullname, imagebase64, phone,username;
 
@@ -61,7 +65,14 @@ public class UserSetting extends android.support.v4.app.DialogFragment {
         btn_save = view.findViewById(R.id.btn_save);
         btn_xoay = view.findViewById(R.id.btn_xoay2);
         cimv_avatar = view.findViewById(R.id.imgAvatar);
-        imagebase64 = getString(R.string.ic_user);
+        cimv_avatar.setImageResource(R.drawable.ic_user);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_user);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap,200,200,true);
+        scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        byte[] imageBytes = baos.toByteArray();
+        imagebase64 = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 
         cimv_avatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,35 +83,35 @@ public class UserSetting extends android.support.v4.app.DialogFragment {
                 startActivityForResult(Intent.createChooser(galleryIntent, "Select Picture"), PICK_IMAGE_REQUEST);
             }
         });
+
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fullname = edt_fullname.getText().toString().trim();
                 phone = edt_phone.getText().toString().trim();
-
-                if(TextUtils.isEmpty(fullname)) // k nhập tài khoản sẽ báo lỗi
-                {
-                    Toast.makeText(getActivity(), "Please enter your fullname", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(phone)) // k nhập pass sẽ báo lỗi
-                {
-                    Toast.makeText(getActivity(), "Please enter your phone number", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if(TextUtils.isEmpty(imagebase64)) // k nhập pass sẽ báo lỗi
-                {
-                    Toast.makeText(getActivity(), "Please choose your picture", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
                 final Handler handler = new Handler();
                 final SweetAlertDialog pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
                 pDialog.setTitleText("Đang lưu...");
                 pDialog.setCancelable(false);
                 pDialog.show();
-                UserInformation userInformation = new UserInformation(MainActivity.email, fullname, imagebase64, phone, MainActivity.username);
+                if(TextUtils.isEmpty(fullname) && TextUtils.isEmpty(phone))
+                {
+                    userInformation = new UserInformation(MainActivity.email, MainActivity.fullname, imagebase64, MainActivity.phone, MainActivity.username);
+                }
+                if(TextUtils.isEmpty(phone) && !TextUtils.isEmpty(fullname))
+                {
+                    userInformation = new UserInformation(MainActivity.email, MainActivity.fullname, imagebase64, phone, MainActivity.username);
+                }
+                if(!TextUtils.isEmpty(phone) && TextUtils.isEmpty(fullname))
+                {
+                    userInformation = new UserInformation(MainActivity.email, fullname, imagebase64, MainActivity.phone, MainActivity.username);
+                }
+                if(!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(fullname))
+                {
+                    userInformation = new UserInformation(MainActivity.email, fullname, imagebase64, phone, MainActivity.username);
+                }
+
                 databaseRefence.child("Users").child(user.getUid()).child("Information").setValue(userInformation).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -145,6 +156,7 @@ public class UserSetting extends android.support.v4.app.DialogFragment {
         return view;
     }
 
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -155,21 +167,29 @@ public class UserSetting extends android.support.v4.app.DialogFragment {
             {
                 final Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filepath);
                 cimv_avatar.setImageBitmap(bitmap);
-//                if(bitmap != null)
-//                {
-//                    btn_xoay.setVisibility(View.VISIBLE);
-//                    btn_xoay.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            cimv_avatar.setRotation(cimv_avatar.getRotation()+90F);
-//                        }
-//                    });
-//                }
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] b = baos.toByteArray();
-                imagebase64 = Base64.encodeToString(b, Base64.DEFAULT);
-            }catch (IOException e)
+                int x = bitmap.getWidth();
+                int y = bitmap.getHeight();
+                if(x <= 200 && y <= 200)
+                {
+                    Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap,x,y,true);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+                    byte[] b = baos.toByteArray();
+                    Profile.cimv_avatar.setImageBitmap(scaledBitmap);
+                    imagebase64= Base64.encodeToString(b, Base64.DEFAULT);
+                }
+                else
+                {
+                    Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap,200,200,true);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+                    byte[] b = baos.toByteArray();
+                    Profile.cimv_avatar.setImageBitmap(scaledBitmap);
+                    imagebase64= Base64.encodeToString(b, Base64.DEFAULT);
+                }
+
+            }
+            catch (IOException e)
             {
                 e.printStackTrace();
             }

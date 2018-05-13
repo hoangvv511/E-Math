@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "990046292138",
-    "firebase_url": "https://myapplication-6d1ae.firebaseio.com",
-    "project_id": "myapplication-6d1ae",
-    "storage_bucket": "myapplication-6d1ae.appspot.com"
+    "project_number": "58656520599",
+    "firebase_url": "https://e-math-a5920.firebaseio.com",
+    "project_id": "e-math-a5920",
+    "storage_bucket": "e-math-a5920.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:990046292138:android:550d52a8abc16692",
+        "mobilesdk_app_id": "1:58656520599:android:2c7c6558b816dafb",
         "android_client_info": {
           "package_name": "com.UIT.boo.TracNghiemToanOnline"
         }
       },
       "oauth_client": [
         {
-          "client_id": "990046292138-pdo5me7bjtmsr7nuoerlanf2toa41nnl.apps.googleusercontent.com",
+          "client_id": "58656520599-j39b3uuhsme3b913jaddegqv39kq6rd1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAmjqE9CPdjq7RBxs1Z7U5OUzuA6NECYVk"
+          "current_key": "AIzaSyBI5VpXs3pVcjEPpbRsSpzTxfBP7Mx45wg"
         }
       ],
       "services": {

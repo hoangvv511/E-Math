@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.Lego.TracNghiemToanOnline.R;
 
@@ -226,6 +228,15 @@ public class TaoDeActivity extends AppCompatActivity {
     {
         tendethi = edtTenDeThi.getText().toString().trim();
         thoigian = edtThoiGian.getText().toString().trim();
+
+        if (TextUtils.isEmpty(tendethi)) {
+            Toast.makeText(TaoDeActivity.this, "Bạn chưa nhập tên đề thi", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (TextUtils.isEmpty(thoigian)) {
+            Toast.makeText(TaoDeActivity.this, "Bạn chưa nhập thời gian làm bài", Toast.LENGTH_LONG).show();
+            return;
+        }
         int socau1 = Integer.valueOf(tv1.getText().toString());
         int socau2 = Integer.valueOf(tv2.getText().toString());
         int socau3 = Integer.valueOf(tv3.getText().toString());

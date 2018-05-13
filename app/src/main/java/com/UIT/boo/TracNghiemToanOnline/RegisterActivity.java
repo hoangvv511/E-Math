@@ -73,7 +73,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         editTextUserName = (EditText) findViewById(R.id.editUserName);
         editTextConfirmPassword = (EditText) findViewById(R.id.editTextConfirmPassword);
         editTextFullname = (EditText) findViewById(R.id.editTextFullname);
-        //imagebase64 = getString(R.string.ic_user);
         editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
         cimv_useravatar = findViewById(R.id.cimv_useravatar);
@@ -81,12 +80,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         btn_xoay.setVisibility(View.GONE);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-//        String b = String.valueOf(SplashScreen.count1) + "";
-//        Toast.makeText(RegisterActivity.this, b, Toast.LENGTH_SHORT).show();
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_user);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap,200,200,true);
+        scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        cimv_useravatar.setImageBitmap(scaledBitmap);
         byte[] imageBytes = baos.toByteArray();
         imagebase64 = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 
@@ -145,7 +144,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(RegisterActivity.this, "Bạn chưa nhập số điện thoại", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                Dialog = new SweetAlertDialog(RegisterActivity.this, SweetAlertDialog.PROGRESS_TYPE);
+                Dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                Dialog.setTitleText("Đang đăng kí....");
+                Dialog.setCancelable(false);
+                Dialog.show();
+                handler = new Handler();
                 SplashScreen.databaseRefence.child("Username").addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -154,15 +158,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             isUsername = true;
                         }
                         count2++;
-                        if (count2 >= SplashScreen.count1) {
-                            handler = new Handler();
-                            Dialog = new SweetAlertDialog(RegisterActivity.this, SweetAlertDialog.PROGRESS_TYPE);
-                            Dialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                            Dialog.setTitleText("Đang đăng kí....");
-                            Dialog.setCancelable(false);
-                            Dialog.show();
+                        if (count2 >= SplashScreen.count1)
+                        {
                             count2 = 0;
-                            if (isUsername) {
+                            if (isUsername)
+                            {
                                 Dialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
                                 Dialog.setTitleText("Tên tài khoản đã tồn tại !");
                                 handler.postDelayed(new Runnable() {
@@ -194,6 +194,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                                 finish();
                                                                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                                                 overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+                                                                Dialog.dismissWithAnimation();
                                                             }
                                                         }
                                                     }, 1500);
@@ -201,7 +202,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                     Dialog.setTitleText("Đăng kí thành công!");
                                                 } else { // tạo không thành công
                                                     Dialog.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-                                                    Dialog.setTitleText("Đăng kí thất bại!");
+                                                    Dialog.setTitleText("Email đã tồn tại!");
                                                     handler.postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
@@ -209,7 +210,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                                         }
                                                     }, 1500);
                                                 }
-                                                progressDialog.dismiss();
                                             }
                                         });
                                 // Your previous code here.
@@ -251,30 +251,29 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             try
             {
                 final Bitmap bmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filepath);
-                cimv_useravatar.setImageBitmap(bmap);
-//                if(bmap != null)
-//                {
-//                    btn_xoay.setVisibility(View.VISIBLE);
-//                    btn_xoay.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            check++;
-//                            cimv_useravatar.setRotation(cimv_useravatar.getRotation()+90F);
-//                        }
-//                    });
-//                }
-                // create a new bitmap from the original using the matrix to transform the result
-                Matrix matrix = new Matrix();
-                if(check > 0) matrix.postRotate(90*check);
-                else matrix.postRotate(0);
-                Bitmap scaledBitmap = Bitmap.createScaledBitmap(bmap,bmap.getWidth(),bmap.getHeight(),true);
-                Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap , 0, 0, scaledBitmap .getWidth(), scaledBitmap .getHeight(), matrix, true);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                rotatedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] b = baos.toByteArray();
-                imagebase64= Base64.encodeToString(b, Base64.DEFAULT);
 
-            }catch (IOException e)
+                int x = bmap.getWidth();
+                int y = bmap.getHeight();
+                if(x <= 200 && y <= 200)
+                {
+                    Bitmap scaledBitmap = Bitmap.createScaledBitmap(bmap,x,y,true);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+                    cimv_useravatar.setImageBitmap(scaledBitmap);
+                    byte[] b = baos.toByteArray();
+                    imagebase64= Base64.encodeToString(b, Base64.DEFAULT);
+                }
+                else
+                {
+                    Bitmap scaledBitmap = Bitmap.createScaledBitmap(bmap,200,200,true);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+                    cimv_useravatar.setImageBitmap(scaledBitmap);
+                    byte[] b = baos.toByteArray();
+                    imagebase64= Base64.encodeToString(b, Base64.DEFAULT);
+                }
+            }
+            catch (IOException e)
             {
                 e.printStackTrace();
             }
@@ -291,6 +290,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(view == textViewSignin)
         {
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
             overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
         }
     }

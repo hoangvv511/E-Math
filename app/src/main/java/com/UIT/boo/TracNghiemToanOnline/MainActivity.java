@@ -25,8 +25,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -39,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser user = firebaseAuth.getCurrentUser();
     private UserInformation userInformation;
     public static String username,imageavatar,phone,email,fullname, user_id;
-    TextView tv_username;
-    TextView tv_useremail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.nav_view);
         navigationView.setOnNavigationItemSelectedListener(navListener);
         navigationView.setItemIconTintList(null);
-        //navigationView.getMenu().removeItem(R.id.nav_bosuutap);
 
         user_id = user.getUid();
         SplashScreen.databaseRefence.child("Users").child(user_id).child("Information").addValueEventListener(new ValueEventListener() {
@@ -113,11 +108,8 @@ public class MainActivity extends AppCompatActivity {
 
         DBHelper db = new DBHelper(this);
 
-        //v1.0
-
         try {
             db.createDataBase();
-//            Toast.makeText(this, "Coppy thành công", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
         }

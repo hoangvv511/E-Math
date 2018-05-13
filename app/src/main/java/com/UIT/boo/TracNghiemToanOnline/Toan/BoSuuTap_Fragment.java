@@ -134,55 +134,54 @@ public class BoSuuTap_Fragment extends Fragment {
         databaseRefence.child("Đề thi").child(MainActivity.username).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(final DataSnapshot data : dataSnapshot.getChildren()){
-                    final String tende = data.getKey();
-                    databaseRefence.child("Đề thi").child(MainActivity.username).child(tende).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot != null)
-                            {
-                                UserExam userExam = dataSnapshot.getValue(UserExam.class);
-                                Map<String , Long> map = userExam.cauhoi;
-                                dethi = userExam.tendethi;
-                                time = userExam.thoigian;
-                                tongcau = userExam.socauhoi;
-                                tendethi.add(dethi);
-                                thoigian.add(time);
-                                tongsocau.add(tongcau);
-                                idcauhoi.add(map);
-                                arr_examcreate.add(new Exam(dethi,time + " phút",tongcau + " câu", MainActivity.imageavatar, MainActivity.username));
+                if (dataSnapshot != null) {
+                    for (final DataSnapshot data : dataSnapshot.getChildren()) {
+                        final String tende = data.getKey();
+                        databaseRefence.child("Đề thi").child(MainActivity.username).child(tende).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot != null) {
+                                    UserExam userExam = dataSnapshot.getValue(UserExam.class);
+                                    Map<String, Long> map = userExam.cauhoi;
+                                    dethi = userExam.tendethi;
+                                    time = userExam.thoigian;
+                                    tongcau = userExam.socauhoi;
+                                    tendethi.add(dethi);
+                                    thoigian.add(time);
+                                    tongsocau.add(tongcau);
+                                    idcauhoi.add(map);
+                                    arr_examcreate.add(new Exam(dethi, time + " phút", tongcau + " câu", MainActivity.imageavatar, MainActivity.username));
 
-                                if (getActivity()!=null){
-                                    examAdapter = new ExamAdapter(getActivity(), arr_examcreate);
-                                    lvCreateTest.setAdapter(examAdapter);
-                                    lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                            Intent intent = new Intent(getActivity(), ScreenSlideActivity.class);
-                                            intent.putExtra("TenDe", tendethi.get(i));
-                                            intent.putExtra("Thoigian", thoigian.get(i));
-                                            intent.putExtra("SoCau", tongsocau.get(i));
-                                            intent.putExtra("Cauhoi", (Serializable) idcauhoi.get(i));
-                                            startActivity(intent);
-                                            getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
-                                        }
-                                    });
+                                    if (getActivity() != null) {
+                                        examAdapter = new ExamAdapter(getActivity(), arr_examcreate);
+                                        lvCreateTest.setAdapter(examAdapter);
+                                        lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                                Intent intent = new Intent(getActivity(), ScreenSlideActivity.class);
+                                                intent.putExtra("TenDe", tendethi.get(i));
+                                                intent.putExtra("Thoigian", thoigian.get(i));
+                                                intent.putExtra("SoCau", tongsocau.get(i));
+                                                intent.putExtra("Cauhoi", (Serializable) idcauhoi.get(i));
+                                                startActivity(intent);
+                                                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                                            }
+                                        });
+                                    }
+                                    tv_soluongde.setText("KHO ĐỀ THI CỦA BẠN " + "( " + arr_examcreate.size() + " ĐỀ )");
                                 }
-                                tv_soluongde.setText("KHO ĐỀ THI CỦA BẠN " +"( " +arr_examcreate.size() + " ĐỀ )");
-
                             }
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError)
-                        {
-                        }
-                    });
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    }
                 }
             }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+                @Override
+                public void onCancelled (DatabaseError databaseError){
+                }
         });
     }
 }

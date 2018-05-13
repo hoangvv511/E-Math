@@ -1,9 +1,13 @@
 package com.UIT.boo.TracNghiemToanOnline;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +35,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
+import java.io.IOException;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -38,7 +44,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText editTextEmail;
     private EditText editTextPassword;
     private Button buttonSignUp;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +58,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         buttonSignIn.setOnClickListener(this);
         buttonSignUp.setOnClickListener(this);
-
     }
 
 
@@ -110,10 +114,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 });
     }
 
+
+
     @Override
     public void onClick(View view) {
         if(view == buttonSignIn){
-            userLogin();
+                userLogin();
         }
         if(view == buttonSignUp){
             finish();
@@ -121,4 +127,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         }
     }
+
 }
