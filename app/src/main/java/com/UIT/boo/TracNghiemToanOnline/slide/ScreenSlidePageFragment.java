@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
@@ -85,6 +86,7 @@ public class ScreenSlidePageFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         arr_Ques = new ArrayList<Question>();
+
         ScreenSlideActivity slideActivity = (ScreenSlideActivity) getActivity();
         arr_Ques = slideActivity.getData();
         mPageNumber = getArguments().getInt(ARG_PAGE);
@@ -98,6 +100,7 @@ public class ScreenSlidePageFragment extends Fragment {
         ansD = getItem(mPageNumber).getAns_d();
         result = getItem(mPageNumber).getHuongdangiai();
     }
+
 
     public static ScreenSlidePageFragment create(int pageNumber, int checkAnswer) {
         ScreenSlidePageFragment fragment = new ScreenSlidePageFragment();

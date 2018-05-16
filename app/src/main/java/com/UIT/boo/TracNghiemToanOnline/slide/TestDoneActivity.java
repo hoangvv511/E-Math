@@ -26,7 +26,9 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class TestDoneActivity extends AppCompatActivity {
 
@@ -53,6 +55,9 @@ public class TestDoneActivity extends AppCompatActivity {
     private double TongDiem;
     private String XepLoai, name_exam;
     private ArrayList<Question> arr_QuesBegin= new ArrayList<Question>();
+    private ArrayList<Question> arr_QuesBegin2= new ArrayList<Question>();
+    private String name, thoigian,tongsocau;
+    private Map<String, Long> mapID;
 
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
@@ -61,29 +66,35 @@ public class TestDoneActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_done);
 
         Intent intent = getIntent();
+
+        //De thi trong he thong
         exam = intent.getIntExtra("exam",0);
         name_exam = intent.getStringExtra("name_exam");
         arr_QuesBegin = (ArrayList<Question>) intent.getExtras().getSerializable("arr_Ques");
 
-        for (int i = 0; i < arr_QuesBegin.size(); i++) {
-            if (arr_QuesBegin.get(i).getChuyende() == 1) numcd1++; //1.	Ứng dụng đạo hàm khảo sát sự biến thiên và vẽ đồ thị hàm số.
-            if (arr_QuesBegin.get(i).getChuyende() == 2) numcd2++; //2.	Các bài toán liên quan đến khảo sát hàm số.
-            if (arr_QuesBegin.get(i).getChuyende() == 3) numcd3++; //3.	Hàm số lũy thừa, hàm số mũ, hàm số logarit, luong giác.
-            if (arr_QuesBegin.get(i).getChuyende() == 4) numcd4++; //4.	Nguyên hàm, tích phân.
-            if (arr_QuesBegin.get(i).getChuyende() == 5) numcd5++; //5.	Số phức.
-            if (arr_QuesBegin.get(i).getChuyende() == 6) numcd6++; //6.	Bài toán ứng dụng thật tiễn.
-            if (arr_QuesBegin.get(i).getChuyende() == 7) numcd7++; //7.	Hình học không gian.
-            if (arr_QuesBegin.get(i).getChuyende() == 8) numcd8++; //8.	Phương pháp tọa độ trong không gian.
-            if (arr_QuesBegin.get(i).getChuyende() == 9) numcd9++; //9.	Tổ hợp, xác suất.
-        }
+        //De thi do nguoi dung tao
+        name = intent.getStringExtra("TenDe");
+        thoigian = intent.getStringExtra("Thoigian");
+        tongsocau = intent.getStringExtra("SoCau");
+        arr_QuesBegin2 = (ArrayList<Question>) intent.getExtras().getSerializable("Question");
+        mapID = (Map<String, Long>) intent.getSerializableExtra("Cauhoi");
 
         begin();
-        checkResult();
+        if(arr_QuesBegin!=null)
+        {
+            TinhSoCauChuyenDe(arr_QuesBegin);
+            checkResult(arr_QuesBegin);
+        }
+        else
+        {
+            TinhSoCauChuyenDe(arr_QuesBegin2);
+            checkResult(arr_QuesBegin2);
+        }
         checkGoiy();
         clickGoiy();
         TongDiem= Tinhdiem(numTrue,(numTrue+numFalse+numNoAns));
@@ -111,57 +122,84 @@ public class TestDoneActivity extends AppCompatActivity {
         btnAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SweetAlertDialog(TestDoneActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Bạn muốn làm lại đề thi này ?")
-                        .setCancelText("No")
-                        .setConfirmText("Yes")
-                        .showCancelButton(true)
-                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                SweetAlertDialog sweetAlertDialog = new  SweetAlertDialog(TestDoneActivity.this, SweetAlertDialog.WARNING_TYPE);
+                sweetAlertDialog.setTitleText("Bạn muốn làm lại đề thi này ?");
+                sweetAlertDialog.setCancelText("No");
+                sweetAlertDialog.setConfirmText("Yes");
+                sweetAlertDialog.showCancelButton(true);
+                sweetAlertDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
                                 sDialog.dismissWithAnimation();
                             }
-                        })
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        });
+                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 Intent intent= new Intent(TestDoneActivity.this, ScreenSlideActivity.class);
-                                intent.putExtra("num_exam",exam);
-                                intent.putExtra("tendethi",name_exam );
+                                if(name_exam!= null && arr_QuesBegin!=null)
+                                {
+                                    intent.putExtra("num_exam",exam);
+                                    intent.putExtra("tendethi",name_exam );
+                                }
+                                else
+                                {
+                                    intent.putExtra("TenDe", name);
+                                    intent.putExtra("Thoigian", thoigian);
+                                    intent.putExtra("SoCau", tongsocau);
+                                    intent.putExtra("Cauhoi", (Serializable) mapID);
+                                }
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                                sweetAlertDialog.dismissWithAnimation();
                             }
-                        })
-                        .show();
+                        });
+                sweetAlertDialog.show();
             }
         });
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new SweetAlertDialog(TestDoneActivity.this, SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Trở lại góc học tập ?")
-                        .setCancelText("No")
-                        .setConfirmText("Yes")
-                        .showCancelButton(true)
-                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(TestDoneActivity.this, SweetAlertDialog.WARNING_TYPE);
+                sweetAlertDialog.setTitleText("Trở lại góc học tập ?");
+                sweetAlertDialog.setCancelText("No");
+                sweetAlertDialog.setConfirmText("Yes");
+                sweetAlertDialog.showCancelButton(true);
+                sweetAlertDialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
                                 sDialog.cancel();
                             }
-                        })
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        });
+                sweetAlertDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
                                 Intent i=new Intent(TestDoneActivity.this, MainActivity.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
+                                sweetAlertDialog.dismissWithAnimation();
                             }
-                        })
-                        .show();
+                        });
+                sweetAlertDialog.show();
             }
         });
+    }
+
+    public void TinhSoCauChuyenDe(ArrayList<Question> questions)
+    {
+        for (int i = 0; i < questions.size(); i++) {
+            if (questions.get(i).getChuyende() == 1) numcd1++; //1.	Ứng dụng đạo hàm khảo sát sự biến thiên và vẽ đồ thị hàm số.
+            if (questions.get(i).getChuyende() == 2) numcd2++; //2.	Các bài toán liên quan đến khảo sát hàm số.
+            if (questions.get(i).getChuyende() == 3) numcd3++; //3.	Hàm số lũy thừa, hàm số mũ, hàm số logarit, luong giác.
+            if (questions.get(i).getChuyende() == 4) numcd4++; //4.	Nguyên hàm, tích phân.
+            if (questions.get(i).getChuyende() == 5) numcd5++; //5.	Số phức.
+            if (questions.get(i).getChuyende() == 6) numcd6++; //6.	Bài toán ứng dụng thật tiễn.
+            if (questions.get(i).getChuyende() == 7) numcd7++; //7.	Hình học không gian.
+            if (questions.get(i).getChuyende() == 8) numcd8++; //8.	Phương pháp tọa độ trong không gian.
+            if (questions.get(i).getChuyende() == 9) numcd9++; //9.	Tổ hợp, xác suất.
+        }
     }
 
     @Override
@@ -237,37 +275,37 @@ public class TestDoneActivity extends AppCompatActivity {
         }
 
     //PT Check kết quả
-    public void checkResult(){
-        for(int i=0; i< arr_QuesBegin.size(); i++)
+    public void checkResult(ArrayList<Question> questions){
+        for(int i=0; i< questions.size(); i++)
         {
-            if(arr_QuesBegin.get(i).getDapAnChon().equals(""))
+            if(questions.get(i).getDapAnChon().equals(""))
             {
                 numNoAns++;
-                if(arr_QuesBegin.get(i).getChuyende() == 1) numNoAns_1++;
-                if(arr_QuesBegin.get(i).getChuyende() == 2) numNoAns_2++;
-                if(arr_QuesBegin.get(i).getChuyende() == 3) numNoAns_3++;
-                if(arr_QuesBegin.get(i).getChuyende() == 4) numNoAns_4++;
-                if(arr_QuesBegin.get(i).getChuyende() == 5) numNoAns_5++;
-                if(arr_QuesBegin.get(i).getChuyende() == 6) numNoAns_6++;
-                if(arr_QuesBegin.get(i).getChuyende() == 7) numNoAns_7++;
-                if(arr_QuesBegin.get(i).getChuyende() == 8) numNoAns_8++;
-                if(arr_QuesBegin.get(i).getChuyende() == 9) numNoAns_9++;
+                if(questions.get(i).getChuyende() == 1) numNoAns_1++;
+                if(questions.get(i).getChuyende() == 2) numNoAns_2++;
+                if(questions.get(i).getChuyende() == 3) numNoAns_3++;
+                if(questions.get(i).getChuyende() == 4) numNoAns_4++;
+                if(questions.get(i).getChuyende() == 5) numNoAns_5++;
+                if(questions.get(i).getChuyende() == 6) numNoAns_6++;
+                if(questions.get(i).getChuyende() == 7) numNoAns_7++;
+                if(questions.get(i).getChuyende() == 8) numNoAns_8++;
+                if(questions.get(i).getChuyende() == 9) numNoAns_9++;
             }
-            else if(arr_QuesBegin.get(i).getResult().equals(arr_QuesBegin.get(i).getDapAnChon())){
+            else if(questions.get(i).getResult().equals(questions.get(i).getDapAnChon())){
                 numTrue++;
             }
             else
             {
                 numFalse++;
-                if(arr_QuesBegin.get(i).getChuyende() == 1) numFalse_1++;
-                if(arr_QuesBegin.get(i).getChuyende() == 2) numFalse_2++;
-                if(arr_QuesBegin.get(i).getChuyende() == 3) numFalse_3++;
-                if(arr_QuesBegin.get(i).getChuyende() == 4) numFalse_4++;
-                if(arr_QuesBegin.get(i).getChuyende() == 5) numFalse_5++;
-                if(arr_QuesBegin.get(i).getChuyende() == 6) numFalse_6++;
-                if(arr_QuesBegin.get(i).getChuyende() == 7) numFalse_7++;
-                if(arr_QuesBegin.get(i).getChuyende() == 8) numFalse_8++;
-                if(arr_QuesBegin.get(i).getChuyende() == 9) numFalse_9++;
+                if(questions.get(i).getChuyende() == 1) numFalse_1++;
+                if(questions.get(i).getChuyende() == 2) numFalse_2++;
+                if(questions.get(i).getChuyende() == 3) numFalse_3++;
+                if(questions.get(i).getChuyende() == 4) numFalse_4++;
+                if(questions.get(i).getChuyende() == 5) numFalse_5++;
+                if(questions.get(i).getChuyende() == 6) numFalse_6++;
+                if(questions.get(i).getChuyende() == 7) numFalse_7++;
+                if(questions.get(i).getChuyende() == 8) numFalse_8++;
+                if(questions.get(i).getChuyende() == 9) numFalse_9++;
             }
         }
     }

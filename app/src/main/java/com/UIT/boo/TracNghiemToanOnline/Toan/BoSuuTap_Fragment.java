@@ -1,9 +1,11 @@
 package com.UIT.boo.TracNghiemToanOnline.Toan;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.renderscript.Sampler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.UIT.boo.TracNghiemToanOnline.SplashScreen;
+import com.UIT.boo.TracNghiemToanOnline.UserExam;
 import com.baoyz.widget.PullRefreshLayout;
 import com.UIT.boo.TracNghiemToanOnline.MainActivity;
 import com.Lego.TracNghiemToanOnline.R;
@@ -29,8 +32,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rey.material.widget.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,19 +44,18 @@ import java.util.Map;
  */
 public class BoSuuTap_Fragment extends Fragment {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    //private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
-    FirebaseUser user = firebaseAuth.getCurrentUser();
-    ExamAdapter examAdapter;
-    ListView lvCreateTest;
-    ArrayList<Exam> arr_examcreate= new ArrayList<Exam>();
+    private DatabaseReference databaseRefence = FirebaseDatabase.getInstance().getReference();
+    private FirebaseUser user = firebaseAuth.getCurrentUser();
+    private ExamAdapter examAdapter;
+    private ListView lvCreateTest;
+    private ArrayList<Exam> arr_examcreate= new ArrayList<Exam>();
     private ArrayList<String> tendethi, thoigian, tongsocau;
-    private ArrayList<ArrayList<Long>> idcauhoi;
-    String dethi, time, tongcau;
-    TextView tv_notest;
-    FloatingActionButton btn_taode;
-    PullRefreshLayout layout;
-    private ArrayList<Long> cauhoi;
-    Boolean isRefresh;
+    private ArrayList<Map<String, Long>> idcauhoi;
+    private String dethi, time, tongcau;
+    private TextView tv_notest;
+    private FloatingActionButton btn_taode;
+    private PullRefreshLayout layout;
+    private TextView tv_soluongde;
 
     Map<String, Integer> map = new HashMap<String, Integer>();
     public BoSuuTap_Fragment() {
@@ -65,15 +70,14 @@ public class BoSuuTap_Fragment extends Fragment {
         tv_notest = view.findViewById(R.id.tv_notest);
         btn_taode = view.findViewById(R.id.btnTaode);
         lvCreateTest= view.findViewById(R.id.gvBoSuuTap);
+        tv_soluongde = view.findViewById(R.id.tv_soluongde2);
+
         tongsocau = new ArrayList<String>();
         thoigian = new ArrayList<String>();
         tendethi = new ArrayList<String>();
-        cauhoi = new ArrayList<Long>();
-        idcauhoi = new ArrayList<ArrayList<Long>>();
+        idcauhoi = new ArrayList<Map<String, Long>>();
         layout = (PullRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
 
-
-        //databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").keepSynced(true);
         btn_taode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,175 +86,102 @@ public class BoSuuTap_Fragment extends Fragment {
                 getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }
         });
-//        CapNhatDanhSachDe();
+
         layout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 // start refresh
-                arr_examcreate.clear();
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        layout.setRefreshing(false);
-                    }
-                }, 3000);
-                try
-                {
-                    CapNhatDeThi();
-                }
-                catch (Exception e)
-                {
-
-                }
+                Refresh();
             }
         });
         return view;
     }
 
+    public void Refresh()
+    {
+        arr_examcreate.clear();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                layout.setRefreshing(false);
+            }
+        }, 1500);
+        try
+        {
+            CapNhatDanhSachDe();
+        }
+        catch (Exception e)
+        {
+
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Refresh();
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        //CapNhatDanhSachDe();
     }
 
-    public void CapNhatDeThi()
+    public void CapNhatDanhSachDe()
     {
-        arr_examcreate.clear();
-        SplashScreen.databaseRefence.child("Đề thi").child(MainActivity.username).addChildEventListener(new ChildEventListener() {
+        databaseRefence.child("Đề thi").child(MainActivity.username).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                for(final DataSnapshot data : dataSnapshot.getChildren()) {
-                    final String tende = data.getKey();
-                    SplashScreen.databaseRefence.child("Đề thi").child(MainActivity.username).child(tende).addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            if(dataSnapshot != null)
-                            {
-                                Map<String , Long> map = (Map<String, Long>) data.child("Câu hỏi").getValue();
-                                for (Map.Entry<String, Long> entry : map.entrySet()) {
-                                    cauhoi.add(entry.getValue());
-                                }
-                                dethi = data.child("Tên đề thi").getValue().toString();
-                                time = data.child("Thời gian").getValue().toString();
-                                tongcau = data.child("Tổng số câu").getValue().toString();
-                                tendethi.add(dethi);
-                                thoigian.add(time);
-                                tongsocau.add(tongcau);
-                                idcauhoi.add(cauhoi);
-                                arr_examcreate.add(new Exam(dethi,time + " phút",tongcau + " câu", MainActivity.imageavatar, MainActivity.username));
-                                examAdapter = new ExamAdapter(getActivity(), arr_examcreate);
-                                lvCreateTest.setAdapter(examAdapter);
-                                lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                        Intent intent = new Intent(getActivity(), ScreenSlideActivity.class);
-                                        intent.putExtra("TenDe", tendethi.get(i));
-                                        intent.putExtra("Thoigian", thoigian.get(i));
-                                        intent.putExtra("SoCau", tongsocau.get(i));
-                                        intent.putExtra("Cauhoi", idcauhoi.get(i));
-                                        startActivity(intent);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot != null) {
+                    for (final DataSnapshot data : dataSnapshot.getChildren()) {
+                        final String tende = data.getKey();
+                        databaseRefence.child("Đề thi").child(MainActivity.username).child(tende).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot != null) {
+                                    UserExam userExam = dataSnapshot.getValue(UserExam.class);
+                                    Map<String, Long> map = userExam.cauhoi;
+                                    dethi = userExam.tendethi;
+                                    time = userExam.thoigian;
+                                    tongcau = userExam.socauhoi;
+                                    tendethi.add(dethi);
+                                    thoigian.add(time);
+                                    tongsocau.add(tongcau);
+                                    idcauhoi.add(map);
+                                    arr_examcreate.add(new Exam(dethi, time + " phút", tongcau + " câu", MainActivity.imageavatar, MainActivity.username));
+
+                                    if (getActivity() != null) {
+                                        examAdapter = new ExamAdapter(getActivity(), arr_examcreate);
+                                        lvCreateTest.setAdapter(examAdapter);
+                                        lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            @Override
+                                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                                Intent intent = new Intent(getActivity(), ScreenSlideActivity.class);
+                                                intent.putExtra("TenDe", tendethi.get(i));
+                                                intent.putExtra("Thoigian", thoigian.get(i));
+                                                intent.putExtra("SoCau", tongsocau.get(i));
+                                                intent.putExtra("Cauhoi", (Serializable) idcauhoi.get(i));
+                                                startActivity(intent);
+                                                getActivity().overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+                                            }
+                                        });
                                     }
-                                });
-                            }
-                        }
-
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                            if(dataSnapshot != null)
-                            {
-                                Map<String , Long> map = (Map<String, Long>) data.child("Câu hỏi").getValue();
-                                for (Map.Entry<String, Long> entry : map.entrySet()) {
-                                    cauhoi.add(entry.getValue());
+                                    tv_soluongde.setText("KHO ĐỀ THI CỦA BẠN " + "( " + arr_examcreate.size() + " ĐỀ )");
                                 }
-                                dethi = data.child("Tên đề thi").getValue().toString();
-                                time = data.child("Thời gian").getValue().toString();
-                                tongcau = data.child("Tổng số câu").getValue().toString();
-                                tendethi.add(dethi);
-                                thoigian.add(time);
-                                tongsocau.add(tongcau);
-                                idcauhoi.add(cauhoi);
-                                arr_examcreate.add(new Exam(dethi,time + " phút",tongcau + " câu", MainActivity.imageavatar, MainActivity.username));
-                                examAdapter = new ExamAdapter(getActivity(), arr_examcreate);
-                                lvCreateTest.setAdapter(examAdapter);
-                                lvCreateTest.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                        Intent intent = new Intent(getActivity(), ScreenSlideActivity.class);
-                                        intent.putExtra("TenDe", tendethi.get(i));
-                                        intent.putExtra("Thoigian", thoigian.get(i));
-                                        intent.putExtra("SoCau", tongsocau.get(i));
-                                        intent.putExtra("Cauhoi", idcauhoi.get(i));
-                                        startActivity(intent);
-                                    }
-                                });
                             }
-                        }
 
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    }
                 }
             }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //Log.w(TAG, "postComments:onCancelled", databaseError.toException());
-            }
+                @Override
+                public void onCancelled (DatabaseError databaseError){
+                }
         });
     }
-
-//    public void CapNhatDanhSachDe()
-//    {
-//
-//        databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for(final DataSnapshot data : dataSnapshot.getChildren()){
-//                    final String tende = data.getKey();
-//                    databaseRefence.child("Đề thi").child(MainActivity.username).child("Đề").child(tende).addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                        }
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError)
-//                        {
-//                        }
-//                    });
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
 }

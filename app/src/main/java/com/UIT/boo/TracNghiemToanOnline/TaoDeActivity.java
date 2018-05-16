@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -16,9 +18,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.Lego.TracNghiemToanOnline.R;
 
+import com.UIT.boo.TracNghiemToanOnline.Toan.BoSuuTap_Fragment;
 import com.UIT.boo.TracNghiemToanOnline.question.Question;
 import com.UIT.boo.TracNghiemToanOnline.question.QuestionController;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -150,63 +154,63 @@ public class TaoDeActivity extends AppCompatActivity {
         tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(1);
+                numberPickerDialog(1,54);
             }
         });
 
         tv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(2);
+                numberPickerDialog(2,133);
             }
         });
 
         tv3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(3);
+                numberPickerDialog(3,194);
             }
         });
 
         tv4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(4);
+                numberPickerDialog(4,97);
             }
         });
 
         tv5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(5);
+                numberPickerDialog(5,58);
             }
         });
 
         tv6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(6);
+                numberPickerDialog(6,12);
             }
         });
 
         tv7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(7);
+                numberPickerDialog(7,215);
             }
         });
 
         tv8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(8);
+                numberPickerDialog(8,71);
             }
         });
 
         tv9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(9);
+                numberPickerDialog(9,66);
             }
         });
 
@@ -224,6 +228,15 @@ public class TaoDeActivity extends AppCompatActivity {
     {
         tendethi = edtTenDeThi.getText().toString().trim();
         thoigian = edtThoiGian.getText().toString().trim();
+
+        if (TextUtils.isEmpty(tendethi)) {
+            Toast.makeText(TaoDeActivity.this, "Bạn chưa nhập tên đề thi", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (TextUtils.isEmpty(thoigian)) {
+            Toast.makeText(TaoDeActivity.this, "Bạn chưa nhập thời gian làm bài", Toast.LENGTH_LONG).show();
+            return;
+        }
         int socau1 = Integer.valueOf(tv1.getText().toString());
         int socau2 = Integer.valueOf(tv2.getText().toString());
         int socau3 = Integer.valueOf(tv3.getText().toString());
@@ -286,6 +299,7 @@ public class TaoDeActivity extends AppCompatActivity {
                                         @Override
                                         public void onClick(SweetAlertDialog sweetAlertDialog) {
                                             finish();
+                                            pDialog.dismissWithAnimation();
                                             overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                                         }
                                     });
@@ -297,6 +311,7 @@ public class TaoDeActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     finish();
+                                    pDialog.dismissWithAnimation();
                                     overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
                                 }
                             }, 5000);
@@ -341,11 +356,12 @@ public class TaoDeActivity extends AppCompatActivity {
         tv_sum.setText(s);
     }
 
-    private void numberPickerDialog(final int chuyende)
+    private void numberPickerDialog(final int chuyende, final int maxQuestion)
     {
         NumberPicker numberPicker = new NumberPicker(this);
-        numberPicker.setMaxValue(10);
+        numberPicker.setMaxValue(maxQuestion);
         numberPicker.setMinValue(0);
+        numberPicker.setValue(0);
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {

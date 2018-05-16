@@ -2,9 +2,11 @@ package com.UIT.boo.TracNghiemToanOnline.slide;
 
 import android.app.Dialog;
 
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -26,15 +28,16 @@ import com.UIT.boo.TracNghiemToanOnline.question.Question;
 import com.UIT.boo.TracNghiemToanOnline.question.QuestionController;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class ScreenSlideActivity extends FragmentActivity {
     /**
      * The number of pages (wizard steps) to show in this demo.
      */
-    public static int NUM_PAGES =50;
-
+    public static int NUM_PAGES=50;
     /**
      * The pager widget, which handles animation and allows swiping horizontally to access previous
      * and next wizard steps.
@@ -51,14 +54,18 @@ public class ScreenSlideActivity extends FragmentActivity {
 
     //CSDL
     private QuestionController questionController;
-    private ArrayList<Question> arr_Ques;
+    private ArrayList<Question> arr_Ques, arr_QuesID;
     private CounterClass timer;
     private TextView tende;
     //String subject;
     private int num_exam;
     private int totalTimer;
     private String name_exam;
-    String name;
+    private String name , thoigian, tongsocau;
+    private Map<String, Long> mapID;
+    private CheckAnswerAdapter answerAdapter;
+    private ArrayList<Long> listID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,23 +73,39 @@ public class ScreenSlideActivity extends FragmentActivity {
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
+        mPagerAdapter = null;
         tende = findViewById(R.id.tv_tendethi);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(mPagerAdapter);
-        mPager.setPageTransformer(true, new DepthPageTransformer());
-
+        listID = new ArrayList<>();
         Intent intent = getIntent();
         name_exam = intent.getStringExtra("tendethi");
+
         name = intent.getStringExtra("TenDe");
-        tende.setText(name_exam);
-        tende.setSelected(true);
-        if(name != null)
+        thoigian = intent.getStringExtra("Thoigian");
+        tongsocau = intent.getStringExtra("SoCau");
+        mapID = (Map<String, Long>) intent.getSerializableExtra("Cauhoi");
+
+        if(thoigian!= null && tongsocau!=null && mapID!=null && name_exam==null && name!=null )
         {
-            totalTimer = Integer.valueOf(intent.getStringExtra("Thoigian"));
+            tende.setText(name);
+            tende.setSelected(true);
+            totalTimer = Integer.valueOf(thoigian);
+            NUM_PAGES = Integer.parseInt(tongsocau);
+            for(Long value : mapID.values())
+            {
+                listID.add(value);
+            }
             timer = new CounterClass(totalTimer * 60 * 1000, 1000);
             questionController = new QuestionController(this);
-            arr_Ques = new ArrayList<Question>();
-            arr_Ques = questionController.getQuestionByChuyenDe();
+            arr_QuesID = new ArrayList<Question>();
+
+            //Lay list cau hoi
+            for(int i=0; i<listID.size();i++)
+            {
+                ArrayList<Question> itemcauhoi = new ArrayList<>();
+                itemcauhoi = questionController.getQuestionByID(listID.get(i));
+                arr_QuesID.add(itemcauhoi.get(0));
+            }
+
             tvKiemtra = (TextView) findViewById(R.id.tvKiemTra);
             tvTimer = (TextView) findViewById(R.id.tvTimer);
             tvXemDiem = (TextView) findViewById(R.id.tvScore);
@@ -98,7 +121,11 @@ public class ScreenSlideActivity extends FragmentActivity {
                 public void onClick(View v) {
                     finish();
                     Intent intent1 = new Intent(ScreenSlideActivity.this, TestDoneActivity.class);
-                    intent1.putExtra("arr_Ques", arr_Ques);
+                    intent1.putExtra("TenDe", name);
+                    intent1.putExtra("Thoigian", thoigian);
+                    intent1.putExtra("SoCau", tongsocau);
+                    intent1.putExtra("Question", arr_QuesID);
+                    intent1.putExtra("Cauhoi", (Serializable) mapID);
                     startActivity(intent1);
                     overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
                 }
@@ -108,6 +135,8 @@ public class ScreenSlideActivity extends FragmentActivity {
         }
         else
         {
+            tende.setText(name_exam);
+            tende.setSelected(true);
             num_exam = intent.getIntExtra("num_exam",0);
             totalTimer = 90;
             timer = new CounterClass(totalTimer * 60 * 1000, 1000);
@@ -138,10 +167,20 @@ public class ScreenSlideActivity extends FragmentActivity {
             });
             timer.start();
         }
+
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(mPagerAdapter);
+        mPager.setPageTransformer(true, new DepthPageTransformer());
+
     }
 
     public ArrayList<Question> getData() {
-        return arr_Ques;
+        if(arr_Ques != null)
+        {
+            return arr_Ques;
+        }
+        else
+            return arr_QuesID;
     }
 
     @Override
@@ -164,7 +203,7 @@ public class ScreenSlideActivity extends FragmentActivity {
                 .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.cancel();
+                        sDialog.dismissWithAnimation();
                     }
                 })
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -172,10 +211,13 @@ public class ScreenSlideActivity extends FragmentActivity {
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         timer.cancel();
                         finish();
+                        sweetAlertDialog.dismissWithAnimation();
                     }
                 })
                 .show();
     }
+
+
 
     /**
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
@@ -193,7 +235,21 @@ public class ScreenSlideActivity extends FragmentActivity {
 
         @Override
         public int getCount() {
-            return NUM_PAGES;
+            if(arr_Ques!=null)
+            {
+                return arr_Ques.size();
+            }
+            else return arr_QuesID.size();
+        }
+
+        @Override
+        public Parcelable saveState() {
+            return null;
+        }
+
+        @Override
+        public void restoreState(Parcelable state, ClassLoader loader) {
+
         }
     }
 
@@ -234,62 +290,117 @@ public class ScreenSlideActivity extends FragmentActivity {
         }
     }
 
-
     //Dialog hiện thị danh sách những câu trả lời và chưa trả lời...
     public void checkAnswer() {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.check_answer_dialog);
         dialog.setTitle("Danh sách câu trả lời");
 
-        CheckAnswerAdapter answerAdapter = new CheckAnswerAdapter(arr_Ques, this);
-        GridView gvLsQuestion = (GridView) dialog.findViewById(R.id.gvLsQuestion);
-        gvLsQuestion.setAdapter(answerAdapter);
+        if(arr_Ques!=null)
+        {
+            answerAdapter = new CheckAnswerAdapter(arr_Ques, this);
+            GridView gvLsQuestion = (GridView) dialog.findViewById(R.id.gvLsQuestion);
+            gvLsQuestion.setAdapter(answerAdapter);
+            gvLsQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    mPager.setCurrentItem(position);
+                    dialog.dismiss();
+                }
+            });
 
-        gvLsQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mPager.setCurrentItem(position);
-                dialog.dismiss();
-            }
-        });
+            final Button btnCancle, btnFinish;
+            btnCancle = dialog.findViewById(R.id.btnCancle);
+            btnFinish = dialog.findViewById(R.id.btnFinish);
+            if(checkAns==1) btnFinish.setVisibility(View.GONE);
+            btnCancle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            btnFinish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    /////
+                    timer.cancel();
+                    final SweetAlertDialog newDialog = new SweetAlertDialog(ScreenSlideActivity.this,SweetAlertDialog.PROGRESS_TYPE);
+                    newDialog.setTitleText("Đang tính điểm....");
+                    newDialog.show();
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            newDialog.dismissWithAnimation();
+                            ScorePreviewFragment fragment = new ScorePreviewFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("arr_Ques2", arr_Ques);
+                            bundle.putInt("exam2", num_exam);
+                            bundle.putString("name_exam", name_exam);
+                            fragment.setArguments(bundle);
+                            FragmentManager manager = getSupportFragmentManager();
+                            fragment.show(manager, "SCORE");
+                        }
+                    },3000);
+                    result();
+                    dialog.dismiss();
+                }
+            });
 
-        final Button btnCancle, btnFinish;
-        btnCancle = dialog.findViewById(R.id.btnCancle);
-        btnFinish = dialog.findViewById(R.id.btnFinish);
-        if(checkAns==1) btnFinish.setVisibility(View.GONE);
-        btnCancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        btnFinish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /////
-                timer.cancel();
-                final SweetAlertDialog newDialog = new SweetAlertDialog(ScreenSlideActivity.this,SweetAlertDialog.PROGRESS_TYPE);
-                newDialog.setTitleText("Đang tính điểm....");
-                newDialog.show();
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        newDialog.dismissWithAnimation();
-                        ScorePreviewFragment fragment = new ScorePreviewFragment();
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("arr_Ques2", arr_Ques);
-                        bundle.putInt("exam2", num_exam);
-                        bundle.putString("name_exam", name_exam);
-                        fragment.setArguments(bundle);
-                        FragmentManager manager = getSupportFragmentManager();
-                        fragment.show(manager, "SCORE");
-                    }
-                },3000);
-                result();
-                dialog.dismiss();
-            }
-        });
+        }
+        else if(arr_QuesID!=null)
+        {
+             answerAdapter = new CheckAnswerAdapter(arr_QuesID, this);
+            GridView gvLsQuestion = (GridView) dialog.findViewById(R.id.gvLsQuestion);
+            gvLsQuestion.setAdapter(answerAdapter);
+            gvLsQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    mPager.setCurrentItem(position);
+                    dialog.dismiss();
+                }
+            });
+
+            final Button btnCancle, btnFinish;
+            btnCancle = dialog.findViewById(R.id.btnCancle);
+            btnFinish = dialog.findViewById(R.id.btnFinish);
+            if(checkAns==1) btnFinish.setVisibility(View.GONE);
+            btnCancle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            btnFinish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    /////
+                    timer.cancel();
+                    final SweetAlertDialog newDialog = new SweetAlertDialog(ScreenSlideActivity.this,SweetAlertDialog.PROGRESS_TYPE);
+                    newDialog.setTitleText("Đang tính điểm....");
+                    newDialog.show();
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            newDialog.dismissWithAnimation();
+                            ScorePreviewFragment fragment = new ScorePreviewFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("arr_Ques2", arr_QuesID);
+                            bundle.putInt("exam2", num_exam);
+                            bundle.putString("name_exam", name_exam);
+                            fragment.setArguments(bundle);
+                            FragmentManager manager = getSupportFragmentManager();
+                            fragment.show(manager, "SCORE");
+                        }
+                    },3000);
+                    result();
+                    dialog.dismiss();
+                }
+            });
+        }
+
+
 
         dialog.show();
     }
