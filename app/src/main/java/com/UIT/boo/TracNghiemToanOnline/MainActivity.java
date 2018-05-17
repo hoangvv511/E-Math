@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     phone = userInformation.phone.toString().trim();
                     username = userInformation.username.toString().trim();
                     imageavatar = userInformation.imageAvatar.toString().trim();
+
                 }
                 else
                 {
