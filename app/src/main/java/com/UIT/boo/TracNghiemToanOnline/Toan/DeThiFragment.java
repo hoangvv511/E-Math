@@ -64,6 +64,17 @@ public class DeThiFragment extends Fragment {
         arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - THPT chuyên Thái Bình  - lần 1","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
         arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - THPT Bình Gianh  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
         arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - THPT Lê Khiết - Quảng Ngãi  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 21  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 22 ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 23 ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 24 ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 25  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 26  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 27  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 28  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 29  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+        arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 30  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
         tv_soluongde.setText("ĐỀ THI TỔNG HỢP " + "( " + arr_exam.size() + " ĐỀ" + " )");
         examAdapter=new ExamAdapter(getActivity(),arr_exam);
         gvExam.setAdapter(examAdapter);
