@@ -87,6 +87,7 @@ public class DeThiFragment extends Fragment {
         arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 38  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
         arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 39  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
         arr_exam.add(new Exam("Đề thi thử THPT Quốc Gia - 40  ","90 phút","50 câu","http://file.vforum.vn/hinh/2014/11/admin.png","Admin"));
+
         tv_soluongde.setText("ĐỀ THI TỔNG HỢP " + "( " + arr_exam.size() + " ĐỀ" + " )");
         examAdapter=new ExamAdapter(getActivity(),arr_exam);
         gvExam.setAdapter(examAdapter);
