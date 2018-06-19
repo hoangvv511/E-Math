@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 
-import com.Lego.TracNghiemToanOnline.R;
 import com.github.ybq.android.spinkit.style.Wave;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;

@@ -1,12 +1,9 @@
 package com.UIT.boo.TracNghiemToanOnline;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,9 +17,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.Lego.TracNghiemToanOnline.R;
-
-import com.UIT.boo.TracNghiemToanOnline.Toan.BoSuuTap_Fragment;
 import com.UIT.boo.TracNghiemToanOnline.question.Question;
 import com.UIT.boo.TracNghiemToanOnline.question.QuestionController;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,8 +24,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.shawnlin.numberpicker.NumberPicker;
 
@@ -154,63 +146,63 @@ public class TaoDeActivity extends AppCompatActivity {
         tv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(1,54);
+                numberPickerDialog(1,63);
             }
         });
 
         tv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(2,133);
+                numberPickerDialog(2,234);
             }
         });
 
         tv3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(3,194);
+                numberPickerDialog(3,294);
             }
         });
 
         tv4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(4,97);
+                numberPickerDialog(4,171);
             }
         });
 
         tv5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(5,58);
+                numberPickerDialog(5,101);
             }
         });
 
         tv6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(6,12);
+                numberPickerDialog(6,38);
             }
         });
 
         tv7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(7,215);
+                numberPickerDialog(7,342);
             }
         });
 
         tv8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(8,71);
+                numberPickerDialog(8,142);
             }
         });
 
         tv9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                numberPickerDialog(9,66);
+                numberPickerDialog(9,115);
             }
         });
 
@@ -247,6 +239,11 @@ public class TaoDeActivity extends AppCompatActivity {
         int socau8 = Integer.valueOf(tv8.getText().toString());
         int socau9 = Integer.valueOf(tv9.getText().toString());
         int sum = socau1 + socau2 + socau3 + socau4 + socau5 + socau6 + socau7 + socau8 + socau9;
+        if(sum <= 0)
+        {
+            Toast.makeText(TaoDeActivity.this, "Bạn phải chọn ít nhất 1 câu trong đề thi", Toast.LENGTH_LONG).show();
+            return;
+        }
         tongsocau = String.valueOf(sum);
 
         questions = new ArrayList<Question>();

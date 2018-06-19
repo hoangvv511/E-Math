@@ -1,6 +1,5 @@
 package com.UIT.boo.TracNghiemToanOnline;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,9 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.Lego.TracNghiemToanOnline.R;
 
 import com.UIT.boo.TracNghiemToanOnline.Toan.Profile;
 import com.google.android.gms.tasks.OnCompleteListener;

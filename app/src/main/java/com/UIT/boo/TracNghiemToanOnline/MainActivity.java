@@ -10,10 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.Lego.TracNghiemToanOnline.R;
 
 import com.UIT.boo.TracNghiemToanOnline.TaiLieu.TaiLieuFragment;
 import com.UIT.boo.TracNghiemToanOnline.Toan.BoSuuTap_Fragment;
@@ -46,72 +44,74 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final Handler handler = new Handler();
-        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-        pDialog.setTitleText("Đang tải...");
-        pDialog.setCancelable(false);
-        pDialog.show();
-
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pDialog.dismissWithAnimation();
-            }
-        }, 3000);
-
+//        final Handler handler = new Handler();
+//        final SweetAlertDialog pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+//        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+//        pDialog.setTitleText("Đang tải...");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
+//
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                pDialog.dismissWithAnimation();
+//            }
+//        }, 3000);
+//
         BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.nav_view);
         navigationView.setOnNavigationItemSelectedListener(navListener);
         navigationView.setItemIconTintList(null);
-
-        user_id = user.getUid();
-        SplashScreen.databaseRefence.child("Users").child(user_id).child("Information").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                if(dataSnapshot != null)
-                {
-                    userInformation = dataSnapshot.getValue(UserInformation.class);
-                    email = userInformation.email.toString().trim();
-                    fullname = userInformation.fullname.toString().trim();
-                    phone = userInformation.phone.toString().trim();
-                    username = userInformation.username.toString().trim();
-                    imageavatar = userInformation.imageAvatar.toString().trim();
-
-                }
-                else
-                {
-                    final SweetAlertDialog dialog = new SweetAlertDialog(getApplicationContext());
-                    dialog.changeAlertType(SweetAlertDialog.WARNING_TYPE);
-                    dialog.setTitleText("Không có dữ liệu !!!");
-                    dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                        @Override
-                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-                            final Handler handler1;
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    dialog.dismissWithAnimation();
-                                }
-                            }, 1500);
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        navigationView.getMenu().removeItem(R.id.nav_bosuutap);
+        navigationView.getMenu().removeItem(R.id.nav_profile);
+//
+//        user_id = user.getUid();
+//        SplashScreen.databaseRefence.child("Users").child(user_id).child("Information").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(final DataSnapshot dataSnapshot) {
+//                if(dataSnapshot != null)
+//                {
+//                    userInformation = dataSnapshot.getValue(UserInformation.class);
+//                    email = userInformation.email.toString().trim();
+//                    fullname = userInformation.fullname.toString().trim();
+//                    phone = userInformation.phone.toString().trim();
+//                    username = userInformation.username.toString().trim();
+//                    imageavatar = userInformation.imageAvatar.toString().trim();
+//
+//                }
+//                else
+//                {
+//                    final SweetAlertDialog dialog = new SweetAlertDialog(getApplicationContext());
+//                    dialog.changeAlertType(SweetAlertDialog.WARNING_TYPE);
+//                    dialog.setTitleText("Không có dữ liệu !!!");
+//                    dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                        @Override
+//                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+//                            final Handler handler1;
+//                            handler.postDelayed(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    dialog.dismissWithAnimation();
+//                                }
+//                            }, 1500);
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DeThiFragment()).commit();
 
         DBHelper db = new DBHelper(this);
 
-        try {
-            db.createDataBase();
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                db.createDataBase();
+            } catch (IOException e) {
+                e.printStackTrace();
         }
 
     }

@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Base64;
@@ -20,7 +19,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.Lego.TracNghiemToanOnline.R;
+import com.UIT.boo.TracNghiemToanOnline.R;
 import com.UIT.boo.TracNghiemToanOnline.question.Question;
 
 import java.util.ArrayList;

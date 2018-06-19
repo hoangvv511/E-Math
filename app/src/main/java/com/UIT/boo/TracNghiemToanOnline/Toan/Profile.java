@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Base64;
@@ -18,17 +17,14 @@ import android.widget.TextView;
 
 import com.UIT.boo.TracNghiemToanOnline.LoginActivity;
 import com.UIT.boo.TracNghiemToanOnline.MainActivity;
-import com.Lego.TracNghiemToanOnline.R;
-import com.UIT.boo.TracNghiemToanOnline.UserInformation;
 import com.UIT.boo.TracNghiemToanOnline.UserSetting;
 
 import com.baoyz.widget.PullRefreshLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
+import com.UIT.boo.TracNghiemToanOnline.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -114,15 +110,15 @@ public class Profile extends Fragment {
 
     public void GetInfor()
     {
-        tv_fullname.setText(MainActivity.fullname);
-        tv_email.setText(MainActivity.email);
-        tv_phone.setText(MainActivity.phone);
-        tv_nickname.setText(MainActivity.username);
-        image = MainActivity.imageavatar;
-        byte[] decodeString2 = Base64.decode(image, Base64.DEFAULT);
-        Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
-        Bitmap bitmapUser = Bitmap.createScaledBitmap(decoded2, decoded2.getWidth(), decoded2.getHeight(), true);
-        cimv_avatar.setImageBitmap(bitmapUser);
+//        tv_fullname.setText(MainActivity.fullname);
+//        tv_email.setText(MainActivity.email);
+//        tv_phone.setText(MainActivity.phone);
+//        tv_nickname.setText(MainActivity.username);
+//        image = MainActivity.imageavatar;
+//        byte[] decodeString2 = Base64.decode(image, Base64.DEFAULT);
+//        Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
+//        Bitmap bitmapUser = Bitmap.createScaledBitmap(decoded2, decoded2.getWidth(), decoded2.getHeight(), true);
+//        cimv_avatar.setImageBitmap(bitmapUser);
     }
 
     public void Refresh()

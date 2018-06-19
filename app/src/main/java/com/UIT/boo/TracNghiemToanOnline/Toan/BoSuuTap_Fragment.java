@@ -1,11 +1,9 @@
 package com.UIT.boo.TracNghiemToanOnline.Toan;
 
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.renderscript.Sampler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.UIT.boo.TracNghiemToanOnline.SplashScreen;
 import com.UIT.boo.TracNghiemToanOnline.UserExam;
+import com.UIT.boo.TracNghiemToanOnline.slide.ScreenSlideActivity;
 import com.baoyz.widget.PullRefreshLayout;
 import com.UIT.boo.TracNghiemToanOnline.MainActivity;
-import com.Lego.TracNghiemToanOnline.R;
 import com.UIT.boo.TracNghiemToanOnline.TaoDeActivity;
-import com.UIT.boo.TracNghiemToanOnline.slide.ScreenSlideActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,11 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.rey.material.widget.FloatingActionButton;
 
+import com.UIT.boo.TracNghiemToanOnline.R;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -131,6 +125,10 @@ public class BoSuuTap_Fragment extends Fragment {
 
     public void CapNhatDanhSachDe()
     {
+        tendethi.clear();
+        thoigian.clear();
+        tongsocau.clear();
+        idcauhoi.clear();
         databaseRefence.child("Đề thi").child(MainActivity.username).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

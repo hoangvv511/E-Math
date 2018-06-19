@@ -21,7 +21,7 @@
                 android:gravity="center"
                 android:padding="10dp"
                 android:singleLine="true"
-                android:text="NGÂN HÀNG CÂU HỎI ( 900 CÂU )"
+                android:text="NGÂN HÀNG CÂU HỎI ( 1500 CÂU )"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:textStyle="bold"

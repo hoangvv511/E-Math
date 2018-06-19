@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 
-import com.Lego.TracNghiemToanOnline.R;
+
+import com.UIT.boo.TracNghiemToanOnline.R;
 
 
 /**

@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.Lego.TracNghiemToanOnline.R;
+import com.UIT.boo.TracNghiemToanOnline.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,6 +142,7 @@ public class TailieuItemActivity extends AppCompatActivity {
             itemChuyenDeList.add(new ItemChuyenDe("Bí kíp Thế Lực 2018 ver 1.0 (Chinh phục điểm 8 – 9 – 10)", "https://drive.google.com/file/d/0B8wVelaD8LHqeXRBMm9WdDM5dUE/view",R.drawable.casio4));
             itemChuyenDeList.add(new ItemChuyenDe("23 kỹ thuật sử dụng máy tính cầm tay Casio – Vinacal giải nhanh Toán 12 – Nguyễn Chiến", "https://drive.google.com/file/d/0B8wVelaD8LHqeXV3YmRHbFE4S0E/view",R.drawable.casio5));
             itemChuyenDeList.add(new ItemChuyenDe("Kỹ thuật và sai lầm khi sử dụng máy tính bỏ túi trong giải toán – Đoàn Văn Bộ, Huỳnh Anh Kiệt", "https://drive.google.com/file/d/0B1NeyB1HG2f4dlpnb01EVGtXbFk/view",R.drawable.casio6));
+            itemChuyenDeList.add(new ItemChuyenDe("Bí kíp Thế Lực ver 3.0 – Nguyễn Thế Lực", "https://drive.google.com/file/d/0B1NeyB1HG2f4cDk4QS1fOUxYbjQ/view",R.drawable.casio7));
         }
         else if (chuyende.equals("cd10")) //csc-csn
         {

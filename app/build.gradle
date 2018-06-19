@@ -10,8 +10,8 @@ android {
         applicationId "com.UIT.boo.TracNghiemToanOnline"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 4
-        versionName "1.2.1"
+        versionCode 7
+        versionName "1.2.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -11,7 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.UIT.boo.TracNghiemToanOnline.MainActivity;
-import com.Lego.TracNghiemToanOnline.R;
+
+import com.UIT.boo.TracNghiemToanOnline.R;
 
 /**
  * A simple {@link Fragment} subclass.

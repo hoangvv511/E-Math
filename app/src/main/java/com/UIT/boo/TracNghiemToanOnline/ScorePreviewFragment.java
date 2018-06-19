@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,12 +15,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.Lego.TracNghiemToanOnline.R;
 import com.UIT.boo.TracNghiemToanOnline.question.Question;
 import com.UIT.boo.TracNghiemToanOnline.slide.TestDoneActivity;
 import com.amulyakhare.textdrawable.TextDrawable;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -29,6 +25,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class ScorePreviewFragment extends DialogFragment {
     public static final String TAG = "SCORE";
 

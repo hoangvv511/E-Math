@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.Lego.TracNghiemToanOnline">
+    package="com.UIT.boo.TracNghiemToanOnline">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -22,7 +22,7 @@
         android:theme="@style/AppTheme.FullScreen">
 
         <activity
-            android:name="com.UIT.boo.TracNghiemToanOnline.SplashScreen"
+            android:name="com.UIT.boo.TracNghiemToanOnline.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"
             >
@@ -46,7 +46,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
         <activity
-            android:name="com.UIT.boo.TracNghiemToanOnline.MainActivity"
+            android:name="com.UIT.boo.TracNghiemToanOnline.SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
         <activity

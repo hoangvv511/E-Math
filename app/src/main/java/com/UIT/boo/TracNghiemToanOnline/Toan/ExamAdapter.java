@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.Lego.TracNghiemToanOnline.R;
+import com.UIT.boo.TracNghiemToanOnline.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

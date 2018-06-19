@@ -15,7 +15,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.UIT.boo.TracNghiemToanOnline.MainActivity;
-import com.Lego.TracNghiemToanOnline.R;
+
+import com.UIT.boo.TracNghiemToanOnline.R;
 import com.UIT.boo.TracNghiemToanOnline.TaiLieu.TailieuItemActivity;
 import com.UIT.boo.TracNghiemToanOnline.question.Question;
 import com.github.mikephil.charting.charts.PieChart;

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.Lego.TracNghiemToanOnline.R;
+import com.UIT.boo.TracNghiemToanOnline.R;
 import com.UIT.boo.TracNghiemToanOnline.question.Question;
 
 import java.util.ArrayList;

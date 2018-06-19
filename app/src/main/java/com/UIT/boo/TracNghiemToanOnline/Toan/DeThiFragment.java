@@ -1,6 +1,5 @@
 package com.UIT.boo.TracNghiemToanOnline.Toan;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.Lego.TracNghiemToanOnline.R;
+import com.UIT.boo.TracNghiemToanOnline.R;
 import com.UIT.boo.TracNghiemToanOnline.slide.ScreenSlideActivity;
 
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class DeThiFragment extends Fragment {
 
     ExamAdapter examAdapter;

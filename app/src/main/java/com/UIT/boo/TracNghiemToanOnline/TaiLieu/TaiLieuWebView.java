@@ -9,7 +9,8 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.Lego.TracNghiemToanOnline.R;
+import com.UIT.boo.TracNghiemToanOnline.R;
+
 
 public class TaiLieuWebView extends AppCompatActivity {
     private WebView webView;
