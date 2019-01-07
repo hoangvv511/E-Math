@@ -22,7 +22,7 @@
         android:theme="@style/AppTheme.FullScreen">
 
         <activity
-            android:name="com.UIT.boo.TracNghiemToanOnline.MainActivity"
+            android:name="com.UIT.boo.TracNghiemToanOnline.SplashScreen"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen"
             >
@@ -46,7 +46,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
         <activity
-            android:name="com.UIT.boo.TracNghiemToanOnline.SplashScreen"
+            android:name="com.UIT.boo.TracNghiemToanOnline.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.FullScreen" />
         <activity

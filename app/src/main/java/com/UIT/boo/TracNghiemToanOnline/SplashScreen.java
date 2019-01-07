@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
-
 public class SplashScreen extends AppCompatActivity {
     private ProgressBar progressBar;
     private Handler handler;

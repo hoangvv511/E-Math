@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.UIT.boo.TracNghiemToanOnline.R;
@@ -34,6 +35,7 @@ public class ExamAdapter extends ArrayAdapter<Exam> {
         CircleImageView imvAvatarUser = (CircleImageView) convertView.findViewById(R.id.imv_avataruser);
         TextView tvTime = (TextView) convertView.findViewById(R.id.tv_time);
         TextView tvnumber = convertView.findViewById(R.id.tv_numberQuestion);
+
         Exam p= getItem(position);
         if(p!=null){
             tvName.setText(p.getName());

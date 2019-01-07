@@ -7,7 +7,6 @@ public class Exam {
     private String avataruser;
     private String nameuser;
 
-
     public String getNumberquestion() {
         return numberquestion;
     }

@@ -231,8 +231,6 @@ public class ScreenSlidePageFragment extends Fragment {
             radD.setClickable(false);
             getCheckAns(getItem(mPageNumber).getResult().toString());
         }
-
-
     }
 
     public Question getItem(int posotion){

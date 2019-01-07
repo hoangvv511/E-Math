@@ -39,6 +39,7 @@ public class Profile extends Fragment {
     private PullRefreshLayout pullRefreshLayout;
     TextView tv_fullname, tv_email, tv_phone, tv_nickname;
     ImageView imv_logout, imv_usersetting;
+    TextView tv_numExam;
 
     public Profile() {
         // Required empty public constructor
@@ -57,6 +58,7 @@ public class Profile extends Fragment {
         tv_fullname = view.findViewById(R.id.tv_name);
         tv_phone = view.findViewById(R.id.tv_phone);
         tv_nickname = view.findViewById(R.id.tv_nickname);
+        tv_numExam = view.findViewById(R.id.tv_numExam);
 
         pullRefreshLayout = view.findViewById(R.id.pullRefreshLayout);
 
@@ -110,15 +112,16 @@ public class Profile extends Fragment {
 
     public void GetInfor()
     {
-//        tv_fullname.setText(MainActivity.fullname);
-//        tv_email.setText(MainActivity.email);
-//        tv_phone.setText(MainActivity.phone);
-//        tv_nickname.setText(MainActivity.username);
-//        image = MainActivity.imageavatar;
-//        byte[] decodeString2 = Base64.decode(image, Base64.DEFAULT);
-//        Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
-//        Bitmap bitmapUser = Bitmap.createScaledBitmap(decoded2, decoded2.getWidth(), decoded2.getHeight(), true);
-//        cimv_avatar.setImageBitmap(bitmapUser);
+        tv_fullname.setText(MainActivity.fullname);
+        tv_email.setText(MainActivity.email);
+        tv_phone.setText(MainActivity.phone);
+        tv_nickname.setText(MainActivity.username);
+        image = MainActivity.imageavatar;
+        tv_numExam.setText(String.valueOf(MainActivity.numExam));
+        byte[] decodeString2 = Base64.decode(image, Base64.DEFAULT);
+        Bitmap decoded2 = BitmapFactory.decodeByteArray(decodeString2, 0, decodeString2.length);
+        Bitmap bitmapUser = Bitmap.createScaledBitmap(decoded2, decoded2.getWidth(), decoded2.getHeight(), true);
+        cimv_avatar.setImageBitmap(bitmapUser);
     }
 
     public void Refresh()

@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ThrowOnExtraProperties;
 import com.google.firebase.database.ValueEventListener;
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseUser user = firebaseAuth.getCurrentUser();
     private UserInformation userInformation;
     public static String username,imageavatar,phone,email,fullname, user_id;
+    public static int numExam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,48 +63,72 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigationView = (BottomNavigationView) findViewById(R.id.nav_view);
         navigationView.setOnNavigationItemSelectedListener(navListener);
         navigationView.setItemIconTintList(null);
-        navigationView.getMenu().removeItem(R.id.nav_bosuutap);
-        navigationView.getMenu().removeItem(R.id.nav_profile);
+        //navigationView.getMenu().removeItem(R.id.nav_bosuutap);
+        //navigationView.getMenu().removeItem(R.id.nav_profile);
 //
-//        user_id = user.getUid();
-//        SplashScreen.databaseRefence.child("Users").child(user_id).child("Information").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(final DataSnapshot dataSnapshot) {
-//                if(dataSnapshot != null)
-//                {
-//                    userInformation = dataSnapshot.getValue(UserInformation.class);
-//                    email = userInformation.email.toString().trim();
-//                    fullname = userInformation.fullname.toString().trim();
-//                    phone = userInformation.phone.toString().trim();
-//                    username = userInformation.username.toString().trim();
-//                    imageavatar = userInformation.imageAvatar.toString().trim();
-//
-//                }
-//                else
-//                {
-//                    final SweetAlertDialog dialog = new SweetAlertDialog(getApplicationContext());
-//                    dialog.changeAlertType(SweetAlertDialog.WARNING_TYPE);
-//                    dialog.setTitleText("Không có dữ liệu !!!");
-//                    dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                        @Override
-//                        public void onClick(SweetAlertDialog sweetAlertDialog) {
-//                            final Handler handler1;
-//                            handler.postDelayed(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    dialog.dismissWithAnimation();
-//                                }
-//                            }, 1500);
-//                        }
-//                    });
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
+        user_id = user.getUid();
+        SplashScreen.databaseRefence.child("Users").child(user_id).child("Information").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                if(dataSnapshot != null)
+                {
+                    userInformation = dataSnapshot.getValue(UserInformation.class);
+                    email = userInformation.email.toString().trim();
+                    fullname = userInformation.fullname.toString().trim();
+                    phone = userInformation.phone.toString().trim();
+                    username = userInformation.username.toString().trim();
+                    imageavatar = userInformation.imageAvatar.toString().trim();
+
+                    if(!username.isEmpty()){
+                        SplashScreen.databaseRefence.child("Đề thi").child(username).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(final DataSnapshot dataSnapshot) {
+                                if(dataSnapshot != null)
+                                {
+                                    numExam = (int) dataSnapshot.getChildrenCount();
+                                    //Toast.makeText(getApplicationContext(),numExam + "", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                {
+                                    numExam = 0;
+                                    //Toast.makeText(getApplicationContext(),numExam + "", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+                else
+                {
+                    final SweetAlertDialog dialog = new SweetAlertDialog(getApplicationContext());
+                    final Handler handler = null;
+                    dialog.changeAlertType(SweetAlertDialog.WARNING_TYPE);
+                    dialog.setTitleText("Không có dữ liệu !!!");
+                    dialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sweetAlertDialog) {
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    dialog.dismissWithAnimation();
+                                }
+                            }, 1500);
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new DeThiFragment()).commit();
 

@@ -26,6 +26,7 @@ public class DeThiFragment extends Fragment {
     ListView gvExam;
     ArrayList<Exam> arr_exam= new ArrayList<Exam>();
     TextView tv_soluongde;
+
     public DeThiFragment() {
         // Required empty public constructor
     }
